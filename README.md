@@ -30,5 +30,6 @@ Permissions:
 ![foxes sleeping](https://www.spigotmc.org/attachments/2019-07-18_23-19-12-png.441396/)
 ![foxes sitting on bed](https://www.spigotmc.org/attachments/2019-07-18_23-20-49-png.441398/)
 ![foxes with baby looking at player](https://www.spigotmc.org/attachments/2019-07-18_23-24-24-png.441399/)
+![tame fox](https://i.gyazo.com/42d09cb20d251a6918bb5ab93315acc7.gif)
 ![giving fox totem](https://proxy.spigotmc.org/3c5f51d25b3fbb2e6bdacaa995c4e87538c13c62?url=https%3A%2F%2Fi.gyazo.com%2F34f94804beb17ffa68b73874c8c8d1d5.gif)
 ![fox leaping towards chicken](https://proxy.spigotmc.org/4527d9b156ae8ad83f4b67a1407c67376eabcc52?url=https%3A%2F%2Fi.gyazo.com%2F367b397a86f31b0ba27fba228c295347.gif)
