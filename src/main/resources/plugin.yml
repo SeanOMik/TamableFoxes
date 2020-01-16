@@ -1,0 +1,14 @@
+name: TamableFoxes
+version: ${project.version}
+main: net.seanomik.tamablefoxes.TamableFoxes
+api-version: 1.14
+load: POSTWORLD
+commands:
+  spawntamablefox:
+    aliases: [stf, spawntf]
+    usage: /spawntamablefox [type]
+    description: Spawn a tamable fox at the standing location. Type can be snow or red, or left empty for a red.
+permissions:
+  tamablefoxes.spawn:
+    description: "Gives the player the ability to spawn tamable foxes."
+    default: false

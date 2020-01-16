@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="TamableFoxes-SNAPSHOT:jar">
+    <output-path>$USER_HOME$/OneDrive/Desktop/minecraftSpigotServer/plugins</output-path>
+    <root id="archive" name="TamableFoxes.jar">
+      <element id="module-output" name="TamableFoxes" />
+    </root>
+  </artifact>
+</component>

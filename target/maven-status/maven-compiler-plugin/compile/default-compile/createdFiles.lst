@@ -1,0 +1,13 @@
+net\seanomik\tamablefoxes\Reference.class
+net\seanomik\tamablefoxes\TamableFox.class
+net\seanomik\tamablefoxes\CustomPathfinding\FoxPathfinderGoalOwnerHurtByTarget.class
+net\seanomik\tamablefoxes\CustomPathfinding\FoxPathfinderGoalOwnerHurtTarget.class
+net\seanomik\tamablefoxes\Commands\CommandSpawnTamableFox.class
+net\seanomik\tamablefoxes\CustomPathfinding\FoxPathfinderGoalBeg.class
+net\seanomik\tamablefoxes\TamableFoxes.class
+net\seanomik\tamablefoxes\CustomPathfinding\FoxPathfinderGoalSit.class
+net\seanomik\tamablefoxes\CustomPathfinding\FoxPathfinderGoalFollowOwner.class
+net\seanomik\tamablefoxes\NBTEditor.class
+net\seanomik\tamablefoxes\ConfigManager.class
+net\seanomik\tamablefoxes\NBTEditor$NBTCompound.class
+net\seanomik\tamablefoxes\TamableFox$UpdateFoxRunnable.class
