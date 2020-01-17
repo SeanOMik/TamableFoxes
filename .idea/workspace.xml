@@ -1,126 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ArtifactsWorkspaceSettings">
-    <artifacts-to-build>
-      <artifact name="tamableFoxesFINAL:jar" />
-    </artifacts-to-build>
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="6bbf8d0d-5f70-4ba2-892e-894cfe06e144" name="Default Changelist" comment="" />
+    <list default="true" id="dcab9632-7b1a-44d7-9283-be9b37640afc" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/$PRODUCT_WORKSPACE_FILE$" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/1.14 TRANS.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spigot-1.15.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/seanomilk/tamablefoxes/EntityTamableFox.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/seanomilk/tamablefoxes/TamableFoxes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/seanomilk/tamablefoxes/command/CommandSpawnTamableFox.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/seanomilk/tamablefoxes/io/FileManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/seanomilk/tamablefoxes/pathfinding/FoxPathfindGoalBeg.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/seanomilk/tamablefoxes/pathfinding/FoxPathfindGoalBreed.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/seanomilk/tamablefoxes/pathfinding/FoxPathfindGoalFleeSun.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/seanomilk/tamablefoxes/pathfinding/FoxPathfindGoalFloat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/seanomilk/tamablefoxes/pathfinding/FoxPathfindGoalLunge.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/seanomilk/tamablefoxes/pathfinding/FoxPathfindGoalLungeUNKNOWN_USE.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/seanomilk/tamablefoxes/pathfinding/FoxPathfindGoalMeleeAttack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/seanomilk/tamablefoxes/pathfinding/FoxPathfindGoalOwnerHurtTarget.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/seanomilk/tamablefoxes/pathfinding/FoxPathfindGoalPickBushes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/seanomilk/tamablefoxes/pathfinding/FoxPathfindGoalRandomStrollLand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/seanomilk/tamablefoxes/pathfinding/FoxPathfindGoalRandomTargetNonTamed.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/TamableFoxes_SNAPSHOT_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_wesjd_anvilgui_1_2_1_SNAPSHOT.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_spigotmc_spigot_1_14_4_R0_1_SNAPSHOT.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TamableFoxes.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/Commands/CommandSpawnTamableFox.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/ConfigManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/CustomPathfinding/FoxPathfinderGoalBeg.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/CustomPathfinding/FoxPathfinderGoalBreed.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/CustomPathfinding/FoxPathfinderGoalFleeSun.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/CustomPathfinding/FoxPathfinderGoalFloat.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/CustomPathfinding/FoxPathfinderGoalFollowOwner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomilk/tamablefoxes/pathfinding/FoxPathfindGoalFollowOwner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/CustomPathfinding/FoxPathfinderGoalHurtByTarget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomilk/tamablefoxes/pathfinding/FoxPathfindGoalHurtByTarget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/CustomPathfinding/FoxPathfinderGoalLunge.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/CustomPathfinding/FoxPathfinderGoalLungeUNKNOWN_USE.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/CustomPathfinding/FoxPathfinderGoalMeleeAttack.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/CustomPathfinding/FoxPathfinderGoalOwnerHurtByTarget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomilk/tamablefoxes/pathfinding/FoxPathfindGoalOwnerHurtByTarget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/CustomPathfinding/FoxPathfinderGoalOwnerHurtTarget.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/CustomPathfinding/FoxPathfinderGoalPickBushes.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/CustomPathfinding/FoxPathfinderGoalRandomStrollLand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/CustomPathfinding/FoxPathfinderGoalRandomTargetNonTamed.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/CustomPathfinding/FoxPathfinderGoalSit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomilk/tamablefoxes/pathfinding/FoxPathfindGoalSit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/NBTEditor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/Reference.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/TamableFox.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/TamableFoxes.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/Utils/FileManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/Utils/Utils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="DefaultGradleProjectSettings">
-    <option name="isMigrated" value="true" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
-  <component name="MavenImportPreferences">
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="downloadDocsAutomatically" value="true" />
-        <option name="downloadSourcesAutomatically" value="true" />
-        <option name="importAutomatically" value="true" />
-      </MavenImportingSettings>
-    </option>
-  </component>
-  <component name="ProjectId" id="1OWYeLNGlgghaOqU4xcfEvjJFGj" />
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
+  <component name="ProjectId" id="1WXR7SMZcGllgYVjIOg98VPV9wX" />
   <component name="PropertiesComponent">
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Artifacts" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.editor" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Code\java\myPlugins\TamableFoxes\src\main\java\net\seanomik\tamablefoxes" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="net.seanomik.tamablefoxes.config" />
-      <recent name="net.seanomik.tamablefoxes.CustomPathfinding" />
+      <recent name="D:\Ellie\ProjectDirectory\tamablefoxes-1\TamableFoxes-1" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Code\java\myPlugins\TamableFoxes\src\main\java\net\seanomik\tamablefoxes\config" />
+      <recent name="D:\Ellie\ProjectDirectory\tamablefoxes-1\TamableFoxes-1" />
     </key>
   </component>
-  <component name="RunManager" selected="JAR Application.Spigot1.14.4">
-    <configuration name="Spigot1.14.2" type="JarApplication">
-      <option name="JAR_PATH" value="$USER_HOME$/OneDrive/Desktop/minecraftSpigotServer/spigot-1.14.2.jar" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\sean_\OneDrive\Desktop\minecraftSpigotServer" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <module name="TamableFoxes" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Spigot1.14.3" type="JarApplication">
-      <option name="JAR_PATH" value="$USER_HOME$/OneDrive/Desktop/minecraftSpigotServer/spigot-1.14.3.jar" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\sean_\OneDrive\Desktop\minecraftSpigotServer" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <module name="TamableFoxes" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Spigot1.14.4" type="JarApplication">
-      <option name="JAR_PATH" value="$USER_HOME$/OneDrive/Desktop/minecraftSpigotServer/spigot-1.14.4.jar" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\sean_\OneDrive\Desktop\minecraftSpigotServer" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <module name="TamableFoxes" />
-      <method v="2" />
-    </configuration>
-    <configuration name="TamableFoxes build" type="MavenRunConfiguration" factoryName="Maven">
-      <MavenSettings>
-        <option name="myGeneralSettings" />
-        <option name="myRunnerSettings" />
-        <option name="myRunnerParameters">
-          <MavenRunnerParameters>
-            <option name="profiles">
-              <set />
-            </option>
-            <option name="goals">
-              <list>
-                <option value="clean" />
-                <option value="package" />
-              </list>
-            </option>
-            <option name="pomFileName" />
-            <option name="profilesMap">
-              <map />
-            </option>
-            <option name="resolveToWorkspace" value="false" />
-            <option name="workingDirPath" value="$PROJECT_DIR$" />
-          </MavenRunnerParameters>
-        </option>
-      </MavenSettings>
-      <method v="2" />
-    </configuration>
-    <list>
-      <item itemvalue="JAR Application.Spigot1.14.2" />
-      <item itemvalue="JAR Application.Spigot1.14.3" />
-      <item itemvalue="JAR Application.Spigot1.14.4" />
-      <item itemvalue="Maven.TamableFoxes build" />
-    </list>
-  </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
+  <component name="RunDashboard">
+    <option name="ruleStates">
       <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
       </list>
     </option>
   </component>
@@ -129,134 +109,31 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="6bbf8d0d-5f70-4ba2-892e-894cfe06e144" name="Default Changelist" comment="" />
-      <created>1559787286537</created>
+      <changelist id="dcab9632-7b1a-44d7-9283-be9b37640afc" name="Default Changelist" comment="" />
+      <created>1579293785651</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1559787286537</updated>
+      <updated>1579293785651</updated>
+      <workItem from="1579293791372" duration="603000" />
+      <workItem from="1579301287898" duration="48000" />
+      <workItem from="1579301468407" duration="1926000" />
     </task>
     <servers />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <condition expression="var1 == null" language="JAVA" />
-          <url>jar://$MAVEN_REPOSITORY$/org/spigotmc/spigot/1.14.2-R0.1-SNAPSHOT/spigot-1.14.2-R0.1-SNAPSHOT.jar!/net/minecraft/server/v1_14_R1/PathfinderGoalWrapped.class</url>
-          <line>17</line>
-          <option name="timeStamp" value="36" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
   </component>
-  <component name="antWorkspaceConfiguration">
-    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
-    <option name="FILTER_TARGETS" value="false" />
-  </component>
-  <component name="debuggerHistoryManager">
-    <expressions id="breakpointCondition">
-      <expression>
-        <expression-string>var1 == null</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>this.a == null</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>this.targetSelector.a == null</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>this.a</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>null</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-    </expressions>
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor>
-            <show-sorted>false</show-sorted>
-          </artifact-editor>
-          <last-edited>TamableFoxes-SNAPSHOT:jar</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-                <option value="0.5" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>TamableFoxes</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-                <option value="0.6" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
