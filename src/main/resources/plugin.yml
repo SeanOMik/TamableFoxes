@@ -1,11 +1,13 @@
 name: TamableFoxes
-version: ${project.version}
-main: net.seanomik.tamablefoxes.TamableFoxes
-api-version: 1.14
+version: 1.4-RELEASE
+main: net.seanomilk.tamablefoxes.TamableFoxes
+api-version: 1.15
 load: POSTWORLD
+description: Modified version of TamableFoxes for 1.15.1.
+
 commands:
   spawntamablefox:
-    aliases: [stf, spawntf]
+    aliases: [tamablefox, stf, spawntf]
     usage: /spawntamablefox [type]
     description: Spawn a tamable fox at the standing location. Type can be snow or red, or left empty for a red.
 permissions:
