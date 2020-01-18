@@ -16,6 +16,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftFox;
+import org.bukkit.craftbukkit.v1_15_R1.entity.CraftItem;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
@@ -332,6 +333,9 @@ public class TamableFoxes extends JavaPlugin implements Listener {
                             playerHand.setAmount(playerHand.getAmount() - 1);
                             player.getInventory().setItemInMainHand(playerHand);
                         }
+                    }  else if (playerHand.getType() == Material.NAME_TAG) {
+                        ItemMeta handMeta = playerHand.getItemMeta();
+                        tamableFox.setChosenName(handMeta.getDisplayName());
                     } else {
                         tamableFox.toggleSitting();
                     }
@@ -378,36 +382,7 @@ public class TamableFoxes extends JavaPlugin implements Listener {
                 event.setCancelled(true);
             }
         }
-
     }
-
-    /*@EventHandler
-    public void onChat(AsyncPlayerChatEvent event) {
-        final Player player = event.getPlayer();
-
-        final UUID foxUuid = waitingName.get(player);
-        if (foxUuid == null)
-            return;
-
-        event.setCancelled(true);
-
-        final Entity entityFox = getEntityByUniqueId(foxUuid);
-        if (entityFox == null || entityFox.isDead()) {
-            player.sendMessage(ChatColor.RED + "R.I.P Foxy :(");
-            waitingName.remove(player);
-            return;
-        }
-
-        EntityTamableFox tamableFox = (EntityTamableFox) ((CraftEntity) entityFox).getHandle();
-
-        final String chosenName = ChatColor.translateAlternateColorCodes('&', event.getMessage().trim());
-        tamableFox.setChosenName(chosenName);
-
-        configFoxes.set("Foxes." + entityFox.getUniqueId() + ".name", chosenName).save();
-
-        player.sendMessage(chosenName + ChatColor.RESET + ChatColor.GREEN + " is perfect.");
-        waitingName.remove(player);
-    }*/
 
     @EventHandler
     public void onPlayerBedEnterEvent(PlayerBedEnterEvent event) {
