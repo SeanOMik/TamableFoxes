@@ -1,6 +1,4 @@
 # Config for Tamable Foxes modified for 1.15.1
-prefix: '&c[Tamable Foxes] '
-
 show-owner-in-fox-name: true
 show-nametags: true
 

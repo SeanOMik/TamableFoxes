@@ -1,1 +1,6 @@
+# Config for Tamable Foxes modified for 1.15.1
 show-owner-in-fox-name: true
+show-nametags: true
+
+tamed-behavior:
+  no-attack-chicken-rabbit: true

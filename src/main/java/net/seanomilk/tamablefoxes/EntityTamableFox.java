@@ -149,6 +149,7 @@ public class EntityTamableFox extends EntityFox {
 
     public void setChosenName(String chosenName) {
         this.chosenName = chosenName;
+        plugin.getConfigFoxes().set("Foxes." + getUniqueID() + ".name", chosenName).save();
         updateFoxVisual();
     }
 

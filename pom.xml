@@ -6,7 +6,7 @@
 
     <groupId>net.seanomik</groupId>
     <artifactId>tamableFoxes</artifactId>
-    <version>1.3.2-SNAPSHOT</version>
+    <version>1.4-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>TamableFoxes</name>
@@ -39,7 +39,7 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <outputFile>C:\Users\sean_\OneDrive\Desktop\minecraftSpigotServer\plugins\${project.artifactId}-${project.version}.jar</outputFile>
+                            <outputFile>D:\Code\java\spigotPlugins\TEST_SERVER\plugins\${project.artifactId}-${project.version}.jar</outputFile>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                         </configuration>
                     </execution>
@@ -56,37 +56,29 @@
 
     <repositories>
         <repository>
-			<id>spigot-repo</id>
-			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-		</repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
         <repository>
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
         <repository>
-            <id>wesjd-repo</id>
-            <url>https://nexus.wesjd.net/repository/thirdparty/</url>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
         </repository>
     </repositories>
 
     <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.15.1-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.wesjd</groupId>
-            <artifactId>anvilgui</artifactId>
-            <version>1.2.1-SNAPSHOT</version>
-        </dependency>
-        <!-- For CraftBukkit -->
-        <dependency>
-            <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/spigot-1.15.1.jar</systemPath>
+            <version>1.15.1-R0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.WesJD.AnvilGUI</groupId>
+            <artifactId>anvilgui</artifactId>
+            <version>478e0c1</version>
         </dependency>
     </dependencies>
 </project>
