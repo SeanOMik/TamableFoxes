@@ -8,6 +8,7 @@ net\seanomik\tamablefoxes\pathfinding\FoxPathfindGoalBeg.class
 net\seanomik\tamablefoxes\pathfinding\FoxPathfindGoalRandomStrollLand.class
 net\seanomik\tamablefoxes\pathfinding\FoxPathfindGoalLunge.class
 net\seanomik\tamablefoxes\pathfinding\FoxPathfindGoalFloat.class
+net\seanomik\tamablefoxes\TamableFoxes$SaveFoxRunnable.class
 net\seanomik\tamablefoxes\pathfinding\FoxPathfindGoalMeleeAttack.class
 net\seanomik\tamablefoxes\pathfinding\FoxPathfindGoalRandomTargetNonTamed.class
 net\seanomik\tamablefoxes\pathfinding\FoxPathfindGoalFleeSun.class

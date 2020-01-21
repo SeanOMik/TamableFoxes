@@ -1,20 +1,26 @@
-package net.seanomik.tamablefoxes.sqllite;
+package net.seanomik.tamablefoxes.sqlite;
 
+import net.minecraft.server.v1_15_R1.EntityFox;
 import net.minecraft.server.v1_15_R1.EnumItemSlot;
 import net.seanomik.tamablefoxes.EntityTamableFox;
 import net.seanomik.tamablefoxes.TamableFoxes;
-import org.bukkit.plugin.Plugin;
+import org.apache.commons.lang.ObjectUtils;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
+import org.bukkit.inventory.ItemStack;
 
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class SQLiteSetterGetter {
-    public static Plugin plugin;
+    public static TamableFoxes plugin;
     public static SQLiteHandler sqLiteHandler;
 
     public void createTablesIfNotExist() {
@@ -24,9 +30,13 @@ public class SQLiteSetterGetter {
 
         String foxesTable =
                 "CREATE TABLE IF NOT EXISTS `foxes` ( " +
-                        "`OWNER_UUID` TEXT PRIMARY KEY ,  " +
-                        "`NAME` TEXT NOT NULL ,  " +
+                        "`ID` INTEGER PRIMARY KEY AUTOINCREMENT ,  " +
+                        "`OWNER_UUID` TEXT NOT NULL ,  " +
+                        "`NAME` TEXT ,  " +
                         "`LOCATION` TEXT NOT NULL ,  " +
+                        "`TYPE` TEXT NOT NULL ,  " +
+                        "`SITTING` INTEGER NOT NULL ,  " +
+                        "`SLEEPING` INTEGER NOT NULL ,  " +
                         "`MOUTH_ITEM` TEXT NOT NULL);";
 
         try {
@@ -57,14 +67,100 @@ public class SQLiteSetterGetter {
         plugin = TamableFoxes.getPlugin(TamableFoxes.class);
         try {
             sqLiteHandler.connect();
-            PreparedStatement statement = sqLiteHandler.getConnection()
-                    .prepareStatement("INSERT INTO foxes (OWNER_UUID,NAME,LOCATION,MOUTH_ITEM) VALUES (?,?,?,?)");
 
-            statement.setString(1, (fox.getOwner().getUniqueID() == null) ? "none" : fox.getOwner().getUniqueID().toString());
+            PreparedStatement statement = sqLiteHandler.getConnection().prepareStatement("INSERT INTO foxes (OWNER_UUID,NAME,LOCATION,TYPE,MOUTH_ITEM,SITTING,SLEEPING) VALUES (?,?,?,?,?,?,?)");
+            if (fox.databaseID != -1) {
+                statement = sqLiteHandler.getConnection().prepareStatement("UPDATE foxes SET OWNER_UUID=?, NAME=?, LOCATION=?, TYPE=?, MOUTH_ITEM=?, SITTING=?, SLEEPING=? WHERE ID=" + fox.databaseID);
+            }
+
+            statement.setString(1, (fox.getOwner() == null) ? "none" : fox.getOwner().getUniqueID().toString());
             statement.setString(2, fox.getChosenName());
+            statement.setString(3,  fox.getWorld().worldData.getName() + "," + fox.locX() + "," + fox.locY() + "," + fox.locZ());
+            statement.setString(4, fox.getFoxType().toString());
+            statement.setString(5, fox.getEquipment(EnumItemSlot.MAINHAND).toString().toUpperCase().substring(fox.getEquipment(EnumItemSlot.MAINHAND).toString().indexOf(' ')+1));
+            statement.setInt(6, (fox.isSitting()) ? 1 : 0);
+            statement.setInt(7, (fox.isSleeping()) ? 1 : 0);
+            statement.executeUpdate();
 
-            statement.setString(3, fox.locX() + "," + fox.locY() + "," + fox.locY());
-            statement.setString(4, fox.getEquipment(EnumItemSlot.MAINHAND).toString());
+            ResultSet result = statement.getGeneratedKeys();
+            while (result.next()) {
+                fox.databaseID = result.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqLiteHandler.getConnection() != null) {
+                try {
+                    sqLiteHandler.getConnection().close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void saveFoxes(List<EntityTamableFox> foxes) { // @TODO: Optimize
+        for (EntityTamableFox fox : foxes) {
+            saveFox(fox);
+        }
+    }
+
+    public List<EntityTamableFox> spawnFoxes() {
+        plugin = TamableFoxes.getPlugin(TamableFoxes.class);
+        try {
+            sqLiteHandler.connect();
+            PreparedStatement statement = sqLiteHandler.getConnection().prepareStatement("SELECT * FROM foxes");
+            ResultSet results = statement.executeQuery();
+
+            List<EntityTamableFox> foxList = new ArrayList<>();
+            while (results.next()) { // Loop through each row
+                List<String> locationList = Arrays.asList(results.getString("LOCATION").split("\\s*,\\s*"));
+                Location loc = new Location(Bukkit.getWorld(locationList.get(0)), Double.parseDouble(locationList.get(1)), Double.parseDouble(locationList.get(2)), Double.parseDouble(locationList.get(3)));
+
+                EntityTamableFox spawnedFox = (EntityTamableFox) plugin.spawnTamableFox(loc, EntityFox.Type.valueOf(results.getString("TYPE")));
+                spawnedFox.databaseID = results.getInt("ID");
+                spawnedFox.setSlot(EnumItemSlot.MAINHAND, CraftItemStack.asNMSCopy(new ItemStack(Material.valueOf(results.getString("MOUTH_ITEM")), 1)));
+
+                spawnedFox.setSitting(results.getInt("SITTING") == 1);
+                spawnedFox.setSleeping(results.getInt("SLEEPING") == 1);
+
+                if (!results.getString("OWNER_UUID").equals("none")) {
+                    UUID ownerUUID = UUID.fromString(results.getString("OWNER_UUID"));
+
+                    OfflinePlayer owner = plugin.getServer().getOfflinePlayer(ownerUUID);
+                    if (owner.isOnline()) {
+                        spawnedFox.setOwner(((CraftPlayer) owner.getPlayer()).getHandle());
+                    }
+
+                    plugin.getFoxUUIDs().put(spawnedFox.getUniqueID(), ownerUUID);
+                    spawnedFox.setChosenName(results.getString("NAME"));
+                    spawnedFox.setTamed(true);
+                }
+
+                foxList.add(spawnedFox);
+            }
+
+            return foxList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqLiteHandler.getConnection() != null) {
+                try {
+                    sqLiteHandler.getConnection().close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
+
+    public void removeFox(int databaseID) {
+        plugin = TamableFoxes.getPlugin(TamableFoxes.class);
+        try {
+            sqLiteHandler.connect();
+
+            PreparedStatement statement = sqLiteHandler.getConnection().prepareStatement("DELETE FROM foxes WHERE ID=" + databaseID);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -79,42 +175,7 @@ public class SQLiteSetterGetter {
         }
     }
 
-    public List<EntityTamableFox> spawnFoxes() {
-        plugin = Dexun.getPlugin(Dexun.class);
-        try {
-            sqLiteHandler.connect();
-            PreparedStatement statement = sqLiteHandler.getConnection()
-                    .prepareStatement("SELECT * FROM foxes");
-            ResultSet results = statement.executeQuery();
-            results.next();
-
-            String banReasonsSTR = results.getString("REASONS");
-            String banDatesSTR = results.getString("ON_DATES");
-            String banEndDatesSTR = results.getString("END_DATES");
-            String unbanReasonsSTR = results.getString("UNBAN_REASONS");
-
-            List<String> banReasons = new LinkedList<String>(Arrays.asList(banReasonsSTR.substring(1).split(",")));
-            List<String> banDates = new LinkedList<String>(Arrays.asList(banDatesSTR.substring(1).split(",")));
-            List<String> banEndDates = new LinkedList<String>(Arrays.asList(banEndDatesSTR.substring(1).split(",")));
-            List<String> unbanReasons = new LinkedList<String>(Arrays.asList(unbanReasonsSTR.substring(1).split(",")));
-
-            List<List<String>> bans = new ArrayList<List<String>>();
-            bans.add(banReasons);
-            bans.add(banDates);
-            bans.add(banEndDates);
-            bans.add(unbanReasons);
-
-            return bans;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if (sqLiteHandler.getConnection() != null) {
-                try {
-                    sqLiteHandler.getConnection().close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+    public void removeFox(EntityTamableFox fox) {
+        removeFox(fox.databaseID);
     }
 }

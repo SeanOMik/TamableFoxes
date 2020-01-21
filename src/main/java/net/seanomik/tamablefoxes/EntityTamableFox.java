@@ -1,7 +1,7 @@
-package net.seanomilk.tamablefoxes;
+package net.seanomik.tamablefoxes;
 
 import net.minecraft.server.v1_15_R1.*;
-import net.seanomilk.tamablefoxes.pathfinding.*;
+import net.seanomik.tamablefoxes.pathfinding.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
@@ -30,11 +30,17 @@ public class EntityTamableFox extends EntityFox {
     private FoxPathfindGoalSit goalSit;
     private PathfinderGoalNearestAttackableTarget goalAttack;
 
+    public int databaseID = -1;
+
     public EntityTamableFox(TamableFoxes plugin, EntityTypes entitytypes, World world) {
         super(EntityTypes.FOX, world);
         this.plugin = plugin;
         thisFox = (Fox) this.getBukkitEntity();
-        plugin.getFoxUUIDs().put(this.getBukkitEntity().getUniqueId(), null);
+
+        if (!plugin.getFoxUUIDs().containsKey(thisFox.getUniqueId())) {
+            plugin.getFoxUUIDs().put(this.getBukkitEntity().getUniqueId(), null);
+        }
+
         this.setPersistent();
     }
 
@@ -139,10 +145,11 @@ public class EntityTamableFox extends EntityFox {
 
     public void setTamed(boolean tamed) {
         this.isTamed = tamed;
+
         // Remove attack goal if tamed
         if (isTamed && plugin.isTamedAttackRabbitChicken()) {
             this.targetSelector.a(goalAttack);
-        }  else {
+        } else { // Adds it
             this.targetSelector.a(4, goalAttack);
         }
     }
@@ -153,7 +160,6 @@ public class EntityTamableFox extends EntityFox {
 
     public void setChosenName(String chosenName) {
         this.chosenName = chosenName;
-        plugin.getConfigFoxes().set("Foxes." + getUniqueID() + ".name", chosenName).save();
         updateFoxVisual();
     }
 
@@ -163,13 +169,14 @@ public class EntityTamableFox extends EntityFox {
 
     public void setOwner(EntityLiving owner) {
         this.owner = owner;
-        plugin.getConfigFoxes().set("Foxes." + getUniqueID() + ".owner", owner.getUniqueIDString()).save();
         updateFoxVisual();
     }
 
     public boolean toggleSitting() {
         this.sit = !this.sit;
         updateFoxVisual();
+
+        plugin.sqLiteSetterGetter.saveFox(this);
         return this.sit;
     }
 
@@ -238,5 +245,4 @@ public class EntityTamableFox extends EntityFox {
             getBukkitEntity().setCustomNameVisible(plugin.isShowNameTags());
         }
     }
-
 }

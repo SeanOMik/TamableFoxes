@@ -3,4 +3,4 @@ show-owner-in-fox-name: true
 show-nametags: true
 
 tamed-behavior:
-  no-attack-chicken-rabbit: true
+  attack-chicken-rabbit: true

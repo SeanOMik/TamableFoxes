@@ -41,18 +41,26 @@ public class CommandSpawnTamableFox implements TabExecutor {
         if (args.length != 0) {
             switch (args[0]) {
                 case "red":
-                    EntityTamableFox fox = (EntityTamableFox) plugin.spawnTamableFox(player.getLocation(), EntityFox.Type.RED);
-                    plugin.getSpawnedFoxes().add(fox);
-                    plugin.sqLiteSetterGetter.saveFox(fox);
+                    try {
+                        EntityTamableFox fox = (EntityTamableFox) plugin.spawnTamableFox(player.getLocation(), EntityFox.Type.RED);
+                        plugin.getSpawnedFoxes().add(fox);
+                        plugin.sqLiteSetterGetter.saveFox(fox);
 
-                    player.sendMessage(plugin.getPrefix() + ChatColor.RESET + "Spawned a " + ChatColor.RED + "Red" + ChatColor.WHITE + " fox.");
+                        player.sendMessage(plugin.getPrefix() + ChatColor.RESET + "Spawned a " + ChatColor.RED + "Red" + ChatColor.WHITE + " fox.");
+                    } catch (Exception e) {
+                        player.sendMessage(plugin.getPrefix() + ChatColor.RED + "Failed to spawn fox, check console!");
+                    }
                     break;
                 case "snow":
-                    EntityTamableFox spawnedFox = (EntityTamableFox) plugin.spawnTamableFox(player.getLocation(), EntityFox.Type.SNOW);
-                    plugin.getSpawnedFoxes().add(spawnedFox);
-                    plugin.sqLiteSetterGetter.saveFox(spawnedFox);
+                    try {
+                        EntityTamableFox spawnedFox = (EntityTamableFox) plugin.spawnTamableFox(player.getLocation(), EntityFox.Type.SNOW);
+                        plugin.getSpawnedFoxes().add(spawnedFox);
+                        plugin.sqLiteSetterGetter.saveFox(spawnedFox);
 
-                    player.sendMessage(plugin.getPrefix() + ChatColor.RESET + "Spawned a " + ChatColor.AQUA + "Snow" + ChatColor.WHITE + " fox.");
+                        player.sendMessage(plugin.getPrefix() + ChatColor.RESET + "Spawned a " + ChatColor.AQUA + "Snow" + ChatColor.WHITE + " fox.");
+                    } catch (Exception e) {
+                        player.sendMessage(plugin.getPrefix() + ChatColor.RED + "Failed to spawn fox, check console!");
+                    }
                     break;
                 case "verbose":
                     player.sendMessage(plugin.getFoxUUIDs().toString());
