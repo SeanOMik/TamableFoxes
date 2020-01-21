@@ -1,7 +1,7 @@
-package net.seanomik.tamablefoxes;
+package net.seanomilk.tamablefoxes;
 
 import net.minecraft.server.v1_15_R1.*;
-import net.seanomik.tamablefoxes.pathfinding.*;
+import net.seanomilk.tamablefoxes.pathfinding.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
@@ -30,17 +30,11 @@ public class EntityTamableFox extends EntityFox {
     private FoxPathfindGoalSit goalSit;
     private PathfinderGoalNearestAttackableTarget goalAttack;
 
-    public int databaseIndex = -1;
-
     public EntityTamableFox(TamableFoxes plugin, EntityTypes entitytypes, World world) {
         super(EntityTypes.FOX, world);
         this.plugin = plugin;
         thisFox = (Fox) this.getBukkitEntity();
-
-        if (!plugin.getFoxUUIDs().containsKey(thisFox.getUniqueId())) {
-            plugin.getFoxUUIDs().put(this.getBukkitEntity().getUniqueId(), null);
-        }
-
+        plugin.getFoxUUIDs().put(this.getBukkitEntity().getUniqueId(), null);
         this.setPersistent();
     }
 
@@ -159,7 +153,7 @@ public class EntityTamableFox extends EntityFox {
 
     public void setChosenName(String chosenName) {
         this.chosenName = chosenName;
-        //plugin.getConfigFoxes().set("Foxes." + getUniqueID() + ".name", chosenName).save();
+        plugin.getConfigFoxes().set("Foxes." + getUniqueID() + ".name", chosenName).save();
         updateFoxVisual();
     }
 
@@ -169,7 +163,7 @@ public class EntityTamableFox extends EntityFox {
 
     public void setOwner(EntityLiving owner) {
         this.owner = owner;
-        //plugin.getConfigFoxes().set("Foxes." + getUniqueID() + ".owner", owner.getUniqueIDString()).save();
+        plugin.getConfigFoxes().set("Foxes." + getUniqueID() + ".owner", owner.getUniqueIDString()).save();
         updateFoxVisual();
     }
 

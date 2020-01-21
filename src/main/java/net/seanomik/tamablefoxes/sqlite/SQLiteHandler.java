@@ -1,4 +1,4 @@
-package net.seanomik.tamablefoxes.sqlite;
+package net.seanomik.tamablefoxes.sqllite;
 
 import net.seanomik.tamablefoxes.TamableFoxes;
 import org.bukkit.Bukkit;
@@ -18,7 +18,7 @@ public class SQLiteHandler {
 			String url = "jdbc:sqlite:" + baseLoc + "plugins/TamableFoxes/foxes.db";
 			connection = DriverManager.getConnection(url);
 
-			//Bukkit.getConsoleSender().sendMessage(TamableFoxes.getPrefix() + "Connection to SQLite has been established.");
+			Bukkit.getConsoleSender().sendMessage(TamableFoxes.getPrefix() + "Connection to SQLite has been established.");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
