@@ -30,14 +30,15 @@ public class EntityTamableFox extends EntityFox {
     private FoxPathfindGoalSit goalSit;
     private PathfinderGoalNearestAttackableTarget goalAttack;
 
-
     public EntityTamableFox(TamableFoxes plugin, EntityTypes entitytypes, World world) {
         super(EntityTypes.FOX, world);
         this.plugin = plugin;
         thisFox = (Fox) this.getBukkitEntity();
         plugin.getFoxUUIDs().put(this.getBukkitEntity().getUniqueId(), null);
+        this.setPersistent();
     }
 
+    @Override
     protected void initPathfinder() {
         this.goalSit = new FoxPathfindGoalSit(this);
         this.goalSelector.a(1, new FoxPathfindGoalFloat(this));
@@ -70,6 +71,7 @@ public class EntityTamableFox extends EntityFox {
         this.targetSelector.a(5, new FoxPathfindGoalHurtByTarget(this).a(new Class[0]));
     }
 
+    @Override
     protected void initAttributes() {
         this.getAttributeMap().b(GenericAttributes.MAX_HEALTH);
         this.getAttributeMap().b(GenericAttributes.KNOCKBACK_RESISTANCE);
@@ -137,10 +139,12 @@ public class EntityTamableFox extends EntityFox {
 
     public void setTamed(boolean tamed) {
         this.isTamed = tamed;
-        // remove attack goal if now tamed
-        if (isTamed && plugin.isTamedAttackRabbitChicken())
+        // Remove attack goal if tamed
+        if (isTamed && plugin.isTamedAttackRabbitChicken()) {
             this.targetSelector.a(goalAttack);
-        else this.targetSelector.a(4, goalAttack);
+        }  else {
+            this.targetSelector.a(4, goalAttack);
+        }
     }
 
     public String getChosenName() {
