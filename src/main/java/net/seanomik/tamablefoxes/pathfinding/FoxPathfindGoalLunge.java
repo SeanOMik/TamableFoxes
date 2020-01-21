@@ -1,6 +1,6 @@
-package net.seanomilk.tamablefoxes.pathfinding;
+package net.seanomik.tamablefoxes.pathfinding;
 
-import net.seanomilk.tamablefoxes.EntityTamableFox;
+import net.seanomik.tamablefoxes.EntityTamableFox;
 import net.minecraft.server.v1_15_R1.*;
 
 import java.lang.reflect.Field;

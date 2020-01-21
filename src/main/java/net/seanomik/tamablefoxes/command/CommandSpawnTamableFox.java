@@ -1,11 +1,11 @@
-package net.seanomilk.tamablefoxes.command;
+package net.seanomik.tamablefoxes.command;
 
-import net.seanomilk.tamablefoxes.TamableFoxes;
+import net.seanomik.tamablefoxes.EntityTamableFox;
+import net.seanomik.tamablefoxes.TamableFoxes;
 import net.minecraft.server.v1_15_R1.EntityFox;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
@@ -41,12 +41,18 @@ public class CommandSpawnTamableFox implements TabExecutor {
         if (args.length != 0) {
             switch (args[0]) {
                 case "red":
-                    plugin.spawnTamableFox(player.getLocation(), EntityFox.Type.RED);
+                    EntityTamableFox fox = (EntityTamableFox) plugin.spawnTamableFox(player.getLocation(), EntityFox.Type.RED);
+                    plugin.getSpawnedFoxes().add(fox);
+                    plugin.sqLiteSetterGetter.saveFox(fox);
+
                     player.sendMessage(plugin.getPrefix() + ChatColor.RESET + "Spawned a " + ChatColor.RED + "Red" + ChatColor.WHITE + " fox.");
                     break;
                 case "snow":
-                    plugin.spawnTamableFox(player.getLocation(), EntityFox.Type.SNOW);
-                    player.sendMessage(plugin.getPrefix() + ChatColor.RESET + "Spawned a Snow fox.");
+                    EntityTamableFox spawnedFox = (EntityTamableFox) plugin.spawnTamableFox(player.getLocation(), EntityFox.Type.SNOW);
+                    plugin.getSpawnedFoxes().add(spawnedFox);
+                    plugin.sqLiteSetterGetter.saveFox(spawnedFox);
+
+                    player.sendMessage(plugin.getPrefix() + ChatColor.RESET + "Spawned a " + ChatColor.AQUA + "Snow" + ChatColor.WHITE + " fox.");
                     break;
                 case "verbose":
                     player.sendMessage(plugin.getFoxUUIDs().toString());
@@ -60,7 +66,7 @@ public class CommandSpawnTamableFox implements TabExecutor {
 
                     if (player.getInventory().getItemInMainHand().getType() == Material.AIR) {
                         player.getInventory().setItemInMainHand(itemStack);
-                        player.sendMessage(plugin.getPrefix() + ChatColor.GREEN + "Given Inspector item.");
+                        player.sendMessage(plugin.getPrefix() + ChatColor.GREEN + "Gave Inspector item.");
                     } else if (player.getInventory().firstEmpty() == -1) {
                         player.sendMessage(plugin.getPrefix() + ChatColor.RED + "Your inventory is full!");
                     } else {
@@ -70,7 +76,7 @@ public class CommandSpawnTamableFox implements TabExecutor {
                     break;
                 case "reload":
                     plugin.getMainConfig().reload();
-                    plugin.getConfigFoxes().reload();
+                    //plugin.getConfigFoxes().reload();
                     player.sendMessage(plugin.getPrefix() + ChatColor.GREEN + "Reloaded.");
                     break;
                 default:

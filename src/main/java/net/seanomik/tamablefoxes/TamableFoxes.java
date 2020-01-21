@@ -1,11 +1,13 @@
-package net.seanomilk.tamablefoxes;
+package net.seanomik.tamablefoxes;
 
 import com.google.common.collect.Maps;
 import com.mojang.datafixers.DataFixUtils;
 import com.mojang.datafixers.types.Type;
-import net.seanomilk.tamablefoxes.command.CommandSpawnTamableFox;
-import net.seanomilk.tamablefoxes.io.FileManager;
+import net.seanomik.tamablefoxes.command.CommandSpawnTamableFox;
+import net.seanomik.tamablefoxes.io.FileManager;
 import net.minecraft.server.v1_15_R1.*;
+import net.seanomik.tamablefoxes.sqlite.SQLiteHandler;
+import net.seanomik.tamablefoxes.sqlite.SQLiteSetterGetter;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
@@ -16,11 +18,9 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftFox;
-import org.bukkit.craftbukkit.v1_15_R1.entity.CraftItem;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Fox;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -34,31 +34,29 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+// @TODO: Add language.yml
+
 public class TamableFoxes extends JavaPlugin implements Listener {
 
     public static final String ITEM_INSPECTOR_LORE = ChatColor.BLUE + "Tamable Fox Inspector";
     public static final String TAG_TAME_FOX = "tameablefox";
 
-    private FileManager fileManager;
+    private FileManager fileManager = new FileManager(this);
 
-    private Map<UUID, UUID> foxUUIDs;
+    private Map<UUID, UUID> foxUUIDs = Maps.newHashMap(); // FoxUUID, OwnerUUID
     private EntityTypes customType;
-
     private boolean isOnLoad = true;
-
-    private Map<UUID, Entity> lookupCache;
-
-    private FileManager.Config config, configFoxes;
-
-    private Map<Player, UUID> waitingName;
+    private Map<UUID, Entity> lookupCache = Maps.newHashMap();
+    private List<EntityTamableFox> spawnedFoxes;
+    private FileManager.Config config;//, configFoxes;
+    public static SQLiteHandler sqLiteHandler = new SQLiteHandler();
+    public static SQLiteSetterGetter sqLiteSetterGetter = new SQLiteSetterGetter();
 
     @Override
     public void onEnable() {
@@ -69,18 +67,16 @@ public class TamableFoxes extends JavaPlugin implements Listener {
             return;
         }
 
-        fileManager = new FileManager(this);
+        sqLiteHandler.connect();
+        sqLiteSetterGetter.createTablesIfNotExist();
+
         this.config = fileManager.getConfig("config.yml");
         this.config.copyDefaults(true).save();
-        this.configFoxes = fileManager.getConfig("foxes.yml");
-        this.configFoxes.copyDefaults(true).save();
+        /*this.configFoxes = fileManager.getConfig("foxes.yml");
+        this.configFoxes.copyDefaults(true).save();*/
 
         this.getServer().getPluginManager().registerEvents(this, this);
         this.getCommand("spawntamablefox").setExecutor(new CommandSpawnTamableFox(this));
-
-        this.foxUUIDs = Maps.newHashMap();
-        this.lookupCache = Maps.newHashMap();
-        this.waitingName = Maps.newHashMap();
 
         final Map<String, Type<?>> types = (Map<String, Type<?>>) DataConverterRegistry.a()
                 .getSchema(DataFixUtils.makeKey(SharedConstants.getGameVersion().getWorldVersion()))
@@ -96,11 +92,21 @@ public class TamableFoxes extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
+        try {
+            for (EntityTamableFox fox : spawnedFoxes) {
+                sqLiteSetterGetter.saveFox(fox);
 
+                fox.getBukkitEntity().remove();
+            }
+
+            getServer().getConsoleSender().sendMessage(getPrefix() + ChatColor.GREEN + "Saved all foxes successfully!");
+        } catch (Exception e) {
+            getServer().getConsoleSender().sendMessage(getPrefix() + ChatColor.RED + "Failed to save foxes!");
+        }
     }
 
     private void replaceFoxesOnLoad() {
-        int amountReplaced = 0;
+        /*int amountReplaced = 0;
 
         for (World world : Bukkit.getWorlds()) {
             Chunk[] loadedChunks = world.getLoadedChunks();
@@ -113,7 +119,7 @@ public class TamableFoxes extends JavaPlugin implements Listener {
                         continue;
                     EntityTamableFox tamableFox = (EntityTamableFox) spawnTamableFox(entity.getLocation(), ((CraftFox) entity).getHandle().getFoxType());
 
-                    final YamlConfiguration configuration = configFoxes.get();
+                    //final YamlConfiguration configuration = configFoxes.get();
                     // get living entity data
                     if (configuration.isConfigurationSection("Foxes." + entity.getUniqueId())) {
                         String owner = configuration.getString("Foxes." + entity.getUniqueId() + ".owner");
@@ -142,8 +148,10 @@ public class TamableFoxes extends JavaPlugin implements Listener {
                         tamableFox.updateFox();
                         tamableFox.setAge(((CraftFox) entity).getAge());
                         ItemStack entityMouthItem = ((CraftFox) entity).getEquipment().getItemInMainHand();
+                        entityMouthItem.setAmount(1);
+
                         if (entityMouthItem.getType() != Material.AIR) {
-                            tamableFox.setSlot(EnumItemSlot.MAINHAND, CraftItemStack.asNMSCopy(new ItemStack(entityMouthItem.getType(), 1)));
+                            tamableFox.setSlot(EnumItemSlot.MAINHAND, CraftItemStack.asNMSCopy(entityMouthItem));
                         } else {
                             tamableFox.setSlot(EnumItemSlot.MAINHAND, new net.minecraft.server.v1_15_R1.ItemStack(Items.AIR));
                         }
@@ -153,8 +161,10 @@ public class TamableFoxes extends JavaPlugin implements Listener {
 
                         tamableFox.setAge(((CraftFox) entity).getAge());
                         ItemStack entityMouthItem = ((CraftFox) entity).getEquipment().getItemInMainHand();
+                        entityMouthItem.setAmount(1);
+
                         if (entityMouthItem.getType() != Material.AIR) {
-                            tamableFox.setSlot(EnumItemSlot.MAINHAND, CraftItemStack.asNMSCopy(new ItemStack(entityMouthItem.getType(), 1)));
+                            tamableFox.setSlot(EnumItemSlot.MAINHAND, CraftItemStack.asNMSCopy(entityMouthItem));
                         } else {
                             tamableFox.setSlot(EnumItemSlot.MAINHAND, new net.minecraft.server.v1_15_R1.ItemStack(Items.AIR));
                         }
@@ -166,7 +176,9 @@ public class TamableFoxes extends JavaPlugin implements Listener {
             }
         }
 
-        configFoxes.save();
+        configFoxes.save();*/
+
+        spawnedFoxes = sqLiteSetterGetter.spawnFoxes();
         this.isOnLoad = false;
     }
 
@@ -179,15 +191,15 @@ public class TamableFoxes extends JavaPlugin implements Listener {
         EntityFox fox = (EntityFox) spawnedEntity;
         fox.setFoxType(type);
 
-        configFoxes.get().set("Foxes." + spawnedEntity.getUniqueID() + ".owner", "none");
-        fileManager.saveConfig("foxes.yml");
+        /*configFoxes.get().set("Foxes." + spawnedEntity.getUniqueID() + ".owner", "none");
+        fileManager.saveConfig("foxes.yml");*/
 
         return fox;
     }
 
     @EventHandler
     public void onChunkLoad(ChunkLoadEvent event) {
-        if (isOnLoad)
+        /*if (isOnLoad)
             return;
         Chunk chunk = event.getChunk();
         Entity[] entities = chunk.getEntities();
@@ -241,7 +253,7 @@ public class TamableFoxes extends JavaPlugin implements Listener {
 
                 entity.remove();
             }
-        }
+        }*/
 
     }
 
@@ -363,12 +375,11 @@ public class TamableFoxes extends JavaPlugin implements Listener {
                                 if(!text.equals("")) {
                                     tamableFox.setChosenName(text);
                                     plr.sendMessage(getPrefix() + ChatColor.GREEN + text + " is perfect!");
-                                    return AnvilGUI.Response.close();
-                                } else {
-                                    return AnvilGUI.Response.text("Insert a name for your fox!");
                                 }
+
+                                return AnvilGUI.Response.close();
                             })
-                            .preventClose()        // Prevents the inventory from being closed
+                            //.preventClose()        // Prevents the inventory from being closed
                             .text("Fox name")      // Sets the text the GUI should start with
                             .plugin(this)          // Set the plugin instance
                             .open(player);         // Opens the GUI for the player provided
@@ -420,7 +431,43 @@ public class TamableFoxes extends JavaPlugin implements Listener {
             spawnTamableFox(entity.getLocation(), foxType);
             event.setCancelled(true);
         }
+    }
 
+    @EventHandler
+    public void onEntityDeathEvent(EntityDeathEvent event) {
+        Entity entity = event.getEntity();
+        if (!this.isTamableFox(entity)) {
+
+            return;
+        }
+
+        // Remove the fox from storage
+        lookupCache.remove(entity.getUniqueId());
+        foxUUIDs.remove(entity.getUniqueId());
+        spawnedFoxes.remove(entity.getUniqueId());
+
+        //sqLiteSetterGetter.removeFox();
+
+
+        EntityTamableFox tamableFox = (EntityTamableFox) ((CraftEntity) entity).getHandle();
+
+        if (tamableFox.getOwner() != null) {
+            Player owner = ((EntityPlayer)tamableFox.getOwner()).getBukkitEntity();
+            owner.sendMessage(getPrefix() + ChatColor.RED + tamableFox.getChosenName() + " was killed!");
+        }
+
+        sqLiteSetterGetter.removeFox(tamableFox);
+
+        /*if (configFoxes.get().getConfigurationSection("Foxes").contains(entity.getUniqueId().toString())) {
+            *//*EntityTamableFox tamableFox = (EntityTamableFox) ((CraftEntity) entity).getHandle();
+            if (tamableFox.getOwner() != null && tamableFox.getOwner() instanceof Player) {
+                Player owner = (Player) tamableFox.getOwner();
+                owner.sendMessage(getPrefix() + ChatColor.RED + tamableFox.getChosenName() + " was killed!");
+            }*//*
+
+            configFoxes.get().set("Foxes." + entity.getUniqueId(), null);
+            fileManager.saveConfig("foxes.yml");
+        }*/
     }
 
     public Entity getEntityByUniqueId(UUID uniqueId) {
@@ -445,26 +492,6 @@ public class TamableFoxes extends JavaPlugin implements Listener {
         return null;
     }
 
-    @EventHandler
-    public void onEntityDeathEvent(EntityDeathEvent event) {
-        Entity entity = event.getEntity();
-        if (!this.isTamableFox(entity))
-            return;
-        this.lookupCache.remove(entity.getUniqueId());
-        foxUUIDs.remove(entity.getUniqueId());
-
-        if (configFoxes.get().getConfigurationSection("Foxes").contains(entity.getUniqueId().toString())) {
-            /*EntityTamableFox tamableFox = (EntityTamableFox) ((CraftEntity) entity).getHandle();
-            if (tamableFox.getOwner() != null && tamableFox.getOwner() instanceof Player) {
-                Player owner = (Player) tamableFox.getOwner();
-                owner.sendMessage(getPrefix() + ChatColor.RED + tamableFox.getChosenName() + " was killed!");
-            }*/
-
-            configFoxes.get().set("Foxes." + entity.getUniqueId(), null);
-            fileManager.saveConfig("foxes.yml");
-        }
-    }
-
     public boolean isTamableFox(org.bukkit.entity.Entity entity) {
         return ((CraftEntity) entity).getHandle().getClass().getName().contains("TamableFox")
                 || ((CraftEntity) entity).getHandle() instanceof EntityTamableFox;
@@ -483,9 +510,9 @@ public class TamableFoxes extends JavaPlugin implements Listener {
         return config;
     }
 
-    public FileManager.Config getConfigFoxes() {
+    /*public FileManager.Config getConfigFoxes() {
         return configFoxes;
-    }
+    }*/
 
     public EntityTypes getCustomType() {
         return customType;
@@ -493,6 +520,10 @@ public class TamableFoxes extends JavaPlugin implements Listener {
 
     public Map<UUID, UUID> getFoxUUIDs() {
         return foxUUIDs;
+    }
+
+    public List<EntityTamableFox> getSpawnedFoxes() {
+        return spawnedFoxes;
     }
 
     public static String getPrefix() {

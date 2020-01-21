@@ -1,7 +1,7 @@
-package net.seanomilk.tamablefoxes.io;
+package net.seanomik.tamablefoxes.io;
 
 import com.google.common.collect.Maps;
-import net.seanomilk.tamablefoxes.TamableFoxes;
+import net.seanomik.tamablefoxes.TamableFoxes;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;

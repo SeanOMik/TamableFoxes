@@ -1,6 +1,6 @@
 name: TamableFoxes
-version: 1.4-RELEASE
-main: net.seanomilk.tamablefoxes.TamableFoxes
+version: 1.4.1-SNAPSHOT
+main: net.seanomik.tamablefoxes.TamableFoxes
 api-version: 1.15
 load: POSTWORLD
 description: Modified version of TamableFoxes for 1.15.1.
