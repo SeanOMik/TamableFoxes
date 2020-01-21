@@ -20,6 +20,7 @@ import org.bukkit.craftbukkit.v1_15_R1.entity.CraftItem;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Fox;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,6 +34,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -178,6 +181,7 @@ public class TamableFoxes extends JavaPlugin implements Listener {
 
         configFoxes.get().set("Foxes." + spawnedEntity.getUniqueID() + ".owner", "none");
         fileManager.saveConfig("foxes.yml");
+
         return fox;
     }
 
@@ -352,12 +356,10 @@ public class TamableFoxes extends JavaPlugin implements Listener {
                     // Name process
                     player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "You just tamed a wild fox!");
                     player.sendMessage(ChatColor.RED + "What do you want to call it?");
-                    //player.sendMessage(ChatColor.GRAY + "Type a name in chat");
-                    //waitingName.put(player, tamableFox.getUniqueID());
                     tamableFox.setChosenName("???");
 
                     new AnvilGUI.Builder()
-                            .onComplete((plr, text) -> { //called when the inventory output slot is clicked
+                            .onComplete((plr, text) -> { // Called when the inventory output slot is clicked
                                 if(!text.equals("")) {
                                     tamableFox.setChosenName(text);
                                     plr.sendMessage(getPrefix() + ChatColor.GREEN + text + " is perfect!");
@@ -366,10 +368,10 @@ public class TamableFoxes extends JavaPlugin implements Listener {
                                     return AnvilGUI.Response.text("Insert a name for your fox!");
                                 }
                             })
-                            .preventClose()        // prevents the inventory from being closed
-                            .text("Fox name")      // sets the text the GUI should start with
-                            .plugin(this)          // set the plugin instance
-                            .open(player);         // opens the GUI for the player provided
+                            .preventClose()        // Prevents the inventory from being closed
+                            .text("Fox name")      // Sets the text the GUI should start with
+                            .plugin(this)          // Set the plugin instance
+                            .open(player);         // Opens the GUI for the player provided
 
                 } else {
                     player.getWorld().spawnParticle(Particle.SMOKE_NORMAL, entity.getLocation(), 10, 0.3D, 0.3D, 0.3D, 0.15D);
@@ -493,7 +495,7 @@ public class TamableFoxes extends JavaPlugin implements Listener {
         return foxUUIDs;
     }
 
-    public String getPrefix() {
+    public static String getPrefix() {
         //return ChatColor.translateAlternateColorCodes('&', (String) config.get("prefix"));
         return ChatColor.RED + "[Tamable Foxes] ";
     }
