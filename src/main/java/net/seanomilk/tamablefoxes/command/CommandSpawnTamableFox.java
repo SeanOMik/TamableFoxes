@@ -7,14 +7,17 @@ import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
-public class CommandSpawnTamableFox implements CommandExecutor {
+public class CommandSpawnTamableFox implements TabExecutor {
 
     private final TamableFoxes plugin;
 
@@ -70,6 +73,8 @@ public class CommandSpawnTamableFox implements CommandExecutor {
                     plugin.getConfigFoxes().reload();
                     player.sendMessage(plugin.getPrefix() + ChatColor.GREEN + "Reloaded.");
                     break;
+                default:
+                    player.sendMessage(ChatColor.RED + "/spawntamablefox " + ChatColor.GRAY + "[red | snow | verbose | inspect | reload]");
             }
         } else {
             player.sendMessage(ChatColor.RED + "/spawntamablefox " + ChatColor.GRAY + "[red | snow | verbose | inspect | reload]");
@@ -78,4 +83,14 @@ public class CommandSpawnTamableFox implements CommandExecutor {
         return true;
     }
 
+    @Override
+    public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] strings) {
+        return new LinkedList<>(Arrays.asList(
+                "red",
+                "snow",
+                "verbose",
+                "inspect",
+                "reload"
+        ));
+    }
 }
