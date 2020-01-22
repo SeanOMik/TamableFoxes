@@ -5,10 +5,7 @@ import net.minecraft.server.v1_15_R1.EnumItemSlot;
 import net.seanomik.tamablefoxes.EntityTamableFox;
 import net.seanomik.tamablefoxes.TamableFoxes;
 import org.apache.commons.lang.ObjectUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
+import org.bukkit.*;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
@@ -37,7 +34,7 @@ public class SQLiteSetterGetter {
                         "`TYPE` TEXT NOT NULL ,  " +
                         "`SITTING` INTEGER NOT NULL ,  " +
                         "`SLEEPING` INTEGER NOT NULL ,  " +
-                        "`MOUTH_ITEM` TEXT NOT NULL);";
+                        "`MOUTH_ITEM` TEXT NOT NULL);"; // @TODO: Add a age field
 
         try {
             sqLiteHandler.connect();
@@ -99,7 +96,7 @@ public class SQLiteSetterGetter {
         }
     }
 
-    public void saveFoxes(List<EntityTamableFox> foxes) { // @TODO: Optimize
+    public void saveFoxes(List<EntityTamableFox> foxes) { // @TODO: Optimize?
         for (EntityTamableFox fox : foxes) {
             saveFox(fox);
         }
@@ -138,6 +135,63 @@ public class SQLiteSetterGetter {
                 }
 
                 foxList.add(spawnedFox);
+            }
+
+            return foxList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqLiteHandler.getConnection() != null) {
+                try {
+                    sqLiteHandler.getConnection().close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
+
+    public List<EntityTamableFox> spawnFoxesInChunk(Chunk chunk) {
+        plugin = TamableFoxes.getPlugin(TamableFoxes.class);
+        try {
+            sqLiteHandler.connect();
+            PreparedStatement statement = sqLiteHandler.getConnection().prepareStatement("SELECT * FROM foxes");
+            ResultSet results = statement.executeQuery();
+
+            List<EntityTamableFox> foxList = new ArrayList<>();
+            while (results.next()) { // Loop through each row
+                List<String> locationList = Arrays.asList(results.getString("LOCATION").split("\\s*,\\s*"));
+                Location loc = new Location(Bukkit.getWorld(locationList.get(0)), Double.parseDouble(locationList.get(1)), Double.parseDouble(locationList.get(2)), Double.parseDouble(locationList.get(3)));
+
+                // Checks if the location is in a chunk.
+                if (chunk.getX() == ((double) loc.getBlockX() / 16 && chunk.getZ() == loc.getBlockZ() / 16) {
+                    plugin.getServer().getConsoleSender().sendMessage("SPAWN IN CHUNK");
+
+                    EntityTamableFox spawnedFox = (EntityTamableFox) plugin.spawnTamableFox(loc, EntityFox.Type.valueOf(results.getString("TYPE")));
+                    spawnedFox.databaseID = results.getInt("ID");
+                    spawnedFox.setSlot(EnumItemSlot.MAINHAND, CraftItemStack.asNMSCopy(new ItemStack(Material.valueOf(results.getString("MOUTH_ITEM")), 1)));
+
+                    spawnedFox.setSitting(results.getInt("SITTING") == 1);
+                    spawnedFox.setSleeping(results.getInt("SLEEPING") == 1);
+
+                    if (!results.getString("OWNER_UUID").equals("none")) {
+                        UUID ownerUUID = UUID.fromString(results.getString("OWNER_UUID"));
+
+                        OfflinePlayer owner = plugin.getServer().getOfflinePlayer(ownerUUID);
+                        if (owner.isOnline()) {
+                            spawnedFox.setOwner(((CraftPlayer) owner.getPlayer()).getHandle());
+                        }
+
+                        plugin.getFoxUUIDs().put(spawnedFox.getUniqueID(), ownerUUID);
+                        spawnedFox.setChosenName(results.getString("NAME"));
+                        spawnedFox.setTamed(true);
+                    }
+
+                    foxList.add(spawnedFox);
+                } else {
+                    plugin.getServer().getConsoleSender().sendMessage("ChunkX: " + (chunk.getX()) + ", LocX: " + (loc.getBlockX() / 16) + ", ChunkZ: " + (chunk.getZ()) + ", LocZ: " + (loc.getBlockZ() / 16));
+                }
             }
 
             return foxList;

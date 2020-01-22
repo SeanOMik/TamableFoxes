@@ -41,7 +41,7 @@ public class EntityTamableFox extends EntityFox {
             plugin.getFoxUUIDs().put(this.getBukkitEntity().getUniqueId(), null);
         }
 
-        this.setPersistent();
+        this.persistent = false;
     }
 
     @Override

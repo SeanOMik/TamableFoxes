@@ -39,7 +39,7 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <outputFile>D:\Code\java\spigotPlugins\TEST_SERVER\plugins\${project.artifactId}-${project.version}.jar</outputFile>
+                            <outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_\plugins\${project.artifactId}-${project.version}.jar</outputFile>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                         </configuration>
                     </execution>
