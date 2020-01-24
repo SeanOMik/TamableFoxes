@@ -4,6 +4,8 @@ main: net.seanomik.tamablefoxes.TamableFoxes
 api-version: 1.15
 #load: STARTUP
 load: POSTWORLD
+#load: STARTUP
+description: Modified version of TamableFoxes for 1.15.1.
 
 commands:
   spawntamablefox:
