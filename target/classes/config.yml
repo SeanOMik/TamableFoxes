@@ -1,6 +1,7 @@
-# Config for Tamable Foxes modified for 1.15.1
+# Config for Tamable Foxes
 show-owner-in-fox-name: true
 show-nametags: true
+enable-taming-permission: true
 
 tamed-behavior:
-  attack-chicken-rabbit: true
+  attack-wild-animals: true

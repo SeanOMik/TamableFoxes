@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.seanomik</groupId>
-    <artifactId>tamableFoxes</artifactId>
-    <version>1.4.1-SNAPSHOT</version>
+    <artifactId>tamablefoxes</artifactId>
+    <version>1.5-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>TamableFoxes</name>
+    <name>Tamablefoxes</name>
 
     <properties>
         <java.version>1.8</java.version>
@@ -24,8 +24,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.7.0</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -39,7 +39,8 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <outputFile>D:\Code\java\spigotPlugins\TEST_SERVER\plugins\${project.artifactId}-${project.version}.jar</outputFile>
+                            <!--<outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_2_\plugins\${project.artifactId}-MC-1.15.1-${project.version}.jar</outputFile>-->
+                            <outputFile>E:\_TEST_SERVER_1.15.1_\plugins\${project.artifactId}-MC-1.15.1-${project.version}.jar</outputFile>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                         </configuration>
                     </execution>
@@ -70,11 +71,18 @@
     </repositories>
 
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
             <version>1.15.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>-->
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot</artifactId>
+            <version>1.15.1</version>
+            <scope>system</scope>
+            <systemPath>E:/spigot-1.15.1.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.github.WesJD.AnvilGUI</groupId>

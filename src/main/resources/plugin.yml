@@ -1,9 +1,9 @@
-name: TamableFoxes
-version: 1.4.1-SNAPSHOT
+name: Tamablefoxes
+version: ${project.version}
 main: net.seanomik.tamablefoxes.TamableFoxes
 api-version: 1.15
+#load: STARTUP
 load: POSTWORLD
-description: Modified version of TamableFoxes for 1.15.1.
 
 commands:
   spawntamablefox:
@@ -13,4 +13,7 @@ commands:
 permissions:
   tamablefoxes.spawn:
     description: "Gives the player the ability to spawn tamable foxes."
+    default: false
+  tamablefoxes.tame:
+    description: "Gives the player the ability to tame a fox."
     default: false

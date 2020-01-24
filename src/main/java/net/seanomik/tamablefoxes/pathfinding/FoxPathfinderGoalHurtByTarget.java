@@ -8,7 +8,7 @@ import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.List;
 
-public class FoxPathfindGoalHurtByTarget extends PathfinderGoalTarget {
+public class FoxPathfinderGoalHurtByTarget extends PathfinderGoalTarget {
 
     private static final PathfinderTargetCondition a = (new PathfinderTargetCondition()).c().e();
     private final Class<?>[] d;
@@ -16,7 +16,7 @@ public class FoxPathfindGoalHurtByTarget extends PathfinderGoalTarget {
     private int c;
     private Class<?>[] i;
 
-    public FoxPathfindGoalHurtByTarget(EntityTamableFox entitycreature, Class<?>... aclass) {
+    public FoxPathfinderGoalHurtByTarget(EntityTamableFox entitycreature, Class<?>... aclass) {
         super(entitycreature, true);
         this.d = aclass;
         this.a(EnumSet.of(Type.TARGET));
@@ -41,7 +41,7 @@ public class FoxPathfindGoalHurtByTarget extends PathfinderGoalTarget {
         }
     }
 
-    public FoxPathfindGoalHurtByTarget a(Class<?>... aclass) {
+    public FoxPathfinderGoalHurtByTarget a(Class<?>... aclass) {
         this.b = true;
         this.i = aclass;
         return this;

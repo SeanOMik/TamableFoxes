@@ -6,12 +6,12 @@ import net.minecraft.server.v1_15_R1.PathfinderGoal;
 
 import java.util.EnumSet;
 
-public class FoxPathfindGoalSit extends PathfinderGoal {
+public class FoxPathfinderGoalSit extends PathfinderGoal {
 
     private final EntityTamableFox entity;
     private boolean willSit;
 
-    public FoxPathfindGoalSit(EntityTamableFox tamableFox) {
+    public FoxPathfinderGoalSit(EntityTamableFox tamableFox) {
         this.entity = tamableFox;
         this.a(EnumSet.of(Type.JUMP, Type.MOVE));
     }

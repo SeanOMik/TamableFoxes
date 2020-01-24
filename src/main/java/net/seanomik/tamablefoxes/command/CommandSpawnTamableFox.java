@@ -1,8 +1,11 @@
 package net.seanomik.tamablefoxes.command;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Util;
+import net.seanomik.tamablefoxes.Config;
 import net.seanomik.tamablefoxes.EntityTamableFox;
 import net.seanomik.tamablefoxes.TamableFoxes;
 import net.minecraft.server.v1_15_R1.EntityFox;
+import net.seanomik.tamablefoxes.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -42,56 +45,37 @@ public class CommandSpawnTamableFox implements TabExecutor {
             switch (args[0]) {
                 case "red":
                     try {
-                        EntityTamableFox fox = (EntityTamableFox) plugin.spawnTamableFox(player.getLocation(), EntityFox.Type.RED);
-                        plugin.getSpawnedFoxes().add(fox);
+                        EntityTamableFox fox = plugin.spawnTamableFox(player.getLocation(), EntityFox.Type.RED);
+                        //plugin.getSpawnedFoxes().add(fox);
                         plugin.sqLiteSetterGetter.saveFox(fox);
 
-                        player.sendMessage(plugin.getPrefix() + ChatColor.RESET + "Spawned a " + ChatColor.RED + "Red" + ChatColor.WHITE + " fox.");
+                        player.sendMessage(Utils.getPrefix() + ChatColor.RESET + "Spawned a " + ChatColor.RED + "Red" + ChatColor.WHITE + " fox.");
                     } catch (Exception e) {
-                        player.sendMessage(plugin.getPrefix() + ChatColor.RED + "Failed to spawn fox, check console!");
+                        e.printStackTrace();
+                        player.sendMessage(Utils.getPrefix() + ChatColor.RED + "Failed to spawn fox, check console!");
                     }
                     break;
                 case "snow":
                     try {
-                        EntityTamableFox spawnedFox = (EntityTamableFox) plugin.spawnTamableFox(player.getLocation(), EntityFox.Type.SNOW);
-                        plugin.getSpawnedFoxes().add(spawnedFox);
+                        EntityTamableFox spawnedFox = plugin.spawnTamableFox(player.getLocation(), EntityFox.Type.SNOW);
+                        //plugin.getSpawnedFoxes().add(spawnedFox);
                         plugin.sqLiteSetterGetter.saveFox(spawnedFox);
 
-                        player.sendMessage(plugin.getPrefix() + ChatColor.RESET + "Spawned a " + ChatColor.AQUA + "Snow" + ChatColor.WHITE + " fox.");
+                        player.sendMessage(Utils.getPrefix() + ChatColor.RESET + "Spawned a " + ChatColor.AQUA + "Snow" + ChatColor.WHITE + " fox.");
                     } catch (Exception e) {
-                        player.sendMessage(plugin.getPrefix() + ChatColor.RED + "Failed to spawn fox, check console!");
-                    }
-                    break;
-                case "verbose":
-                    player.sendMessage(plugin.getFoxUUIDs().toString());
-                    break;
-                case "inspect":
-                    ItemStack itemStack = new ItemStack(Material.REDSTONE_TORCH, 1);
-                    ItemMeta itemMeta = itemStack.getItemMeta();
-                    List<String> lore = Collections.singletonList(TamableFoxes.ITEM_INSPECTOR_LORE);
-                    itemMeta.setLore(lore);
-                    itemStack.setItemMeta(itemMeta);
-
-                    if (player.getInventory().getItemInMainHand().getType() == Material.AIR) {
-                        player.getInventory().setItemInMainHand(itemStack);
-                        player.sendMessage(plugin.getPrefix() + ChatColor.GREEN + "Gave Inspector item.");
-                    } else if (player.getInventory().firstEmpty() == -1) {
-                        player.sendMessage(plugin.getPrefix() + ChatColor.RED + "Your inventory is full!");
-                    } else {
-                        player.sendMessage(plugin.getPrefix() + ChatColor.GREEN + "Added item to inventory.");
-                        player.getInventory().addItem(itemStack);
+                        e.printStackTrace();
+                        player.sendMessage(Utils.getPrefix() + ChatColor.RED + "Failed to spawn fox, check console!");
                     }
                     break;
                 case "reload":
-                    plugin.getMainConfig().reload();
-                    //plugin.getConfigFoxes().reload();
-                    player.sendMessage(plugin.getPrefix() + ChatColor.GREEN + "Reloaded.");
+                    plugin.reloadConfig();
+                    player.sendMessage(Utils.getPrefix() + ChatColor.GREEN + "Reloaded.");
                     break;
                 default:
-                    player.sendMessage(ChatColor.RED + "/spawntamablefox " + ChatColor.GRAY + "[red | snow | verbose | inspect | reload]");
+                    player.sendMessage(ChatColor.RED + "/spawntamablefox " + ChatColor.GRAY + "[red | snow | reload]");
             }
         } else {
-            player.sendMessage(ChatColor.RED + "/spawntamablefox " + ChatColor.GRAY + "[red | snow | verbose | inspect | reload]");
+            player.sendMessage(ChatColor.RED + "/spawntamablefox " + ChatColor.GRAY + "[red | snow | reload]");
         }
 
         return true;
@@ -102,8 +86,6 @@ public class CommandSpawnTamableFox implements TabExecutor {
         return new LinkedList<>(Arrays.asList(
                 "red",
                 "snow",
-                "verbose",
-                "inspect",
                 "reload"
         ));
     }

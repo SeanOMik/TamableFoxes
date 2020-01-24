@@ -8,13 +8,13 @@ import org.bukkit.event.entity.EntityTargetEvent.TargetReason;
 
 import java.util.EnumSet;
 
-public class FoxPathfindGoalOwnerHurtTarget extends PathfinderGoalTarget {
+public class FoxPathfinderGoalOwnerHurtByTarget extends PathfinderGoalTarget {
 
     private final EntityTamableFox a;
     private EntityLiving b;
     private int c;
 
-    public FoxPathfindGoalOwnerHurtTarget(EntityTamableFox tamableFox) {
+    public FoxPathfinderGoalOwnerHurtByTarget(EntityTamableFox tamableFox) {
         super(tamableFox, false);
         this.a = tamableFox;
         this.a(EnumSet.of(Type.TARGET));
@@ -26,9 +26,9 @@ public class FoxPathfindGoalOwnerHurtTarget extends PathfinderGoalTarget {
             if (entityliving == null) {
                 return false;
             } else {
-                this.b = entityliving.cJ();
-                int i = entityliving.cK();
-                return i != this.c && this.a(this.b, PathfinderTargetCondition.a);
+                this.b = entityliving.getLastDamager();
+                int i = entityliving.cI();
+                return i != this.c && this.a(this.b, PathfinderTargetCondition.a); //&& this.a.a(this.b, entityliving); // Returns true in any condition
             }
         } else {
             return false;
@@ -36,12 +36,13 @@ public class FoxPathfindGoalOwnerHurtTarget extends PathfinderGoalTarget {
     }
 
     public void c() {
-        this.e.setGoalTarget(this.b, TargetReason.OWNER_ATTACKED_TARGET, true);
+        this.e.setGoalTarget(this.b, TargetReason.TARGET_ATTACKED_OWNER, true);
         EntityLiving entityliving = this.a.getOwner();
         if (entityliving != null) {
-            this.c = entityliving.cK();
+            this.c = entityliving.cI();
         }
 
         super.c();
     }
+
 }
