@@ -54,6 +54,7 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="restartRequiresConfirmation" value="false" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
   </component>
   <component name="RecentsManager">
@@ -64,13 +65,13 @@
   </component>
   <component name="RunManager" selected="JAR Application.Spigot-1.15.1">
     <configuration name="Spigot-1.15.1" type="JarApplication">
-      <option name="JAR_PATH" value="$PROJECT_DIR$/../../_TEST_SERVER_1.15.1_/spigot-1.15.1.jar" />
+      <option name="JAR_PATH" value="$USER_HOME$/_TEST_SERVER_1.15.1_/spigot-1.15.1.jar" />
       <option name="WORKING_DIRECTORY" value="D:\Code\java\spigotPlugins\_TEST_SERVER_1.15.1_" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <method v="2" />
     </configuration>
     <configuration default="true" type="JarApplication">
-      <option name="JAR_PATH" value="$PROJECT_DIR$/../../_TEST_SERVER_2_/spigot-1.15.1.jar" />
+      <option name="JAR_PATH" value="$USER_HOME$/_TEST_SERVER_2_/spigot-1.15.1.jar" />
       <option name="WORKING_DIRECTORY" value="D:\Code\java\spigotPlugins\_TEST_SERVER_2_" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <method v="2" />
