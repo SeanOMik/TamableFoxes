@@ -15,7 +15,7 @@ public class SQLiteHandler {
 			String baseLoc = Bukkit.getWorldContainer().toURI().toString().substring(6);
 			baseLoc = baseLoc.substring(0,baseLoc.length()-2);
 
-			String url = "jdbc:sqlite:" + baseLoc + "plugins/TamableFoxes/foxes.db";
+			String url = "jdbc:sqlite:" + baseLoc + "plugins/Tamablefoxes/foxes.db";
 			connection = DriverManager.getConnection(url);
 
 			//Bukkit.getConsoleSender().sendMessage(TamableFoxes.getPrefix() + "Connection to SQLite has been established.");
