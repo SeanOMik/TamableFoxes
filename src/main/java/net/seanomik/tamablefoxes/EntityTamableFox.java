@@ -2,6 +2,7 @@ package net.seanomik.tamablefoxes;
 
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.server.v1_15_R1.*;
+import net.seanomik.tamablefoxes.io.Config;
 import net.seanomik.tamablefoxes.pathfinding.*;
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
@@ -241,7 +242,7 @@ public class EntityTamableFox extends EntityFox {
         return this.jumping;
     }
 
-    private void updateFoxVisual() {
+    public void updateFoxVisual() {
         new UpdateFoxRunnable().runTask(TamableFoxes.getPlugin());
     }
 

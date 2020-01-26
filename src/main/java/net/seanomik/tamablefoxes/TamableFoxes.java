@@ -1,16 +1,15 @@
 package net.seanomik.tamablefoxes;
 
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import net.minecraft.server.v1_15_R1.EntityFox;
-import net.minecraft.server.v1_15_R1.EntityLiving;
-import net.minecraft.server.v1_15_R1.EntityTypes;
-import net.minecraft.server.v1_15_R1.EnumItemSlot;
+import net.minecraft.server.v1_15_R1.*;
 import net.seanomik.tamablefoxes.command.CommandSpawnTamableFox;
+import net.seanomik.tamablefoxes.io.Config;
+import net.seanomik.tamablefoxes.io.LanguageConfig;
 import net.seanomik.tamablefoxes.sqlite.SQLiteHandler;
 import net.seanomik.tamablefoxes.sqlite.SQLiteSetterGetter;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.*;
+import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
@@ -18,7 +17,10 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
+import org.bukkit.event.player.PlayerBedEnterEvent;
+import org.bukkit.event.player.PlayerBedLeaveEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.world.WorldSaveEvent;
@@ -31,13 +33,10 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 // @TODO: Add language.yml
-//        Foxes will be loaded in as sitting, even if they weren't when the server was shutdown
-//         Add fox sleeping when the player sleeps
+//        Foxes will be loaded in as sitting, even if they weren't when the server was shutdown (sometimes)
 public final class TamableFoxes extends JavaPlugin implements Listener {
     private static TamableFoxes plugin;
     public List<EntityTamableFox> spawnedFoxes = new ArrayList<>();
@@ -45,12 +44,19 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
     public SQLiteSetterGetter sqLiteSetterGetter = new SQLiteSetterGetter();
     public SQLiteHandler sqLiteHandler = new SQLiteHandler();
 
+    private boolean versionSupported = true;
+
     @Override
     public void onLoad() {
+        plugin = this;
+
+        LanguageConfig.getConfig().saveDefault();
+
         String version = Bukkit.getServer().getClass().getPackage().getName();
 
         if (!version.equals("org.bukkit.craftbukkit.v1_15_R1")) {
-            Bukkit.getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.RED + "This plugin version only supports 1.15.1! Not registering entity!");
+            Bukkit.getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.RED + LanguageConfig.getUnsupportedMCVersionRegister());
+            versionSupported = false;
             return;
         }
 
@@ -68,24 +74,21 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
 
             field.setAccessible(false);
 
-            getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.GREEN + "Replaced tamable fox entity!");
+            getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.GREEN + LanguageConfig.getSuccessReplaced());
         } catch (Exception e) {
             e.printStackTrace();
-            getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.RED + "Failed to replace tamable fox entity!");
+            getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.RED + LanguageConfig.getFailureReplace());
         }
 
     }
 
     @Override
     public void onEnable() {
-        String version = Bukkit.getServer().getClass().getPackage().getName();
-        if (!version.equals("org.bukkit.craftbukkit.v1_15_R1")) {
-            Bukkit.getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.RED + "This plugin version only supports 1.15.1! Disabling plugin!");
+        if (!versionSupported) {
+            Bukkit.getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.RED + LanguageConfig.getUnsupportedMCVersionDisable());
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
-
-        plugin = this;
 
         getServer().getPluginManager().registerEvents(this, this);
         this.getCommand("spawntamablefox").setExecutor(new CommandSpawnTamableFox(this));
@@ -100,7 +103,7 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
-        getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.YELLOW + "Saving foxes.");
+        getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.YELLOW + LanguageConfig.getSavingFoxMessage());
         sqLiteSetterGetter.saveFoxes(spawnedFoxes);
     }
 
@@ -178,8 +181,8 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
                     player.getWorld().spawnParticle(Particle.HEART, entity.getLocation(), 6, 0.5D, 0.5D, 0.5D);
 
                     // Name fox
-                    player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "You just tamed a wild fox!");
-                    player.sendMessage(ChatColor.RED + "What do you want to call it?");
+                    player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + LanguageConfig.getTamedMessage());
+                    player.sendMessage(ChatColor.RED + LanguageConfig.getTamingAskingName());
                     tamableFox.setChosenName("???");
 
                     //TamableFoxes.getPlugin().sqLiteSetterGetter.saveFox(tamableFox);
@@ -189,7 +192,7 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
                             .onComplete((plr, text) -> { // Called when the inventory output slot is clicked
                                 if(!text.equals("")) {
                                     tamableFox.setChosenName(text);
-                                    plr.sendMessage(Utils.getPrefix() + ChatColor.GREEN + text + " is perfect!");
+                                    plr.sendMessage(Utils.getPrefix() + ChatColor.GREEN + LanguageConfig.getTamingChosenPerfect(text));
 
                                     TamableFoxes.getPlugin().sqLiteSetterGetter.saveFox(tamableFox);
                                 }
@@ -213,6 +216,50 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
         }
     }
 
+    @EventHandler
+    public void onPlayerBedEnterEvent(PlayerBedEnterEvent event) {
+        Player player = event.getPlayer();
+        List<EntityTamableFox> foxesOf = getFoxesOf(player);
+
+        for (EntityTamableFox tamableFox : foxesOf) {
+            if (player.getWorld().getTime() > 12541L && player.getWorld().getTime() < 23460L) {
+                tamableFox.setSleeping(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onPlayerBedLeaveEvent(PlayerBedLeaveEvent event) {
+        Player player = event.getPlayer();
+        List<EntityTamableFox> foxesOf = getFoxesOf(player);
+
+        for (EntityTamableFox tamableFox : foxesOf) {
+            tamableFox.setSleeping(false);
+            if (tamableFox.isSitting()) {
+                tamableFox.setSitting(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onEntityDeathEvent(EntityDeathEvent event) {
+        Entity entity = event.getEntity();
+        if (!Utils.isTamableFox(entity)) return; // Is the entity a tamable fox?
+
+        // Remove the fox from storage
+        spawnedFoxes.remove(entity);
+
+        // Notify the owner
+        EntityTamableFox tamableFox = (EntityTamableFox) ((CraftEntity) entity).getHandle();
+        if (tamableFox.getOwner() != null) {
+            Player owner = ((EntityPlayer) tamableFox.getOwner()).getBukkitEntity();
+            owner.sendMessage(Utils.getPrefix() + ChatColor.RED + tamableFox.getChosenName() + " was killed!");
+        }
+
+        // Remove the fox from database
+        sqLiteSetterGetter.removeFox(tamableFox);
+    }
+
     public EntityTamableFox spawnTamableFox(Location loc, EntityFox.Type type) {
         EntityTamableFox tamableFox = (EntityTamableFox) ((CraftEntity) loc.getWorld().spawnEntity(loc, EntityType.FOX)).getHandle();
         tamableFox.setFoxType(type);
@@ -221,7 +268,7 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
     }
 
     public List<EntityTamableFox> getFoxesOf(Player player) {
-        return spawnedFoxes.stream().filter(fox -> fox.getOwnerUUID() != null && fox.getOwnerUUID().equals(player.getUniqueId())).collect(Collectors.toList());
+        return spawnedFoxes.stream().filter(fox -> fox.getOwner() != null && fox.getOwner().getUniqueID().equals(player.getUniqueId())).collect(Collectors.toList());
     }
 
     public static TamableFoxes getPlugin() {

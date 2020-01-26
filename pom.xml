@@ -39,8 +39,8 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <!--<outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_2_\plugins\${project.artifactId}-MC-1.15.1-${project.version}.jar</outputFile>-->
-                            <outputFile>E:\_TEST_SERVER_1.15.1_\plugins\${project.artifactId}-MC-1.15.1-${project.version}.jar</outputFile>
+                            <outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_1.15.1_\plugins\TamableFoxes-MC-v1.15.1-v${project.version}.jar</outputFile>
+                            <!--<outputFile>E:\_TEST_SERVER_1.15.1_\plugins\${project.artifactId}-MC-1.15.1-${project.version}.jar</outputFile>-->
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                         </configuration>
                     </execution>
@@ -71,18 +71,11 @@
     </repositories>
 
     <dependencies>
-        <!--<dependency>
+        <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
             <version>1.15.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
-        </dependency>-->
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot</artifactId>
-            <version>1.15.1</version>
-            <scope>system</scope>
-            <systemPath>E:/spigot-1.15.1.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.github.WesJD.AnvilGUI</groupId>

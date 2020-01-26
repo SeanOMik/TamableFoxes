@@ -1,0 +1,18 @@
+unsupported-mc-version-not-registering: "ERROR: This plugin version only supports 1.15.1! Not registering entity!"
+unsupported-mc-version-disabling: "This plugin version only supports 1.15.1! Disabling plugin!"
+success-replaced-entity: "Replaced tamable fox entity!"
+error-to-replaced-entity: "Failed to replace tamable fox entity!"
+
+saving-foxes-message: "Saving foxes."
+
+taming-tamed-message: "You just tamed a wild fox!"
+taming-asking-for-name-message: "What do you want to call it?"
+taming-chosen-name-perfect: "%NAME% is perfect!"
+
+no-permission: "You do not have the permission for this command."
+only-run-by-player: "Command can only be run from player state!"
+spawned-fox-message: "Spawned a %TYPE% fox."
+failed-to-spawn-message: "Failed to spawn fox!"
+reloaded-message: "Reloaded"
+
+created-sql-foxes-database: "Created foxes SQLite database!"

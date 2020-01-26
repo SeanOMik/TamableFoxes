@@ -1,5 +1,6 @@
-package net.seanomik.tamablefoxes;
+package net.seanomik.tamablefoxes.io;
 
+import net.seanomik.tamablefoxes.TamableFoxes;
 import org.bukkit.entity.Player;
 
 public class Config {

@@ -7,9 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="TamableFoxesCustomEntity" />
+        <module name="tamableFoxes" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="tamableFoxes" target="1.8" />
       <module name="TamableFoxesCustomEntity" target="1.8" />
     </bytecodeTargetLevel>
   </component>

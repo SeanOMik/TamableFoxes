@@ -6,6 +6,7 @@ import net.minecraft.server.v1_15_R1.EnumItemSlot;
 import net.seanomik.tamablefoxes.EntityTamableFox;
 import net.seanomik.tamablefoxes.TamableFoxes;
 import net.seanomik.tamablefoxes.Utils;
+import net.seanomik.tamablefoxes.io.LanguageConfig;
 import org.apache.commons.lang.ObjectUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -49,7 +50,7 @@ public class SQLiteSetterGetter {
                 PreparedStatement statement = sqLiteHandler.getConnection().prepareStatement(foxesTable);
                 statement.executeUpdate();
 
-                plugin.getServer().getConsoleSender().sendMessage(Utils.getPrefix() + "Created foxes table!");
+                plugin.getServer().getConsoleSender().sendMessage(Utils.getPrefix() + LanguageConfig.getCreatedSQLDatabase());
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -139,8 +140,12 @@ public class SQLiteSetterGetter {
                     toRemoveLater.add(entityUUID);
                     continue;
                 }
+
+                boolean tamed = false;
                 EntityTamableFox tamableFox = (EntityTamableFox) ((CraftEntity) plugin.getServer().getEntity(entityUUID)).getHandle();
                 if (!ownerUUIDString.equals("none")) {
+                    tamed = true;
+
                     OfflinePlayer owner = plugin.getServer().getOfflinePlayer(UUID.fromString(ownerUUIDString));
                     if (owner.isOnline()) {
                         EntityLiving livingOwner = (EntityLiving) ((CraftEntity) owner).getHandle();
@@ -154,7 +159,9 @@ public class SQLiteSetterGetter {
 
                 // Fox may spawn standing if the server was closed while it was sitting.
                 if (sitting) {
-                    tamableFox.setHardSitting(true);
+                    if (tamed) {
+                        tamableFox.setHardSitting(true);
+                    }
                 } else if (sleeping) {
                     tamableFox.setSleeping(true);
                 }
