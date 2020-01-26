@@ -1,23 +1,12 @@
 package net.seanomik.tamablefoxes.sqlite;
 
-import net.minecraft.server.v1_15_R1.EntityFox;
 import net.minecraft.server.v1_15_R1.EntityLiving;
-import net.minecraft.server.v1_15_R1.EnumItemSlot;
 import net.seanomik.tamablefoxes.EntityTamableFox;
 import net.seanomik.tamablefoxes.TamableFoxes;
 import net.seanomik.tamablefoxes.Utils;
 import net.seanomik.tamablefoxes.io.LanguageConfig;
-import org.apache.commons.lang.ObjectUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;

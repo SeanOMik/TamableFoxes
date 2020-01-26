@@ -1,6 +1,5 @@
 package net.seanomik.tamablefoxes.pathfinding;
 
-import net.minecraft.server.v1_15_R1.EntityFox;
 import net.minecraft.server.v1_15_R1.EntityLiving;
 import net.minecraft.server.v1_15_R1.PathfinderGoalMeleeAttack;
 import net.minecraft.server.v1_15_R1.SoundEffects;

@@ -1,14 +1,11 @@
 package net.seanomik.tamablefoxes.pathfinding;
 
-import net.minecraft.server.v1_15_R1.EntityTameableAnimal;
 import net.seanomik.tamablefoxes.EntityTamableFox;
 import net.minecraft.server.v1_15_R1.EntityLiving;
 import net.minecraft.server.v1_15_R1.PathfinderGoalTarget;
 import net.minecraft.server.v1_15_R1.PathfinderTargetCondition;
-import net.seanomik.tamablefoxes.Utils;
 import org.bukkit.event.entity.EntityTargetEvent.TargetReason;
 
-import javax.rmi.CORBA.Util;
 import java.util.EnumSet;
 
 public class FoxPathfinderGoalOwnerHurtTarget extends PathfinderGoalTarget {

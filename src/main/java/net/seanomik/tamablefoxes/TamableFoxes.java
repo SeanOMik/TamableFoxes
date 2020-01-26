@@ -42,12 +42,13 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
     public List<EntityTamableFox> spawnedFoxes = new ArrayList<>();
 
     public SQLiteSetterGetter sqLiteSetterGetter = new SQLiteSetterGetter();
-    public SQLiteHandler sqLiteHandler = new SQLiteHandler();
+    public SQLiteHandler sqLiteHandler;
 
     private boolean versionSupported = true;
 
     @Override
     public void onLoad() {
+        sqLiteHandler = new SQLiteHandler(getDataFolder());
         plugin = this;
 
         LanguageConfig.getConfig().saveDefault();
