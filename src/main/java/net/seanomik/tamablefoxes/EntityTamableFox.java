@@ -3,7 +3,7 @@ package net.seanomik.tamablefoxes;
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.server.v1_15_R1.*;
 import net.seanomik.tamablefoxes.io.Config;
-import net.seanomik.tamablefoxes.pathfinding.*;
+import net.seanomik.tamablefoxes.versions.version_1_15.pathfinding.*;
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Item;

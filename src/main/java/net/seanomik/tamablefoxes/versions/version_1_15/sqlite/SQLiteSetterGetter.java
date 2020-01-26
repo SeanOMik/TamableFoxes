@@ -1,18 +1,25 @@
-package net.seanomik.tamablefoxes.sqlite;
+package net.seanomik.tamablefoxes.versions.version_1_15.sqlite;
 
 import net.minecraft.server.v1_15_R1.EntityLiving;
 import net.seanomik.tamablefoxes.EntityTamableFox;
 import net.seanomik.tamablefoxes.TamableFoxes;
 import net.seanomik.tamablefoxes.Utils;
 import net.seanomik.tamablefoxes.io.LanguageConfig;
+import net.seanomik.tamablefoxes.sqlite.SQLiteHandler;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Chunk;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftEntity;
+import org.bukkit.entity.Entity;
 
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
+
+// @TODO: Use try-with-resource instead of try-catch-finally
 
 public class SQLiteSetterGetter {
     public static TamableFoxes plugin;
@@ -39,17 +46,13 @@ public class SQLiteSetterGetter {
                 PreparedStatement statement = sqLiteHandler.getConnection().prepareStatement(foxesTable);
                 statement.executeUpdate();
 
-                plugin.getServer().getConsoleSender().sendMessage(Utils.getPrefix() + LanguageConfig.getCreatedSQLDatabase());
+                plugin.getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.GREEN + LanguageConfig.getCreatedSQLDatabase());
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             if (sqLiteHandler.getConnection() != null) {
-                try {
-                    sqLiteHandler.getConnection().close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                sqLiteHandler.closeConnection();
             }
         }
     }
@@ -91,11 +94,7 @@ public class SQLiteSetterGetter {
             e.printStackTrace();
         } finally {
             if (sqLiteHandler.getConnection() != null) {
-                try {
-                    sqLiteHandler.getConnection().close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                sqLiteHandler.closeConnection();
             }
         }
     }
@@ -108,54 +107,64 @@ public class SQLiteSetterGetter {
         }
     }
 
-    public List<EntityTamableFox> loadFoxes() {
+    public List<EntityTamableFox> loadFoxes(Chunk chunk) {
         plugin = TamableFoxes.getPlugin(TamableFoxes.class);
-        List<UUID> toRemoveLater = new ArrayList<>();
+
+        // If there are no foxes then don't even start
+        List<EntityTamableFox> foxesInChunk = new ArrayList<>();
+        for (Entity entity : chunk.getEntities()) {
+            if (Utils.isTamableFox(entity)) {
+                foxesInChunk.add((EntityTamableFox) ((CraftEntity) entity).getHandle());
+            }
+        }
+
+        if (foxesInChunk.size() == 0) {
+            return new ArrayList<>();
+        }
+
         try {
             sqLiteHandler.connect();
-            PreparedStatement statement = sqLiteHandler.getConnection().prepareStatement("SELECT * FROM foxes");
-            ResultSet results = statement.executeQuery();
 
             List<EntityTamableFox> spawnedFoxes = new ArrayList<>();
-            while (results.next()) { // Loop through each row
-                UUID entityUUID = UUID.fromString(results.getString("ENTITY_UUID"));
-                String ownerUUIDString = results.getString("OWNER_UUID");
-                String name = results.getString("NAME");
-                boolean sitting = results.getInt("SITTING") == 1;
-                boolean sleeping = results.getInt("SLEEPING") == 1;
 
-                // If the entity is null, it doesn't exist anymore so remove it from database
-                if (plugin.getServer().getEntity(entityUUID) == null) {
-                    toRemoveLater.add(entityUUID);
-                    continue;
-                }
+            for (EntityTamableFox tamableFox : foxesInChunk) {
+                PreparedStatement statement = sqLiteHandler.getConnection().prepareStatement("SELECT * FROM foxes WHERE ENTITY_UUID=?");
+                statement.setString(1, tamableFox.getUniqueID().toString());
+                ResultSet results = statement.executeQuery();
 
-                boolean tamed = false;
-                EntityTamableFox tamableFox = (EntityTamableFox) ((CraftEntity) plugin.getServer().getEntity(entityUUID)).getHandle();
-                if (!ownerUUIDString.equals("none")) {
-                    tamed = true;
+                if (results.next()) {
+                    String ownerUUIDString = results.getString("OWNER_UUID");
+                    String name = results.getString("NAME");
+                    boolean sitting = results.getInt("SITTING") == 1;
+                    boolean sleeping = results.getInt("SLEEPING") == 1;
 
-                    OfflinePlayer owner = plugin.getServer().getOfflinePlayer(UUID.fromString(ownerUUIDString));
-                    if (owner.isOnline()) {
-                        EntityLiving livingOwner = (EntityLiving) ((CraftEntity) owner).getHandle();
-                        tamableFox.setOwner(livingOwner);
+                    boolean tamed = false;
+                    if (!ownerUUIDString.equals("none")) {
+                        tamed = true;
+
+                        OfflinePlayer owner = plugin.getServer().getOfflinePlayer(UUID.fromString(ownerUUIDString));
+                        if (owner.isOnline()) {
+                            EntityLiving livingOwner = (EntityLiving) ((CraftEntity) owner).getHandle();
+                            tamableFox.setOwner(livingOwner);
+                        }
+
+                        tamableFox.setOwnerUUID(owner.getUniqueId());
+                        tamableFox.setTamed(true);
+                        tamableFox.setChosenName(name);
                     }
 
-                    tamableFox.setOwnerUUID(owner.getUniqueId());
-                    tamableFox.setTamed(true);
-                    tamableFox.setChosenName(name);
-                }
-
-                // Fox may spawn standing if the server was closed while it was sitting.
-                if (sitting) {
-                    if (tamed) {
+                    if (sitting && tamed) {
                         tamableFox.setHardSitting(true);
+                    } else if (sleeping) {
+                        tamableFox.setSleeping(true);
+                    } else { // Avoid the foxes getting stuck sitting down.
+                        tamableFox.setSitting(false);
+                        tamableFox.setSleeping(false);
                     }
-                } else if (sleeping) {
-                    tamableFox.setSleeping(true);
-                }
 
-                spawnedFoxes.add(tamableFox);
+
+                    spawnedFoxes.add(tamableFox);
+                }
             }
 
             return spawnedFoxes;
@@ -163,16 +172,7 @@ public class SQLiteSetterGetter {
             e.printStackTrace();
         } finally {
             if (sqLiteHandler.getConnection() != null) {
-                try {
-                    sqLiteHandler.getConnection().close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            // Remove those to remove later UUIDs
-            for (UUID uuid : toRemoveLater) {
-                removeFox(uuid);
+                sqLiteHandler.closeConnection();
             }
         }
         return null;
@@ -189,11 +189,7 @@ public class SQLiteSetterGetter {
             e.printStackTrace();
         } finally {
             if (sqLiteHandler.getConnection() != null) {
-                try {
-                    sqLiteHandler.getConnection().close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                sqLiteHandler.closeConnection();
             }
         }
     }

@@ -1,11 +1,11 @@
 package net.seanomik.tamablefoxes;
 
 import net.minecraft.server.v1_15_R1.*;
-import net.seanomik.tamablefoxes.command.CommandSpawnTamableFox;
+import net.seanomik.tamablefoxes.versions.version_1_15.command.CommandSpawnTamableFox;
 import net.seanomik.tamablefoxes.io.Config;
 import net.seanomik.tamablefoxes.io.LanguageConfig;
 import net.seanomik.tamablefoxes.sqlite.SQLiteHandler;
-import net.seanomik.tamablefoxes.sqlite.SQLiteSetterGetter;
+import net.seanomik.tamablefoxes.versions.version_1_15.sqlite.SQLiteSetterGetter;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.*;
 import org.bukkit.Material;
@@ -23,38 +23,44 @@ import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.bukkit.event.player.PlayerBedLeaveEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.event.world.WorldSaveEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
-// @TODO: Add language.yml
-//        Foxes will be loaded in as sitting, even if they weren't when the server was shutdown (sometimes)
+// @TODO:
+
+/* @CHANGELOG (1.5.1):
+ *    Now loads on Linux
+ *    Fixed a bug that would cause foxes to not be tamed after a server reboot
+ *    Updated to 1.15.2
+ */
 public final class TamableFoxes extends JavaPlugin implements Listener {
     private static TamableFoxes plugin;
     public List<EntityTamableFox> spawnedFoxes = new ArrayList<>();
 
     public SQLiteSetterGetter sqLiteSetterGetter = new SQLiteSetterGetter();
-    public SQLiteHandler sqLiteHandler;
+    public SQLiteHandler sqLiteHandler = new SQLiteHandler();
 
     private boolean versionSupported = true;
 
     @Override
     public void onLoad() {
-        sqLiteHandler = new SQLiteHandler(getDataFolder());
         plugin = this;
 
         LanguageConfig.getConfig().saveDefault();
 
         String version = Bukkit.getServer().getClass().getPackage().getName();
-
         if (!version.equals("org.bukkit.craftbukkit.v1_15_R1")) {
             Bukkit.getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.RED + LanguageConfig.getUnsupportedMCVersionRegister());
             versionSupported = false;
@@ -98,8 +104,6 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
         this.saveDefaultConfig();
         getConfig().options().copyDefaults(true);
         saveConfig();
-
-        spawnedFoxes = sqLiteSetterGetter.loadFoxes();
     }
 
     @Override
@@ -111,6 +115,13 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
     @EventHandler
     public void onWorldSaveEvent(WorldSaveEvent event) {
         sqLiteSetterGetter.saveFoxes(spawnedFoxes);
+    }
+
+    @EventHandler
+    public void onChunkLoad(ChunkLoadEvent event) {
+        Bukkit.getScheduler().runTaskLaterAsynchronously(this, ()-> {
+            spawnedFoxes.addAll(sqLiteSetterGetter.loadFoxes(event.getChunk()));
+        }, 5L);
     }
 
     @EventHandler
@@ -139,6 +150,8 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
         Player player = event.getPlayer();
 
         if (event.getHand() != EquipmentSlot.HAND) return;
+
+        player.sendMessage(entity.getUniqueId().toString());
 
         ItemStack itemHand = player.getInventory().getItemInMainHand();
         ItemMeta handMeta =  itemHand.getItemMeta();
@@ -258,7 +271,7 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
         }
 
         // Remove the fox from database
-        sqLiteSetterGetter.removeFox(tamableFox);
+        //sqLiteSetterGetter.removeFox(tamableFox);
     }
 
     public EntityTamableFox spawnTamableFox(Location loc, EntityFox.Type type) {

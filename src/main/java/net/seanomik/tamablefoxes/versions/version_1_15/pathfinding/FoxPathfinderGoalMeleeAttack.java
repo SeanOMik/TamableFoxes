@@ -1,4 +1,4 @@
-package net.seanomik.tamablefoxes.pathfinding;
+package net.seanomik.tamablefoxes.versions.version_1_15.pathfinding;
 
 import net.minecraft.server.v1_15_R1.EntityLiving;
 import net.minecraft.server.v1_15_R1.PathfinderGoalMeleeAttack;

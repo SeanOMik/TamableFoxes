@@ -1,4 +1,4 @@
-package net.seanomik.tamablefoxes.command;
+package net.seanomik.tamablefoxes.versions.version_1_15.command;
 
 import net.seanomik.tamablefoxes.EntityTamableFox;
 import net.seanomik.tamablefoxes.TamableFoxes;

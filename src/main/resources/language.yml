@@ -1,5 +1,5 @@
-unsupported-mc-version-not-registering: "ERROR: This plugin version only supports 1.15.1! Not registering entity!"
-unsupported-mc-version-disabling: "This plugin version only supports 1.15.1! Disabling plugin!"
+unsupported-mc-version-not-registering: "ERROR: This plugin version only supports Spigot 1.15.1, currently not Paper! Not registering entity!"
+unsupported-mc-version-disabling: "This plugin version only supports Spigot 1.15.1, currently not Paper! Disabling plugin!"
 success-replaced-entity: "Replaced tamable fox entity!"
 error-to-replaced-entity: "Failed to replace tamable fox entity!"
 

@@ -1,11 +1,16 @@
 package net.seanomik.tamablefoxes;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Chunk;
+import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftEntity;
+import org.bukkit.entity.Entity;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.UUID;
 
 public class Utils {
 
@@ -82,5 +87,27 @@ public class Utils {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static Entity getEntity(UUID uuid) {
+        for (World world : Bukkit.getServer().getWorlds()) {
+            for (Entity entity : world.getEntities()) {
+                if (entity.getUniqueId().equals(uuid)) {
+                    return entity;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public static Entity getEntity(Chunk chunk, UUID uuid) {
+        for (Entity entity : chunk.getEntities()) {
+            if (entity.getUniqueId().equals(uuid)) {
+                return entity;
+            }
+        }
+
+        return null;
     }
 }
