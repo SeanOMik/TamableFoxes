@@ -5,8 +5,12 @@ import net.minecraft.server.v1_15_R1.*;
 import net.seanomik.tamablefoxes.io.Config;
 import net.seanomik.tamablefoxes.versions.version_1_15.pathfinding.*;
 import org.bukkit.ChatColor;
+import org.bukkit.NamespacedKey;
 import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_15_R1.persistence.CraftPersistentDataContainer;
 import org.bukkit.entity.Item;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import javax.annotation.Nullable;
@@ -188,7 +192,7 @@ public class EntityTamableFox extends EntityFox {
         item.setCount(1);
         setSlot(EnumItemSlot.MAINHAND, item);
 
-        TamableFoxes.getPlugin().sqLiteSetterGetter.saveFox(this);
+        save();
     }
 
     public void setMouthItem(org.bukkit.inventory.ItemStack item) {
@@ -463,5 +467,27 @@ public class EntityTamableFox extends EntityFox {
         }
 
         return groupdataentity;
+    }
+
+    public void save() {
+        NamespacedKey rootKey = new NamespacedKey(TamableFoxes.getPlugin(), "tamableFoxes");
+        CraftPersistentDataContainer persistentDataContainer = getBukkitEntity().getPersistentDataContainer();
+        PersistentDataContainer tamableFoxesData;
+        if (persistentDataContainer.has(rootKey, PersistentDataType.TAG_CONTAINER)) {
+            tamableFoxesData = persistentDataContainer.get(rootKey, PersistentDataType.TAG_CONTAINER);
+        } else {
+            tamableFoxesData = persistentDataContainer.getAdapterContext().newPersistentDataContainer();
+        }
+
+        NamespacedKey ownerKey = new NamespacedKey(TamableFoxes.getPlugin(), "owner");
+        NamespacedKey chosenNameKey = new NamespacedKey(TamableFoxes.getPlugin(), "chosenName");
+        NamespacedKey sittingKey = new NamespacedKey(TamableFoxes.getPlugin(), "sitting");
+        NamespacedKey sleepingKey = new NamespacedKey(TamableFoxes.getPlugin(), "sleeping");
+        tamableFoxesData.set(ownerKey, PersistentDataType.STRING, getOwner() == null ? "none" : getOwner().getUniqueID().toString());
+        tamableFoxesData.set(chosenNameKey, PersistentDataType.STRING, getChosenName());
+        tamableFoxesData.set(sittingKey, PersistentDataType.BYTE, (byte) (isSitting() ?  1 : 0));
+        tamableFoxesData.set(sleepingKey, PersistentDataType.BYTE, (byte) (isSleeping() ?  1 : 0));
+
+        persistentDataContainer.set(rootKey, PersistentDataType.TAG_CONTAINER, tamableFoxesData);
     }
 }

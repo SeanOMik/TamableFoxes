@@ -4,8 +4,6 @@ import net.minecraft.server.v1_15_R1.*;
 import net.seanomik.tamablefoxes.versions.version_1_15.command.CommandSpawnTamableFox;
 import net.seanomik.tamablefoxes.io.Config;
 import net.seanomik.tamablefoxes.io.LanguageConfig;
-import net.seanomik.tamablefoxes.sqlite.SQLiteHandler;
-import net.seanomik.tamablefoxes.versions.version_1_15.sqlite.SQLiteSetterGetter;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.*;
 import org.bukkit.Material;
@@ -46,9 +44,6 @@ import java.util.stream.Collectors;
 public final class TamableFoxes extends JavaPlugin implements Listener {
     private static TamableFoxes plugin;
     public List<EntityTamableFox> spawnedFoxes = new ArrayList<>();
-
-    public SQLiteSetterGetter sqLiteSetterGetter = new SQLiteSetterGetter();
-    public SQLiteHandler sqLiteHandler = new SQLiteHandler();
 
     private boolean versionSupported = true;
 
@@ -98,7 +93,6 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(this, this);
         this.getCommand("spawntamablefox").setExecutor(new CommandSpawnTamableFox(this));
 
-        sqLiteSetterGetter.createTablesIfNotExist();
         this.saveDefaultConfig();
         getConfig().options().copyDefaults(true);
         saveConfig();
@@ -107,18 +101,18 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
     @Override
     public void onDisable() {
         getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.YELLOW + LanguageConfig.getSavingFoxMessage());
-        sqLiteSetterGetter.saveFoxes(spawnedFoxes);
+        spawnedFoxes.forEach(EntityTamableFox::save);
     }
 
     @EventHandler
     public void onWorldSaveEvent(WorldSaveEvent event) {
-        sqLiteSetterGetter.saveFoxes(spawnedFoxes);
+        spawnedFoxes.forEach(EntityTamableFox::save);
     }
 
     @EventHandler
     public void onChunkLoad(ChunkLoadEvent event) {
         Bukkit.getScheduler().runTaskLaterAsynchronously(this, ()-> {
-            spawnedFoxes.addAll(sqLiteSetterGetter.loadFoxes(event.getChunk()));
+            spawnedFoxes.addAll(Utils.loadFoxesInChunk(event.getChunk()));
         }, 5L);
     }
 
@@ -203,8 +197,7 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
                                 if(!text.equals("")) {
                                     tamableFox.setChosenName(text);
                                     plr.sendMessage(Utils.getPrefix() + ChatColor.GREEN + LanguageConfig.getTamingChosenPerfect(text));
-
-                                    TamableFoxes.getPlugin().sqLiteSetterGetter.saveFox(tamableFox);
+                                    tamableFox.save();
                                 }
 
                                 return AnvilGUI.Response.close();
