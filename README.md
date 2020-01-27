@@ -3,9 +3,6 @@
 SpigotMC Plugin that gives you the ability to tame foxes!
 </p>
 
-
-This code is currently only updated to work on 1.14.4. Due to the way this plugin works with NMS, it is extremely difficult to maintain for each new spigot update.
-
 Features:
 * 33% Chance of taming
 * Breeding
