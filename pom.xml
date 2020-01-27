@@ -40,7 +40,7 @@
                         </goals>
                         <configuration>
                             <!--<outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_1.15.1_\plugins\TamableFoxes-MC-v1.15.1-v${project.version}.jar</outputFile>-->
-                            <outputFile>C:\code\java\_TEST_SERVER_1.15.2_\plugins\TamableFoxes-MC-v1.15.1-v${project.version}.jar</outputFile>
+                            <outputFile>C:\code\java\_TEST_SERVER_1.15.2_\plugins\TamableFoxes-MC-v1.15.X-v${project.version}.jar</outputFile>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                         </configuration>
                     </execution>
