@@ -6,7 +6,7 @@
 
     <groupId>net.seanomik</groupId>
     <artifactId>tamablefoxes</artifactId>
-    <version>1.5.1-SNAPSHOT</version>
+    <version>1.5.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Tamablefoxes</name>
@@ -39,8 +39,8 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_1.15.1_\plugins\TamableFoxes-MC-v1.15.1-v${project.version}.jar</outputFile>
-                            <!--<outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_PAPER_1.15.1_\plugins\TamableFoxes-MC-v1.15.2-v${project.version}.jar</outputFile>-->
+                            <!--<outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_1.15.1_\plugins\TamableFoxes-MC-v1.15.1-v${project.version}.jar</outputFile>-->
+                            <outputFile>C:\code\java\_TEST_SERVER_1.15.2_\plugins\TamableFoxes-MC-v1.15.1-v${project.version}.jar</outputFile>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                         </configuration>
                     </execution>
@@ -71,11 +71,18 @@
     </repositories>
 
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
             <version>1.15.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>-->
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot</artifactId>
+            <scope>system</scope>
+            <version>1.15.2</version>
+            <systemPath>${project.basedir}/../spigot-1.15.2.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.github.WesJD.AnvilGUI</groupId>

@@ -40,10 +40,8 @@ import java.util.stream.Collectors;
 
 // @TODO:
 
-/* @CHANGELOG (1.5.1):
- *    Now loads on Linux
- *    Fixed a bug that would cause foxes to not be tamed after a server reboot
- *    Updated to 1.15.2
+/* @CHANGELOG (1.5.2):
+ *    Removed debug messages
  */
 public final class TamableFoxes extends JavaPlugin implements Listener {
     private static TamableFoxes plugin;
@@ -150,8 +148,6 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
         Player player = event.getPlayer();
 
         if (event.getHand() != EquipmentSlot.HAND) return;
-
-        player.sendMessage(entity.getUniqueId().toString());
 
         ItemStack itemHand = player.getInventory().getItemInMainHand();
         ItemMeta handMeta =  itemHand.getItemMeta();
