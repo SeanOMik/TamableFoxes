@@ -92,28 +92,6 @@ public class Utils {
         }
     }
 
-    public static Entity getEntity(UUID uuid) {
-        for (World world : Bukkit.getServer().getWorlds()) {
-            for (Entity entity : world.getEntities()) {
-                if (entity.getUniqueId().equals(uuid)) {
-                    return entity;
-                }
-            }
-        }
-
-        return null;
-    }
-
-    public static Entity getEntity(Chunk chunk, UUID uuid) {
-        for (Entity entity : chunk.getEntities()) {
-            if (entity.getUniqueId().equals(uuid)) {
-                return entity;
-            }
-        }
-
-        return null;
-    }
-
     public static List<EntityTamableFox> loadFoxesInChunk(Chunk chunk) {
         return Arrays.stream(chunk.getEntities()).filter(Utils::isTamableFox)
                 .map(entity -> (EntityTamableFox) ((CraftEntity) entity).getHandle())

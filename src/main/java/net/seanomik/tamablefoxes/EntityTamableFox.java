@@ -266,6 +266,29 @@ public class EntityTamableFox extends EntityFox {
         }
     }
 
+    public void save() {
+        NamespacedKey rootKey = new NamespacedKey(TamableFoxes.getPlugin(), "tamableFoxes");
+        CraftPersistentDataContainer persistentDataContainer = getBukkitEntity().getPersistentDataContainer();
+        PersistentDataContainer tamableFoxesData;
+        if (persistentDataContainer.has(rootKey, PersistentDataType.TAG_CONTAINER)) {
+            tamableFoxesData = persistentDataContainer.get(rootKey, PersistentDataType.TAG_CONTAINER);
+        } else {
+            tamableFoxesData = persistentDataContainer.getAdapterContext().newPersistentDataContainer();
+        }
+
+        NamespacedKey ownerKey = new NamespacedKey(TamableFoxes.getPlugin(), "owner");
+        NamespacedKey chosenNameKey = new NamespacedKey(TamableFoxes.getPlugin(), "chosenName");
+        NamespacedKey sittingKey = new NamespacedKey(TamableFoxes.getPlugin(), "sitting");
+        NamespacedKey sleepingKey = new NamespacedKey(TamableFoxes.getPlugin(), "sleeping");
+        tamableFoxesData.set(ownerKey, PersistentDataType.STRING, getOwner() == null ? "none" : getOwner().getUniqueID().toString());
+        if (getChosenName() != null && !getChosenName().isEmpty()) {
+            tamableFoxesData.set(chosenNameKey, PersistentDataType.STRING, getChosenName());
+        }
+        tamableFoxesData.set(sittingKey, PersistentDataType.BYTE, (byte) (isSitting() ?  1 : 0));
+        tamableFoxesData.set(sleepingKey, PersistentDataType.BYTE, (byte) (isSleeping() ?  1 : 0));
+
+        persistentDataContainer.set(rootKey, PersistentDataType.TAG_CONTAINER, tamableFoxesData);
+    }
 
     // Used for all the nasty stuff below.
     private static boolean isLevelAtLeast(NBTTagCompound tag, int level) {
@@ -467,27 +490,5 @@ public class EntityTamableFox extends EntityFox {
         }
 
         return groupdataentity;
-    }
-
-    public void save() {
-        NamespacedKey rootKey = new NamespacedKey(TamableFoxes.getPlugin(), "tamableFoxes");
-        CraftPersistentDataContainer persistentDataContainer = getBukkitEntity().getPersistentDataContainer();
-        PersistentDataContainer tamableFoxesData;
-        if (persistentDataContainer.has(rootKey, PersistentDataType.TAG_CONTAINER)) {
-            tamableFoxesData = persistentDataContainer.get(rootKey, PersistentDataType.TAG_CONTAINER);
-        } else {
-            tamableFoxesData = persistentDataContainer.getAdapterContext().newPersistentDataContainer();
-        }
-
-        NamespacedKey ownerKey = new NamespacedKey(TamableFoxes.getPlugin(), "owner");
-        NamespacedKey chosenNameKey = new NamespacedKey(TamableFoxes.getPlugin(), "chosenName");
-        NamespacedKey sittingKey = new NamespacedKey(TamableFoxes.getPlugin(), "sitting");
-        NamespacedKey sleepingKey = new NamespacedKey(TamableFoxes.getPlugin(), "sleeping");
-        tamableFoxesData.set(ownerKey, PersistentDataType.STRING, getOwner() == null ? "none" : getOwner().getUniqueID().toString());
-        tamableFoxesData.set(chosenNameKey, PersistentDataType.STRING, getChosenName());
-        tamableFoxesData.set(sittingKey, PersistentDataType.BYTE, (byte) (isSitting() ?  1 : 0));
-        tamableFoxesData.set(sleepingKey, PersistentDataType.BYTE, (byte) (isSleeping() ?  1 : 0));
-
-        persistentDataContainer.set(rootKey, PersistentDataType.TAG_CONTAINER, tamableFoxesData);
     }
 }
