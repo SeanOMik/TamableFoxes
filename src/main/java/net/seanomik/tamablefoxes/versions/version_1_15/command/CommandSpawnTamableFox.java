@@ -41,7 +41,7 @@ public class CommandSpawnTamableFox implements TabExecutor {
                 case "red":
                     try {
                         EntityTamableFox fox = plugin.spawnTamableFox(player.getLocation(), EntityFox.Type.RED);
-                        fox.save();
+                        fox.saveNbt();
 
                         player.sendMessage(Utils.getPrefix() + ChatColor.RESET + LanguageConfig.getSpawnedFoxMessage(EntityFox.Type.RED));
                     } catch (Exception e) {
@@ -52,7 +52,7 @@ public class CommandSpawnTamableFox implements TabExecutor {
                 case "snow":
                     try {
                         EntityTamableFox spawnedFox = plugin.spawnTamableFox(player.getLocation(), EntityFox.Type.SNOW);
-                        spawnedFox.save();
+                        spawnedFox.saveNbt();
 
                         player.sendMessage(Utils.getPrefix() + ChatColor.RESET + LanguageConfig.getSpawnedFoxMessage(EntityFox.Type.SNOW));
                     } catch (Exception e) {

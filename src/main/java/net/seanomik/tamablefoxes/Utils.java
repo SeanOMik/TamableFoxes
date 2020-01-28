@@ -1,15 +1,16 @@
 package net.seanomik.tamablefoxes;
 
 import net.minecraft.server.v1_15_R1.EntityLiving;
-import org.bukkit.*;
+import org.bukkit.ChatColor;
+import org.bukkit.Chunk;
+import org.bukkit.NamespacedKey;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_15_R1.persistence.CraftPersistentDataContainer;
-import org.bukkit.entity.Entity;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -23,35 +24,6 @@ public class Utils {
 
     public static String getPrefix() {
         return ChatColor.RED + "[Tamable Foxes] ";
-    }
-
-    public static Object getPrivateFieldValue(Class c, String field, Object instance) {
-        Object value = null;
-        try {
-            Field f = c.getDeclaredField(field);
-            f.setAccessible(true);
-            value = f.get(instance);
-            f.setAccessible(false);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return value;
-    }
-
-    public static void setPrivateFieldValue(Class c, String field, Object instance, Object value) {
-        try {
-            Field f = c.getDeclaredField(field);
-            f.setAccessible(true);
-            f.set(instance, value);
-            f.setAccessible(false);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void sendConsoleMessage(String message) {
-        TamableFoxes.getPlugin().getServer().getConsoleSender().sendMessage(message);
     }
 
     public static Class<?> getPrivateInnerClass(Class outer, String innerName) {
@@ -101,35 +73,27 @@ public class Utils {
                     if (persistentDataContainer.has(rootKey, PersistentDataType.TAG_CONTAINER)) {
                         PersistentDataContainer tamableFoxesData = persistentDataContainer.get(rootKey, PersistentDataType.TAG_CONTAINER);
                         NamespacedKey ownerKey = new NamespacedKey(TamableFoxes.getPlugin(), "owner");
-                        NamespacedKey chosenNameKey = new NamespacedKey(TamableFoxes.getPlugin(), "chosenName");
                         NamespacedKey sittingKey = new NamespacedKey(TamableFoxes.getPlugin(), "sitting");
-                        NamespacedKey sleepingKey = new NamespacedKey(TamableFoxes.getPlugin(), "sleeping");
 
                         String ownerUUIDString = tamableFoxesData.get(ownerKey, PersistentDataType.STRING);
-                        String chosenName = tamableFoxesData.get(chosenNameKey, PersistentDataType.STRING);
                         boolean sitting = ((byte) 1) == tamableFoxesData.get(sittingKey, PersistentDataType.BYTE);
-                        boolean sleeping = ((byte) 1) == tamableFoxesData.get(sleepingKey, PersistentDataType.BYTE);
 
                         boolean tamed = false;
                         if (!ownerUUIDString.equals("none")) {
                             tamed = true;
-
                             OfflinePlayer owner = TamableFoxes.getPlugin().getServer().getOfflinePlayer(UUID.fromString(ownerUUIDString));
                             if (owner.isOnline()) {
                                 EntityLiving livingOwner = (EntityLiving) ((CraftEntity) owner).getHandle();
                                 tamableFox.setOwner(livingOwner);
+                            } else {
+                                tamableFox.setOwnerUUID(UUID.fromString(ownerUUIDString));
                             }
-
-                            tamableFox.setOwnerUUID(owner.getUniqueId());
                             tamableFox.setTamed(true);
-                            tamableFox.setChosenName(chosenName);
                         }
 
                         if (sitting && tamed) {
                             tamableFox.setHardSitting(true);
-                        } else if (sleeping) {
-                            tamableFox.setSleeping(true);
-                        } else { // Avoid the foxes getting stuck sitting down.
+                        } else {
                             tamableFox.setSitting(false);
                             tamableFox.setSleeping(false);
                         }

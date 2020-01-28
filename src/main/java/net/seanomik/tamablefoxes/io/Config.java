@@ -10,16 +10,16 @@ public class Config {
         return plugin.getConfig().getBoolean("show-owner-in-fox-name");
     }
 
-    public static boolean doesShowNameTags() {
-        return plugin.getConfig().getBoolean("show-nametags");
-    }
-
     public static boolean doesTamedAttackWildAnimals() {
         return plugin.getConfig().getBoolean("tamed-behavior.attack-wild-animals");
     }
 
     public static boolean canPlayerTameFox(Player player) {
         return !plugin.getConfig().getBoolean("enable-taming-permission") || (plugin.getConfig().getBoolean("enable-taming-permission") && (player.hasPermission("tamablefoxes.tame") || player.isOp()));
+    }
+
+    public static boolean askForNameAfterTaming() {
+        return plugin.getConfig().getBoolean("ask-for-name-after-taming");
     }
 
 }

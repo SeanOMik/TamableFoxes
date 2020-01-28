@@ -16,12 +16,12 @@ public class FoxPathfinderGoalPanic extends PathfinderGoalPanic {
 
     public boolean a() {
         try {
-            Method eFMethod = EntityFox.class.getDeclaredMethod("eF");
-            eFMethod.setAccessible(true);
-            boolean eF = (boolean) eFMethod.invoke(tamableFox);
-            eFMethod.setAccessible(false);
+            Method isDefendingMethod = EntityFox.class.getDeclaredMethod("eF");
+            isDefendingMethod.setAccessible(true);
+            boolean isDefending = (boolean) isDefendingMethod.invoke(tamableFox);
+            isDefendingMethod.setAccessible(false);
 
-            return !tamableFox.isTamed() && !eF && super.a();
+            return !tamableFox.isTamed() && !isDefending && super.a();
         } catch (Exception e) {
             e.printStackTrace();
         }

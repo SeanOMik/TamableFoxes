@@ -107,6 +107,10 @@ public class LanguageConfig extends YamlConfiguration  {
         return getConfig().getString("taming-chosen-name-perfect").replaceAll("%NAME%", chosen);
     }
 
+    public static String getOwnerInFoxNameFormat() {
+        return getConfig().getString("owner-in-fox-name-format");
+    }
+
     public static String getNoPermMessage() {
         return getConfig().getString("no-permission");
     }
