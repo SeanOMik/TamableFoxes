@@ -1,5 +1,5 @@
-unsupported-mc-version-not-registering: "ERROR: This plugin version only supports Spigot 1.15.X! Not registering entity!"
-unsupported-mc-version-disabling: "This plugin version only supports Spigot 1.15.X! Disabling plugin!"
+unsupported-mc-version-not-registering: "ERROR: This plugin version only supports Spigot 1.15.X! Not registering entity! Make sure your Java version is no newer than Java 11!"
+unsupported-mc-version-disabling: "This plugin version only supports Spigot 1.15.X! Disabling plugin! Make sure your Java version is no newer than Java 11!"
 success-replaced-entity: "Replaced tamable fox entity!"
 error-to-replaced-entity: "Failed to replace tamable fox entity!"
 saving-foxes-message: "Saving foxes."
