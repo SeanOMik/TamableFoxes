@@ -26,6 +26,7 @@ public class EntityTamableFox extends EntityFox {
     private EntityLiving owner;
     private UUID ownerUUID;
     private FoxPathfinderGoalSit goalSit;
+    private String customName = "";
 
     public EntityTamableFox(EntityTypes<? extends EntityFox> entitytypes, World world) {
         super(entitytypes, world);
@@ -178,7 +179,9 @@ public class EntityTamableFox extends EntityFox {
         this.tamed = tamed;
 
         // Remove goals that are not needed when named, or defeats the purpose of taming
-        untamedGoals.forEach(goal -> goalSelector.a(goal));
+        try {
+            untamedGoals.forEach(goal -> goalSelector.a(goal));
+        } catch (Exception e) {}
     }
 
     public EntityLiving getOwner() {
@@ -210,14 +213,24 @@ public class EntityTamableFox extends EntityFox {
         }
     }
 
+    // This is needed for the updateFoxVisual runnable to set the foxes name.
+    void setCustomName(String customName) {
+        this.customName = customName;
+        updateFoxVisual();
+    }
+
     public void updateFoxVisual() {
         new BukkitRunnable() {
             @Override
             public void run() {
                 goalSit.setSitting(sitting);
 
-                if (tamed && owner != null && !hasCustomName() && Config.doesShowOwnerFoxName()) {
-                    getBukkitEntity().setCustomName(LanguageConfig.getOwnerInFoxNameFormat().replaceAll("%player%", owner.getName()));
+                if (tamed && owner != null && !customName.isEmpty()) {
+                    if (Config.doesShowOwnerFoxName()) {
+                        getBukkitEntity().setCustomName(LanguageConfig.getFoxNameFormat().replaceAll("%OWNER%", owner.getName()).replaceAll("%FOX_NAME%", customName));
+                    } else {
+                        getBukkitEntity().setCustomName(LanguageConfig.getFoxNameFormat().replaceAll("%FOX_NAME%", customName));
+                    }
                 }
             }
         }.runTask(TamableFoxes.getPlugin());

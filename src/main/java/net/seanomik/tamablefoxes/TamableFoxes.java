@@ -37,7 +37,10 @@ import java.util.stream.Collectors;
 // @TODO:
 
 /* @CHANGELOG (1.5.2):
- *    Removed debug messages
+ *    Code cleanup
+ *    Updated old path finding goals
+ *    Added a section in language.yml to customize how a foxes owner's name is displayed.
+ *    Added a choice in the config.yml to disable the Anvil naming GUI so all foxes would have to be named by name tags.
  */
 public final class TamableFoxes extends JavaPlugin implements Listener {
     private static TamableFoxes plugin;
@@ -62,11 +65,13 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
             Field field = EntityTypes.FOX.getClass().getDeclaredField("ba");
             field.setAccessible(true);
 
-            // Remove the final modifier from the "ba" variable
-            Field fieldMutable = field.getClass().getDeclaredField("modifiers");
-            fieldMutable.setAccessible(true);
-            fieldMutable.set(field, fieldMutable.getInt(field) & ~Modifier.FINAL);
-            fieldMutable.setAccessible(false);
+            // If the field is final, then make it non final
+            if ((field.getModifiers() & Modifier.FINAL) == Modifier.FINAL) {
+                Field fieldMutable = field.getClass().getDeclaredField("modifiers");
+                fieldMutable.setAccessible(true);
+                fieldMutable.set(field, fieldMutable.getInt(field) & ~Modifier.FINAL);
+                fieldMutable.setAccessible(false);
+            }
 
             field.set(EntityTypes.FOX, (EntityTypes.b<EntityFox>) (type, world) -> new EntityTamableFox(type, world));
 
@@ -74,7 +79,7 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
 
             getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.GREEN + LanguageConfig.getSuccessReplaced());
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.RED + LanguageConfig.getFailureReplace());
         }
 
@@ -108,7 +113,7 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
     }
 
     @EventHandler
-    public void onChunkLoad(ChunkLoadEvent event) {
+    public void onChunkLoad(ChunkLoadEvent event) { // Wait for all the entities to load.
         Bukkit.getScheduler().runTaskLaterAsynchronously(this, ()-> {
             spawnedFoxes.addAll(Utils.loadFoxesInChunk(event.getChunk()));
         }, 5L);
@@ -149,7 +154,7 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
             EntityTamableFox tamableFox = (EntityTamableFox) ((CraftEntity) entity).getHandle();
 
             // Check if its tamed but ignore it if the player is holding sweet berries for breeding or nametag for renaming
-            if (tamableFox.isTamed() && tamableFox.getOwner() != null && itemHand.getType() != Material.SWEET_BERRIES && itemHand.getType() != Material.NAME_TAG) {
+            if (tamableFox.isTamed() && tamableFox.getOwner() != null && itemHand.getType() != Material.SWEET_BERRIES) {
                 if (tamableFox.getOwner().getUniqueID() == player.getUniqueId()) {
                     event.setCancelled(true);
                     if (player.isSneaking()) {
@@ -160,6 +165,13 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
                             if (itemHand.getAmount() == 1) player.getInventory().removeItem(itemHand);
                             else itemHand.setAmount(itemHand.getAmount() - 1);
                         }
+                    } else if (itemHand.getType() == Material.NAME_TAG) {
+                        if (itemHand.getAmount() == 1) player.getInventory().removeItem(itemHand);
+                        else itemHand.setAmount(itemHand.getAmount() - 1);
+
+                        tamableFox.setCustomName(handMeta.getDisplayName());
+
+                        event.setCancelled(true);
                     } else {
                         tamableFox.toggleSitting();
                     }
@@ -179,7 +191,7 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
                         new AnvilGUI.Builder()
                                 .onComplete((plr, text) -> { // Called when the inventory output slot is clicked
                                     if (!text.equals("")) {
-                                        tamableFox.getBukkitEntity().setCustomName(text);
+                                        tamableFox.setCustomName(text);
                                         tamableFox.setCustomNameVisible(true);
                                         plr.sendMessage(Utils.getPrefix() + ChatColor.GREEN + LanguageConfig.getTamingChosenPerfect(text));
                                         tamableFox.saveNbt();
@@ -187,7 +199,6 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
 
                                     return AnvilGUI.Response.close();
                                 })
-                                //.preventClose()      // Prevents the inventory from being closed
                                 .text("Fox name")      // Sets the text the GUI should start with
                                 .plugin(this)          // Set the plugin instance
                                 .open(player);         // Opens the GUI for the player provided

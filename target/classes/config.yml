@@ -1,7 +1,7 @@
 # Config for Tamable Foxes
 show-owner-in-fox-name: true
-show-nametags: true
 enable-taming-permission: true
+ask-for-name-after-taming: true
 
 tamed-behavior:
   attack-wild-animals: true

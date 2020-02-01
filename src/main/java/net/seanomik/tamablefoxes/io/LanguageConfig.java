@@ -107,8 +107,8 @@ public class LanguageConfig extends YamlConfiguration  {
         return getConfig().getString("taming-chosen-name-perfect").replaceAll("%NAME%", chosen);
     }
 
-    public static String getOwnerInFoxNameFormat() {
-        return getConfig().getString("owner-in-fox-name-format");
+    public static String getFoxNameFormat() {
+        return getConfig().getString("fox-name-format");
     }
 
     public static String getNoPermMessage() {
@@ -130,10 +130,6 @@ public class LanguageConfig extends YamlConfiguration  {
 
     public static String getReloadMessage() {
         return getConfig().getString("reloaded-message");
-    }
-
-    public static String getCreatedSQLDatabase() {
-        return getConfig().getString("created-sql-foxes-database");
     }
 }
 

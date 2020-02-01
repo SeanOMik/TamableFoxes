@@ -7,7 +7,7 @@ saving-foxes-message: "Saving foxes."
 taming-tamed-message: "You just tamed a wild fox!"
 taming-asking-for-name-message: "What do you want to call it?"
 taming-chosen-name-perfect: "%NAME% is perfect!"
-owner-in-fox-name-format: "%player%'s Fox"
+fox-name-format: "%FOX_NAME% (%OWNER%'s Fox)"
 
 no-permission: "You do not have the permission for this command."
 only-run-by-player: "Command can only be run from player state!"
