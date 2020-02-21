@@ -256,7 +256,7 @@ public class EntityTamableFox extends EntityFox {
 
                 if (isOwnedBy(entityhuman)) {
                     boolean flag = super.a(entityhuman, enumhand);
-                    if ((item == Items.AIR || !entityhuman.isSneaking()) && !flag || this.isBaby()) {
+                    if (!entityhuman.isSneaking() && (!flag || this.isBaby())) {
                         this.goalSit.setSitting(!this.isSitting());
                         return flag;
                     } else if (entityhuman.isSneaking()) {

@@ -1,26 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dcab9632-7b1a-44d7-9283-be9b37640afc" name="Default Changelist" comment="EntityTamableFox recode and a few changes&#10;&#10;- Recoded EntityTamableFox to clean the pathfinder bloat&#10;- Removed sleeping and chosenName as this data is already handled by vanilla&#10;- Improved some logic around interact event&#10;- Added a config option to enable and disable the anvil name GUI&#10;- Fixed a bug where item counts would go to zero if just one was present">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="dcab9632-7b1a-44d7-9283-be9b37640afc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/EntityTamableFox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/EntityTamableFox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/TamableFoxes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/TamableFoxes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15/command/CommandSpawnTamableFox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15/command/CommandSpawnTamableFox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15/pathfinding/FoxPathfinderGoalFollowOwner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15/pathfinding/FoxPathfinderGoalFollowOwner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15/pathfinding/FoxPathfinderGoalMeleeAttack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15/pathfinding/FoxPathfinderGoalMeleeAttack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15/pathfinding/FoxPathfinderGoalOwnerHurtByTarget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15/pathfinding/FoxPathfinderGoalOwnerHurtByTarget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15/pathfinding/FoxPathfinderGoalOwnerHurtTarget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15/pathfinding/FoxPathfinderGoalOwnerHurtTarget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/config.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/plugin.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,7 +154,7 @@
       <option name="presentableId" value="Default" />
       <updated>1579657428994</updated>
       <workItem from="1580167223251" duration="11834000" />
-      <workItem from="1582324367334" duration="623000" />
+      <workItem from="1582324367334" duration="782000" />
     </task>
     <task id="LOCAL-00001" summary="Attempt at implementing NBT">
       <created>1580168789486</created>
@@ -187,7 +170,14 @@
       <option name="project" value="LOCAL" />
       <updated>1580233945505</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="New way of implementing foxes">
+      <created>1582326723752</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1582326723759</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -196,7 +186,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Attempt at implementing NBT" />
     <MESSAGE value="EntityTamableFox recode and a few changes&#10;&#10;- Recoded EntityTamableFox to clean the pathfinder bloat&#10;- Removed sleeping and chosenName as this data is already handled by vanilla&#10;- Improved some logic around interact event&#10;- Added a config option to enable and disable the anvil name GUI&#10;- Fixed a bug where item counts would go to zero if just one was present" />
-    <option name="LAST_COMMIT_MESSAGE" value="EntityTamableFox recode and a few changes&#10;&#10;- Recoded EntityTamableFox to clean the pathfinder bloat&#10;- Removed sleeping and chosenName as this data is already handled by vanilla&#10;- Improved some logic around interact event&#10;- Added a config option to enable and disable the anvil name GUI&#10;- Fixed a bug where item counts would go to zero if just one was present" />
+    <MESSAGE value="New way of implementing foxes" />
+    <option name="LAST_COMMIT_MESSAGE" value="New way of implementing foxes" />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580229888801">
@@ -210,10 +201,11 @@
     </state>
     <state x="765" y="230" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580081253579" />
     <state x="765" y="230" key="#com.intellij.ide.util.MemberChooser/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1579708181770" />
-    <state x="495" y="104" key="CommitChangelistDialog2" timestamp="1580233943125">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="2415" y="104" key="CommitChangelistDialog2" timestamp="1582326721037">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="495" y="104" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1580233943125" />
+    <state x="2415" y="104" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1582326721037" />
     <state x="184" y="92" key="DiffContextDialog" timestamp="1580232320365">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
