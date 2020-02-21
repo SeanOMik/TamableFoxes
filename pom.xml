@@ -6,7 +6,7 @@
 
     <groupId>net.seanomik</groupId>
     <artifactId>tamablefoxes</artifactId>
-    <version>1.5.2-SNAPSHOT</version>
+    <version>1.6.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Tamablefoxes</name>
@@ -40,7 +40,7 @@
                         </goals>
                         <configuration>
                             <!--<outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_1.15.1_\plugins\TamableFoxes-MC-v1.15.1-v${project.version}.jar</outputFile>-->
-                            <outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_1.15.2_\plugins\TamableFoxes-MC-v1.15.X-v${project.version}.jar</outputFile>
+                            <outputFile>C:\Users\Checkium\Desktop\vps\smp\SMP\plugins\TamableFoxes-MC-v1.15.X-v${project.version}.jar</outputFile>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                         </configuration>
                     </execution>
@@ -71,23 +71,18 @@
     </repositories>
 
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.15.1-R0.1-SNAPSHOT</version>
+            <version>1.15.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
-        </dependency>
-        <!--<dependency>
+        </dependency>-->
+        <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
             <scope>system</scope>
             <version>1.15.2</version>
-            <systemPath>${project.basedir}/../spigot-1.15.2.jar</systemPath>
-        </dependency>-->
-        <dependency>
-            <groupId>com.github.WesJD.AnvilGUI</groupId>
-            <artifactId>anvilgui</artifactId>
-            <version>478e0c1</version>
+            <systemPath>C:/Users/Checkium/Desktop/Servers/SMP/cache/patched_1.15.2.jar</systemPath>
         </dependency>
     </dependencies>
 </project>

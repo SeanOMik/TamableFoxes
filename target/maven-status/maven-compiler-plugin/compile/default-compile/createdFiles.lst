@@ -4,7 +4,6 @@ net\seanomik\tamablefoxes\versions\version_1_15\pathfinding\FoxPathfinderGoalPan
 net\seanomik\tamablefoxes\versions\version_1_15\pathfinding\FoxPathfinderGoalHurtByTarget.class
 net\seanomik\tamablefoxes\versions\version_1_15\pathfinding\FoxPathfinderGoalFollowOwner.class
 net\seanomik\tamablefoxes\TamableFoxes.class
-net\seanomik\tamablefoxes\EntityTamableFox$UpdateFoxRunnable.class
 net\seanomik\tamablefoxes\versions\version_1_15\pathfinding\FoxPathfinderGoalSit.class
 net\seanomik\tamablefoxes\versions\version_1_15\command\CommandSpawnTamableFox.class
 net\seanomik\tamablefoxes\versions\version_1_15\pathfinding\FoxPathfinderGoalOwnerHurtByTarget.class

@@ -28,7 +28,7 @@ public class FoxPathfinderGoalOwnerHurtByTarget extends PathfinderGoalTarget {
             } else {
                 this.b = entityliving.getLastDamager();
                 int i = entityliving.cI();
-                return i != this.c && this.a(this.b, PathfinderTargetCondition.a); //&& this.a.a(this.b, entityliving); // Returns true in any condition
+                return i != this.c && this.a(this.b, PathfinderTargetCondition.a) && this.a.a(this.b, entityliving);
             }
         } else {
             return false;

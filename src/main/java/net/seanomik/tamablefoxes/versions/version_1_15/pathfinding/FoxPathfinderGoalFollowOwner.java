@@ -51,7 +51,7 @@ public class FoxPathfinderGoalFollowOwner extends PathfinderGoal {
     }
 
     public boolean b() {
-        return this.e.m() ? false : (this.a.isSitting() ? false : this.a.h(this.b) > (double)(this.g * this.g));
+        return !this.e.m() && (!this.a.isSitting() && this.a.h(this.b) > (double) (this.g * this.g));
     }
 
     public void c() {

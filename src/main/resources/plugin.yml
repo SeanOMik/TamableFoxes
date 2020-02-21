@@ -2,7 +2,7 @@ name: Tamablefoxes
 version: ${project.version}
 main: net.seanomik.tamablefoxes.TamableFoxes
 api-version: 1.15
-load: POSTWORLD
+load: STARTUP
 description: Adds tamable foxes to Minecraft!
 
 commands:

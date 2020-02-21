@@ -1,5 +1,5 @@
 # Config for Tamable Foxes
-show-owner-in-fox-name: true
+show-owner-in-fox-name: false
 enable-taming-permission: true
 ask-for-name-after-taming: false
 

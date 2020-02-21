@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dcab9632-7b1a-44d7-9283-be9b37640afc" name="Default Changelist" comment="">
+    <list default="true" id="dcab9632-7b1a-44d7-9283-be9b37640afc" name="Default Changelist" comment="EntityTamableFox recode and a few changes&#10;&#10;- Recoded EntityTamableFox to clean the pathfinder bloat&#10;- Removed sleeping and chosenName as this data is already handled by vanilla&#10;- Improved some logic around interact event&#10;- Added a config option to enable and disable the anvil name GUI&#10;- Fixed a bug where item counts would go to zero if just one was present">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/EntityTamableFox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/EntityTamableFox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/TamableFoxes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/TamableFoxes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15/command/CommandSpawnTamableFox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15/command/CommandSpawnTamableFox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15/pathfinding/FoxPathfinderGoalFollowOwner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15/pathfinding/FoxPathfinderGoalFollowOwner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15/pathfinding/FoxPathfinderGoalMeleeAttack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15/pathfinding/FoxPathfinderGoalMeleeAttack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15/pathfinding/FoxPathfinderGoalOwnerHurtByTarget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15/pathfinding/FoxPathfinderGoalOwnerHurtByTarget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15/pathfinding/FoxPathfinderGoalOwnerHurtTarget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15/pathfinding/FoxPathfinderGoalOwnerHurtTarget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/plugin.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
@@ -13,6 +26,11 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution>
+      <executable />
+    </execution>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -41,13 +59,21 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../DexunGUI" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/Servers/SMP/Paper.jar" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.jsOptions" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -57,26 +83,26 @@
   </component>
   <component name="RunManager" selected="JAR Application.Spigot-1.15.2">
     <configuration name="Paper-1.15.1" type="JarApplication">
-      <option name="JAR_PATH" value="$PROJECT_DIR$/../../_TEST_SERVER_PAPER_1.15.1_/paper-62.jar" />
+      <option name="JAR_PATH" value="$USER_HOME$/_TEST_SERVER_PAPER_1.15.1_/paper-62.jar" />
       <option name="WORKING_DIRECTORY" value="D:\Code\java\spigotPlugins\_TEST_SERVER_PAPER_1.15.1_" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <method v="2" />
     </configuration>
     <configuration name="Paper-1.15.2" type="JarApplication">
-      <option name="JAR_PATH" value="$PROJECT_DIR$/../../_TEST_SERVER_PAPER_1.15.2_/paper-77.jar" />
+      <option name="JAR_PATH" value="$USER_HOME$/_TEST_SERVER_PAPER_1.15.2_/paper-77.jar" />
       <option name="PROGRAM_PARAMETERS" value="nogui" />
       <option name="WORKING_DIRECTORY" value="D:\Code\java\spigotPlugins\_TEST_SERVER_PAPER_1.15.2_" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <method v="2" />
     </configuration>
     <configuration name="Spigot-1.15.1" type="JarApplication">
-      <option name="JAR_PATH" value="$PROJECT_DIR$/../../_TEST_SERVER_1.15.1_/spigot-1.15.1.jar" />
-      <option name="WORKING_DIRECTORY" value="D:\Code\java\spigotPlugins\_TEST_SERVER_1.15.1_" />
+      <option name="JAR_PATH" value="$USER_HOME$/Desktop/vps/smp/SMP/Paper.jar" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\Checkium\Desktop\vps\smp\SMP\" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <method v="2" />
     </configuration>
     <configuration name="Spigot-1.15.2" type="JarApplication">
-      <option name="JAR_PATH" value="$PROJECT_DIR$/../../_TEST_SERVER_1.15.2_/spigot-1.15.2.jar" />
+      <option name="JAR_PATH" value="$USER_HOME$/_TEST_SERVER_1.15.2_/spigot-1.15.2.jar" />
       <option name="PROGRAM_PARAMETERS" value="nogui" />
       <option name="WORKING_DIRECTORY" value="D:\Code\java\spigotPlugins\_TEST_SERVER_1.15.2_" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -144,74 +170,162 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1579657428994</updated>
+      <workItem from="1580167223251" duration="11834000" />
+      <workItem from="1582324367334" duration="623000" />
     </task>
+    <task id="LOCAL-00001" summary="Attempt at implementing NBT">
+      <created>1580168789486</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1580168789486</updated>
+    </task>
+    <task id="LOCAL-00002" summary="EntityTamableFox recode and a few changes&#10;&#10;- Recoded EntityTamableFox to clean the pathfinder bloat&#10;- Removed sleeping and chosenName as this data is already handled by vanilla&#10;- Improved some logic around interact event&#10;- Added a config option to enable and disable the anvil name GUI&#10;- Fixed a bug where item counts would go to zero if just one was present">
+      <created>1580233945505</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1580233945505</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Attempt at implementing NBT" />
+    <MESSAGE value="EntityTamableFox recode and a few changes&#10;&#10;- Recoded EntityTamableFox to clean the pathfinder bloat&#10;- Removed sleeping and chosenName as this data is already handled by vanilla&#10;- Improved some logic around interact event&#10;- Added a config option to enable and disable the anvil name GUI&#10;- Fixed a bug where item counts would go to zero if just one was present" />
+    <option name="LAST_COMMIT_MESSAGE" value="EntityTamableFox recode and a few changes&#10;&#10;- Recoded EntityTamableFox to clean the pathfinder bloat&#10;- Removed sleeping and chosenName as this data is already handled by vanilla&#10;- Improved some logic around interact event&#10;- Added a config option to enable and disable the anvil name GUI&#10;- Fixed a bug where item counts would go to zero if just one was present" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580081956712">
+    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580229888801">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580081956712" />
+    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1580229888801" />
     <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1579710781130" />
     <state x="765" y="230" key="#com.intellij.ide.util.MemberChooser" timestamp="1580081253579">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="765" y="230" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580081253579" />
     <state x="765" y="230" key="#com.intellij.ide.util.MemberChooser/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1579708181770" />
-    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1580081289890">
+    <state x="495" y="104" key="CommitChangelistDialog2" timestamp="1580233943125">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="495" y="104" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1580233943125" />
+    <state x="184" y="92" key="DiffContextDialog" timestamp="1580232320365">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="184" y="92" key="DiffContextDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1580232320365" />
+    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1580229674681">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580081289890" />
+    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1580229674681" />
     <state x="794" y="418" key="Github.CreateGistDialog" timestamp="1580081718270">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="794" y="418" width="356" height="203" key="Github.CreateGistDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580081718270" />
-    <state width="1877" height="221" key="GridCell.Tab.0.bottom" timestamp="1580171814347">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1879" height="282" key="GridCell.Tab.0.bottom" timestamp="1582226910732">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="221" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580171814347" />
+    <state width="1877" height="237" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580083439451" />
+    <state width="939" height="355" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1580234020859" />
+    <state width="1879" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1582226910732" />
     <state width="1877" height="199" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580134668965" />
-    <state width="1877" height="221" key="GridCell.Tab.0.center" timestamp="1580171814347">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1879" height="282" key="GridCell.Tab.0.center" timestamp="1582226910732">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="221" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580171814347" />
+    <state width="1877" height="237" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580083439451" />
+    <state width="939" height="355" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1580234020858" />
+    <state width="1879" height="282" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1582226910732" />
     <state width="1877" height="199" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580134668964" />
-    <state width="1877" height="221" key="GridCell.Tab.0.left" timestamp="1580171814347">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1879" height="282" key="GridCell.Tab.0.left" timestamp="1582226910732">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="221" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580171814347" />
+    <state width="1877" height="237" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580083439451" />
+    <state width="939" height="355" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1580234020858" />
+    <state width="1879" height="282" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1582226910732" />
     <state width="1877" height="199" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580134668964" />
-    <state width="1877" height="221" key="GridCell.Tab.0.right" timestamp="1580171814347">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1879" height="282" key="GridCell.Tab.0.right" timestamp="1582226910732">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="221" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580171814347" />
+    <state width="1877" height="237" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580083439451" />
+    <state width="939" height="355" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1580234020858" />
+    <state width="1879" height="282" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1582226910732" />
     <state width="1877" height="199" key="GridCell.Tab.0.right/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580134668964" />
-    <state width="1877" height="221" key="GridCell.Tab.1.bottom" timestamp="1580171814249">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1879" height="282" key="GridCell.Tab.1.bottom" timestamp="1582226910717">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="221" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580171814249" />
-    <state width="1877" height="221" key="GridCell.Tab.1.center" timestamp="1580171814249">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1877" height="237" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580083439451" />
+    <state width="939" height="355" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1580234020859" />
+    <state width="1879" height="282" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1582226910717" />
+    <state width="1879" height="282" key="GridCell.Tab.1.center" timestamp="1582226910716">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="221" key="GridCell.Tab.1.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580171814249" />
-    <state width="1877" height="221" key="GridCell.Tab.1.left" timestamp="1580171814249">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1877" height="237" key="GridCell.Tab.1.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580083439451" />
+    <state width="939" height="355" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1580234020859" />
+    <state width="1879" height="282" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1582226910716" />
+    <state width="1879" height="282" key="GridCell.Tab.1.left" timestamp="1582226910716">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="221" key="GridCell.Tab.1.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580171814249" />
-    <state width="1877" height="221" key="GridCell.Tab.1.right" timestamp="1580171814249">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1877" height="237" key="GridCell.Tab.1.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580083439451" />
+    <state width="939" height="355" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1580234020859" />
+    <state width="1879" height="282" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1582226910716" />
+    <state width="1879" height="282" key="GridCell.Tab.1.right" timestamp="1582226910716">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="221" key="GridCell.Tab.1.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580171814249" />
+    <state width="1877" height="237" key="GridCell.Tab.1.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580083439451" />
+    <state width="939" height="355" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1580234020859" />
+    <state width="1879" height="282" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1582226910716" />
+    <state width="1879" height="282" key="GridCell.Tab.2.bottom" timestamp="1582226910717">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="939" height="355" key="GridCell.Tab.2.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1580234020859" />
+    <state width="1879" height="282" key="GridCell.Tab.2.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1582226910717" />
+    <state width="1879" height="282" key="GridCell.Tab.2.center" timestamp="1582226910717">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="939" height="355" key="GridCell.Tab.2.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1580234020859" />
+    <state width="1879" height="282" key="GridCell.Tab.2.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1582226910717" />
+    <state width="1879" height="282" key="GridCell.Tab.2.left" timestamp="1582226910717">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="939" height="355" key="GridCell.Tab.2.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1580234020859" />
+    <state width="1879" height="282" key="GridCell.Tab.2.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1582226910717" />
+    <state width="1879" height="282" key="GridCell.Tab.2.right" timestamp="1582226910717">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="939" height="355" key="GridCell.Tab.2.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1580234020859" />
+    <state width="1879" height="282" key="GridCell.Tab.2.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1582226910717" />
     <state x="490" y="174" key="Maven.ArtifactSearchDialog" timestamp="1579373377880">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="498" height="446" key="SwitcherDM/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579469022098" />
-    <state width="498" height="446" key="SwitcherDM/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1579705820492" />
-    <state x="656" y="343" key="com.intellij.ide.util.TipDialog" timestamp="1580171129088">
+    <state x="649" y="243" key="RollbackChangesDialog" timestamp="1580234562831">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="649" y="243" key="RollbackChangesDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1580234562831" />
+    <state x="440" y="95" key="SettingsEditor" timestamp="1580234010294">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="440" y="95" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1580234010294" />
+    <state width="498" height="446" key="SwitcherDM/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1579469022098" />
+    <state width="498" height="446" key="SwitcherDM/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1579705820492" />
+    <state x="552" y="254" key="Vcs.Push.Dialog.v2" timestamp="1580234030515">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="254" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1580234030515" />
+    <state x="2576" y="343" key="com.intellij.ide.util.TipDialog" timestamp="1582324367326">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
     <state x="656" y="343" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580171129088" />
+    <state x="2576" y="343" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1582324367326" />
     <state x="656" y="343" key="com.intellij.ide.util.TipDialog/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580132930429" />
+    <state x="458" y="257" width="1003" height="602" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1580233159142">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="458" y="257" width="1003" height="602" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1580233159142" />
     <state x="-781" y="188" width="1359" height="1028" key="dock-window-1" timestamp="1580017524734">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
@@ -220,11 +334,28 @@
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-809" y="141" width="1359" height="1028" key="dock-window-2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580018302720" />
-    <state x="656" y="125" width="624" height="789" key="find.popup" timestamp="1580133295803">
+    <state x="656" y="125" width="834" height="789" key="find.popup" timestamp="1580233407819">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="656" y="125" width="607" height="789" key="find.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580018609474" />
+    <state x="656" y="125" width="834" height="789" key="find.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1580233407819" />
     <state x="656" y="125" width="624" height="789" key="find.popup/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580133295803" />
+    <state x="698" y="312" key="git4idea.merge.GitMergeDialog" timestamp="1580234410981">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="698" y="312" key="git4idea.merge.GitMergeDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1580234410981" />
+    <state x="633" y="312" key="git4idea.merge.GitPullDialog" timestamp="1580234511781">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="633" y="312" key="git4idea.merge.GitPullDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1580234511781" />
+    <state x="730" y="385" key="git4idea.rebase.GitRebaseDialog" timestamp="1580234534356">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="730" y="385" key="git4idea.rebase.GitRebaseDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1580234534356" />
+    <state x="709" y="415" key="git4idea.ui.GitResetDialog" timestamp="1580234483885">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="709" y="415" key="git4idea.ui.GitResetDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1580234483885" />
     <state x="342" y="189" key="new project wizard" timestamp="1579657428699">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -233,5 +364,26 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580063483764" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/EntityTamableFox.java</url>
+          <line>219</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/EntityTamableFox.java</url>
+          <line>220</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/io/LanguageConfig.java</url>
+          <line>110</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
