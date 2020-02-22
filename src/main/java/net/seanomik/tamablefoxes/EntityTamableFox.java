@@ -1,5 +1,6 @@
 package net.seanomik.tamablefoxes;
 
+import com.google.common.collect.Lists;
 import net.minecraft.server.v1_15_R1.*;
 import net.seanomik.tamablefoxes.io.Config;
 import net.seanomik.tamablefoxes.versions.version_1_15.pathfinding.*;
@@ -12,15 +13,19 @@ import javax.annotation.Nullable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.function.Predicate;
 
 public class EntityTamableFox extends EntityFox {
 
     protected static final DataWatcherObject<Byte> tamed;
     protected static final DataWatcherObject<Optional<UUID>> ownerUUID;
+    private static final Predicate<Entity> bD;
 
     static {
         tamed = DataWatcher.a(EntityTamableFox.class, DataWatcherRegistry.a);
         ownerUUID = DataWatcher.a(EntityTamableFox.class, DataWatcherRegistry.o);
+
+        bD = (entity) -> !entity.bm() && IEntitySelector.e.test(entity);
     }
 
     List<PathfinderGoal> untamedGoals;
@@ -45,7 +50,9 @@ public class EntityTamableFox extends EntityFox {
             this.goalSelector.a(4, getFoxInnerPathfinderGoal("e", Arrays.asList(1.0D), Arrays.asList(double.class))); // BreedGoal
 
             // Avoid human only if not tamed
-            this.goalSelector.a(5, new PathfinderGoalAvoidTarget(this, EntityHuman.class, 16.0F, 1.6D, 1.4D, (entityliving) -> !isTamed()));
+            this.goalSelector.a(5, new PathfinderGoalAvoidTarget(this, EntityHuman.class, 16.0F, 1.6D, 1.4D, (entityliving) -> {
+                return bD.test((EntityLiving) entityliving);
+            }));
 
             // Avoid wolf if it is not tamed
             this.goalSelector.a(5, new PathfinderGoalAvoidTarget(this, EntityWolf.class, 8.0F, 1.6D, 1.4D, (entityliving) -> {
@@ -64,7 +71,7 @@ public class EntityTamableFox extends EntityFox {
             this.goalSelector.a(8, new FoxPathfinderGoalMeleeAttack(this, 1.2000000476837158D, true));
             this.goalSelector.a(9, new FoxPathfinderGoalFollowOwner(this, 1.3D, 10.0F, 2.0F, false));
             this.goalSelector.a(6, getFoxInnerPathfinderGoal("u")); // StalkPrey
-            this.goalSelector.a(7, new EntityFox.o()); // Pounce
+            this.goalSelector.a(7, new o()); // Pounce
 
             this.goalSelector.a(9, getFoxInnerPathfinderGoal("h", Arrays.asList(this, 1.25D), Arrays.asList(EntityFox.class, double.class))); // FollowParent
 
@@ -97,8 +104,6 @@ public class EntityTamableFox extends EntityFox {
                 return (!isTamed() || (Config.doesTamedAttackWildAnimals() && isTamed())) && entityliving instanceof EntityFishSchool;
             }));
 
-
-
             untamedGoals = new ArrayList<>();
 
             // Sleep
@@ -112,7 +117,7 @@ public class EntityTamableFox extends EntityFox {
             untamedGoals.add(perchAndSearch);
 
             // EatBerries (Pick berry bushes)
-            PathfinderGoal eatBerries = new EntityFox.f(1.2000000476837158D, 12, 2);
+            PathfinderGoal eatBerries = new f(1.2000000476837158D, 12, 2);
             this.goalSelector.a(11, eatBerries);
             untamedGoals.add(eatBerries); // Maybe this should be configurable too?
 
