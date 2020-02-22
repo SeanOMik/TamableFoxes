@@ -51,7 +51,7 @@ public class EntityTamableFox extends EntityFox {
 
             // Avoid human only if not tamed
             this.goalSelector.a(5, new PathfinderGoalAvoidTarget(this, EntityHuman.class, 16.0F, 1.6D, 1.4D, (entityliving) -> {
-                return bD.test((EntityLiving) entityliving);
+                return !isTamed() && bD.test((EntityLiving) entityliving);
             }));
 
             // Avoid wolf if it is not tamed
