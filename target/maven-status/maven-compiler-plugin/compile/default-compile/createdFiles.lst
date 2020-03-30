@@ -1,7 +1,6 @@
 net\seanomik\tamablefoxes\EntityTamableFox.class
 net\seanomik\tamablefoxes\versions\version_1_15\pathfinding\FoxPathfinderGoalMeleeAttack.class
 net\seanomik\tamablefoxes\versions\version_1_15\pathfinding\FoxPathfinderGoalPanic.class
-net\seanomik\tamablefoxes\EntityTamableFox$1.class
 net\seanomik\tamablefoxes\versions\version_1_15\pathfinding\FoxPathfinderGoalHurtByTarget.class
 net\seanomik\tamablefoxes\versions\version_1_15\pathfinding\FoxPathfinderGoalFollowOwner.class
 net\seanomik\tamablefoxes\TamableFoxes.class

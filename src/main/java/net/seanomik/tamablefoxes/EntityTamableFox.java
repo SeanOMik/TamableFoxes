@@ -1,10 +1,9 @@
 package net.seanomik.tamablefoxes;
 
-import com.google.common.collect.Lists;
 import net.minecraft.server.v1_15_R1.*;
 import net.seanomik.tamablefoxes.io.Config;
 import net.seanomik.tamablefoxes.versions.version_1_15.pathfinding.*;
-import org.apache.commons.lang.reflect.FieldUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_15_R1.event.CraftEventFactory;
 import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
@@ -33,8 +32,6 @@ public class EntityTamableFox extends EntityFox {
 
     public EntityTamableFox(EntityTypes<? extends EntityFox> entitytypes, World world) {
         super(entitytypes, world);
-       // clearPathFinderGoals();
-        //initPathfinderGoals();
     }
 
     @Override
@@ -143,7 +140,7 @@ public class EntityTamableFox extends EntityFox {
         this.getAttributeMap().b(GenericAttributes.ARMOR_TOUGHNESS);
 
         // Default value is 32, might want to make this configurable in the future
-        this.getAttributeMap().b(GenericAttributes.FOLLOW_RANGE).setValue(16.0D);
+        this.getAttributeMap().b(GenericAttributes.FOLLOW_RANGE).setValue(32.0D);
 
         this.getAttributeMap().b(GenericAttributes.ATTACK_KNOCKBACK);
 
@@ -161,6 +158,7 @@ public class EntityTamableFox extends EntityFox {
     public static Object getPrivateField(String fieldName, Class clazz, Object object) {
         Field field;
         Object o = null;
+
         try {
             field = clazz.getDeclaredField(fieldName);
             field.setAccessible(true);
@@ -168,6 +166,7 @@ public class EntityTamableFox extends EntityFox {
         } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }
+
         return o;
     }
 
@@ -193,12 +192,14 @@ public class EntityTamableFox extends EntityFox {
     public void a(NBTTagCompound compound) {
         super.a(compound);
         String ownerUuid;
+
         if (compound.hasKeyOfType("OwnerUUID", 8)) {
             ownerUuid = compound.getString("OwnerUUID");
         } else {
             String var2 = compound.getString("Owner");
             ownerUuid = NameReferencingFileConverter.a(this.getMinecraftServer(), var2);
         }
+
         if (!ownerUuid.isEmpty()) {
             try {
                 this.setOwnerUUID(UUID.fromString(ownerUuid));
@@ -207,9 +208,11 @@ public class EntityTamableFox extends EntityFox {
                 this.setTamed(false);
             }
         }
+
         if (this.goalSit != null) {
             this.goalSit.setSitting(compound.getBoolean("Sitting"));
         }
+
         this.setSitting(compound.getBoolean("Sitting"));
     }
 
@@ -236,8 +239,10 @@ public class EntityTamableFox extends EntityFox {
         }
     }
 
+    // Remove untamed goals if its tamed.
     private void reassessTameGoals() {
         if (!isTamed()) return;
+
         for (PathfinderGoal untamedGoal : untamedGoals) {
             this.goalSelector.a(untamedGoal);
         }
@@ -247,50 +252,77 @@ public class EntityTamableFox extends EntityFox {
     public boolean a(EntityHuman entityhuman, EnumHand enumhand) {
         ItemStack itemstack = entityhuman.b(enumhand);
         Item item = itemstack.getItem();
+
         if (itemstack.getItem() instanceof ItemMonsterEgg) {
             return super.a(entityhuman, enumhand);
         } else {
             if (this.isTamed()) {
+
+                // Heal the fox if its health is below the max.
                 if (item.isFood() && item.getFoodInfo().c() && this.getHealth() < this.getMaxHealth()) {
+                    // Only remove the item from the player if they're in survival mode.
                     if (!entityhuman.abilities.canInstantlyBuild) {
                         itemstack.subtract(1);
                     }
+
                     this.heal((float)item.getFoodInfo().getNutrition(), EntityRegainHealthEvent.RegainReason.EATING);
                     return true;
                 }
 
                 if (isOwnedBy(entityhuman)) {
+                    // This super method checks if the fox can breed or not.
                     boolean flag = super.a(entityhuman, enumhand);
+
+                    // If the player is not sneaking and the fox cannot breed, then make the fox sit.
                     if (!entityhuman.isSneaking() && (!flag || this.isBaby())) {
                         this.goalSit.setSitting(!this.isSitting());
                         return flag;
-                    } else if (entityhuman.isSneaking()) {
+                    } else if (entityhuman.isSneaking()) { // Swap/Put/Take item from fox.
                         if (!this.getEquipment(EnumItemSlot.MAINHAND).isEmpty()) {
                             getBukkitEntity().getWorld().dropItem(getBukkitEntity().getLocation(), CraftItemStack.asBukkitCopy(this.getEquipment(EnumItemSlot.MAINHAND)));
                             this.setSlot(EnumItemSlot.MAINHAND, new ItemStack(Items.AIR));
                         }
-                        if (item != Items.AIR) {
-                            ItemStack c = itemstack.cloneItemStack();
-                            c.setCount(1);
-                            itemstack.subtract(1);
-                            this.setSlot(EnumItemSlot.MAINHAND, c);
-                        }
+
+                        // Run this task async to make sure to not slow the server down.
+                        // This is needed due to the item being remove as soon as its put in the foxes mouth.
+                        Bukkit.getScheduler().runTaskLaterAsynchronously(TamableFoxes.getPlugin(), ()-> {
+                            // Put item in mouth
+                            if (item != Items.AIR) {
+                                ItemStack c = itemstack.cloneItemStack();
+                                c.setCount(1);
+
+                                // Only remove the item from the player if they're in survival mode.
+                                if (!entityhuman.abilities.canInstantlyBuild) {
+                                    itemstack.subtract(1);
+                                }
+
+                                this.setSlot(EnumItemSlot.MAINHAND, c);
+                            }
+                        }, (long) 0.1);
+
+                        return true;
                     }
                 }
-                // TODO: take/give items
-            } else if (item == Items.SWEET_BERRIES) {
+            } else if (item == Items.CHICKEN) {
+                // Only remove the item from the player if they're in survival mode.
                 if (!entityhuman.abilities.canInstantlyBuild) {
                     itemstack.subtract(1);
                 }
+
+                // 0.33% chance to tame the fox, also check if the called tame entity event is cancelled or not.
                 if (this.random.nextInt(3) == 0 && !CraftEventFactory.callEntityTameEvent(this, entityhuman).isCancelled()) {
                     this.tame(entityhuman);
+
+                    // Remove all navigation when tamed.
                     this.navigation.o();
                     this.setGoalTarget(null);
                     this.goalSit.setSitting(true);
+
                     getBukkitEntity().getWorld().spawnParticle(org.bukkit.Particle.HEART, getBukkitEntity().getLocation(), 6, 0.5D, 0.5D, 0.5D);
                 } else {
                     getBukkitEntity().getWorld().spawnParticle(org.bukkit.Particle.SMOKE_NORMAL, getBukkitEntity().getLocation(), 10, 0.2D, 0.2D, 0.2D, 0.15D);
                 }
+
                 return true;
             }
 
@@ -298,14 +330,11 @@ public class EntityTamableFox extends EntityFox {
         }
     }
 
-    // deobf: isFood (used for breeding)
-    public boolean i(ItemStack itemstack) {
-        Item item = itemstack.getItem();
-        return item.isFood() && item.getFoodInfo().c();
-    }
-
+    @Override
     public EntityTamableFox createChild(EntityAgeable entityageable) {
         EntityTamableFox entityFox = (EntityTamableFox) EntityTypes.FOX.a(this.world);
+        entityFox.setFoxType(this.getFoxType());
+
         UUID uuid = this.getOwnerUUID();
         if (uuid != null) {
             entityFox.setOwnerUUID(uuid);
@@ -321,8 +350,8 @@ public class EntityTamableFox extends EntityFox {
         } else if (!(entityanimal instanceof EntityTamableFox)) {
             return false;
         } else {
-            EntityTamableFox entitywolf = (EntityTamableFox)entityanimal;
-            return (!entitywolf.isSitting() && (this.isInLove() && entitywolf.isInLove()));
+            EntityTamableFox entityFox = (EntityTamableFox) entityanimal;
+            return (!entityFox.isSitting() && (this.isInLove() && entityFox.isInLove()));
         }
     }
 
@@ -338,12 +367,11 @@ public class EntityTamableFox extends EntityFox {
     public void tame(EntityHuman owner) {
         this.setTamed(true);
         this.setOwnerUUID(owner.getUniqueID());
-        /*
-        * The following code appears to be for the taming advancement, will investigate how to change that in the future
+
+        // Give the player the taming advancement.
         if (owner instanceof EntityPlayer) {
             CriterionTriggers.x.a((EntityPlayer)owner, this);
         }
-        */
     }
 
     @Nullable
@@ -356,7 +384,7 @@ public class EntityTamableFox extends EntityFox {
         }
     }
 
-    // deobf: canAttack
+    // Only attack entity if its not attacking owner.
     public boolean c(EntityLiving entity) {
         return !this.isOwnedBy(entity) && super.c(entity);
     }
@@ -366,7 +394,7 @@ public class EntityTamableFox extends EntityFox {
     }
 
     /*
-     deobf: wantsToAttack (copied from EntityWolf)
+     deobf: wantsToAttack (Copied from EntityWolf)
      This code being from EntityWolf also means that wolves will want to attack foxes
      Our life would be so much easier if we could extend both EntityFox and EntityTameableAnimal
     */
@@ -387,6 +415,7 @@ public class EntityTamableFox extends EntityFox {
         }
     }
 
+    // Set the scoreboard team to the same as the owner if its tamed.
     public ScoreboardTeamBase getScoreboardTeam() {
         if (this.isTamed()) {
             EntityLiving var0 = this.getOwner();
@@ -398,13 +427,14 @@ public class EntityTamableFox extends EntityFox {
         return super.getScoreboardTeam();
     }
 
-    // override isAlliedTo
+    // Override isAlliedTo (Entity::r(Entity))
     public boolean r(Entity entity) {
         if (this.isTamed()) {
             EntityLiving entityOwner = this.getOwner();
             if (entity == entityOwner) {
                 return true;
             }
+
             if (entityOwner != null) {
                 return entityOwner.r(entity);
             }
@@ -412,6 +442,7 @@ public class EntityTamableFox extends EntityFox {
         return super.r(entity);
     }
 
+    // When the fox dies, show a chat message.
     public void die(DamageSource damageSource) {
         if (!this.world.isClientSide && this.world.getGameRules().getBoolean(GameRules.SHOW_DEATH_MESSAGES) && this.getOwner() instanceof EntityPlayer) {
             this.getOwner().sendMessage(this.getCombatTracker().getDeathMessage());
@@ -445,5 +476,4 @@ public class EntityTamableFox extends EntityFox {
         goalEnumSet.clear();
         targetEnumSet.clear();
     }
-
 }
