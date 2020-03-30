@@ -32,6 +32,6 @@ public class FoxPathfinderGoalMeleeAttack extends PathfinderGoalMeleeAttack {
     }
 
     public boolean a() {
-        return !tamableFox.isSitting() && !tamableFox.isSleeping() && !tamableFox.isCrouching() && !tamableFox.es() && !tamableFox.isOtherFoxFamily(enemy) && super.a();
+        return !tamableFox.isSitting() && !tamableFox.isSleeping() && !tamableFox.isCrouching() && !tamableFox.es() && super.a();
     }
 }

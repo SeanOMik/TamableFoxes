@@ -1,9 +1,9 @@
 package net.seanomik.tamablefoxes.versions.version_1_15.pathfinding;
 
-import net.seanomik.tamablefoxes.EntityTamableFox;
 import net.minecraft.server.v1_15_R1.EntityLiving;
 import net.minecraft.server.v1_15_R1.PathfinderGoalTarget;
 import net.minecraft.server.v1_15_R1.PathfinderTargetCondition;
+import net.seanomik.tamablefoxes.EntityTamableFox;
 import org.bukkit.event.entity.EntityTargetEvent.TargetReason;
 
 import java.util.EnumSet;
@@ -25,13 +25,10 @@ public class FoxPathfinderGoalOwnerHurtTarget extends PathfinderGoalTarget {
             if (entityliving == null) {
                 e.setGoalTarget(null);
                 return false;
-            } else if (fox.isOtherFoxFamily(hitEntity)) {
-                e.setGoalTarget(null);
-                return false;
             } else {
                 hitEntity = entityliving.cJ();
                 int i = entityliving.cK();
-                return i != this.c && this.a(hitEntity, PathfinderTargetCondition.a);// && fox.a.a(hitEntity, entityliving); // Just returns true in any case
+                return i != this.c && this.a(hitEntity, PathfinderTargetCondition.a) && fox.a(hitEntity, entityliving);
             }
         } else {
             return false;
@@ -39,16 +36,12 @@ public class FoxPathfinderGoalOwnerHurtTarget extends PathfinderGoalTarget {
     }
 
     public void c() {
-        if (!fox.isOtherFoxFamily(hitEntity)) {
-            this.e.setGoalTarget(hitEntity, TargetReason.OWNER_ATTACKED_TARGET, true);
-            EntityLiving entityliving = fox.getOwner();
-            if (entityliving != null) {
-                this.c = entityliving.cK();
-            }
-
-            super.c();
-        } else {
-            e.setGoalTarget(null);
+        this.e.setGoalTarget(hitEntity, TargetReason.OWNER_ATTACKED_TARGET, true);
+        EntityLiving entityliving = fox.getOwner();
+        if (entityliving != null) {
+            this.c = entityliving.cK();
         }
+
+        super.c();
     }
 }

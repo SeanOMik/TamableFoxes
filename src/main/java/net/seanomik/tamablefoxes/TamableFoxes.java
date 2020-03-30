@@ -4,7 +4,6 @@ import net.minecraft.server.v1_15_R1.*;
 import net.seanomik.tamablefoxes.versions.version_1_15.command.CommandSpawnTamableFox;
 import net.seanomik.tamablefoxes.io.Config;
 import net.seanomik.tamablefoxes.io.LanguageConfig;
-import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.*;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -44,7 +43,6 @@ import java.util.stream.Collectors;
  */
 public final class TamableFoxes extends JavaPlugin implements Listener {
     private static TamableFoxes plugin;
-    public List<EntityTamableFox> spawnedFoxes = new ArrayList<>();
 
     private boolean versionSupported = true;
 
@@ -104,157 +102,8 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
     @Override
     public void onDisable() {
         getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.YELLOW + LanguageConfig.getSavingFoxMessage());
-        spawnedFoxes.forEach(EntityTamableFox::saveNbt);
     }
 
-    @EventHandler
-    public void onWorldSaveEvent(WorldSaveEvent event) {
-        spawnedFoxes.forEach(EntityTamableFox::saveNbt);
-    }
-
-    @EventHandler
-    public void onChunkLoad(ChunkLoadEvent event) { // Wait for all the entities to load.
-        Bukkit.getScheduler().runTaskLaterAsynchronously(this, ()-> {
-            spawnedFoxes.addAll(Utils.loadFoxesInChunk(event.getChunk()));
-        }, 5L);
-    }
-
-    @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
-
-        for (EntityTamableFox fox : getFoxesOf(player)) {
-            fox.setOwner((EntityLiving) ((CraftEntity) player).getHandle());
-        }
-    }
-
-    @EventHandler
-    public void onEntitySpawn(EntitySpawnEvent event) {
-        Entity entity = event.getEntity();
-
-        if (Utils.isTamableFox(entity)) {
-            EntityTamableFox tamableFox = (EntityTamableFox) ((CraftEntity) entity).getHandle();
-
-            spawnedFoxes.add(tamableFox);
-        }
-    }
-
-    @EventHandler
-    public void onPlayerInteractEntityEvent(PlayerInteractEntityEvent event) {
-        Entity entity = event.getRightClicked();
-        Player player = event.getPlayer();
-
-        if (event.getHand() != EquipmentSlot.HAND) return;
-
-        ItemStack itemHand = player.getInventory().getItemInMainHand();
-        ItemMeta handMeta =  itemHand.getItemMeta();
-
-        // Checks if the entity is EntityTamableFox and that the player is allowed to tame foxes
-        if (Utils.isTamableFox(entity)) {
-            EntityTamableFox tamableFox = (EntityTamableFox) ((CraftEntity) entity).getHandle();
-
-            // Check if its tamed but ignore it if the player is holding sweet berries for breeding or nametag for renaming
-            if (tamableFox.isTamed() && tamableFox.getOwner() != null && itemHand.getType() != Material.SWEET_BERRIES) {
-                if (tamableFox.getOwner().getUniqueID() == player.getUniqueId()) {
-                    event.setCancelled(true);
-                    if (player.isSneaking()) {
-                        net.minecraft.server.v1_15_R1.ItemStack foxMouth = tamableFox.getEquipment(EnumItemSlot.MAINHAND);
-                        if (!foxMouth.isEmpty()) tamableFox.dropMouthItem();
-                        if (itemHand.getType() != Material.AIR) {
-                            tamableFox.setMouthItem(itemHand);
-                            if (itemHand.getAmount() == 1) player.getInventory().removeItem(itemHand);
-                            else itemHand.setAmount(itemHand.getAmount() - 1);
-                        }
-                    } else if (itemHand.getType() == Material.NAME_TAG) {
-                        if (itemHand.getAmount() == 1) player.getInventory().removeItem(itemHand);
-                        else itemHand.setAmount(itemHand.getAmount() - 1);
-
-                        tamableFox.setCustomName(handMeta.getDisplayName());
-
-                        event.setCancelled(true);
-                    } else {
-                        tamableFox.toggleSitting();
-                    }
-                }
-            } else if (itemHand.getType() == Material.CHICKEN && Config.canPlayerTameFox(player)) {
-                if (Math.random() < 0.33D) { // tamed
-                    tamableFox.setTamed(true);
-                    tamableFox.setOwner(((CraftPlayer) player).getHandle());
-
-                    player.getWorld().spawnParticle(Particle.HEART, entity.getLocation(), 6, 0.5D, 0.5D, 0.5D);
-
-
-                    player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + LanguageConfig.getTamedMessage());
-
-                    if (Config.askForNameAfterTaming()) {
-                        player.sendMessage(ChatColor.RED + LanguageConfig.getTamingAskingName());
-                        new AnvilGUI.Builder()
-                                .onComplete((plr, text) -> { // Called when the inventory output slot is clicked
-                                    if (!text.equals("")) {
-                                        tamableFox.setCustomName(text);
-                                        tamableFox.setCustomNameVisible(true);
-                                        plr.sendMessage(Utils.getPrefix() + ChatColor.GREEN + LanguageConfig.getTamingChosenPerfect(text));
-                                        tamableFox.saveNbt();
-                                    }
-
-                                    return AnvilGUI.Response.close();
-                                })
-                                .text("Fox name")      // Sets the text the GUI should start with
-                                .plugin(this)          // Set the plugin instance
-                                .open(player);         // Opens the GUI for the player provided
-                    }
-                } else { // Tame failed
-                    player.getWorld().spawnParticle(Particle.SMOKE_NORMAL, entity.getLocation(), 10, 0.3D, 0.3D, 0.3D, 0.15D);
-                }
-
-                if (!player.getGameMode().equals(GameMode.CREATIVE)) {
-                    if (itemHand.getAmount() == 1) player.getInventory().removeItem(itemHand);
-                    else itemHand.setAmount(itemHand.getAmount() - 1);
-                }
-
-                event.setCancelled(true);
-            }
-        }
-    }
-
-    @EventHandler
-    public void onPlayerBedEnterEvent(PlayerBedEnterEvent event) {
-        Player player = event.getPlayer();
-        List<EntityTamableFox> foxesOf = getFoxesOf(player);
-
-        for (EntityTamableFox tamableFox : foxesOf) {
-            if (player.getWorld().getTime() > 12541L && player.getWorld().getTime() < 23460L) {
-                tamableFox.setSleeping(true);
-            }
-        }
-    }
-
-    @EventHandler
-    public void onPlayerBedLeaveEvent(PlayerBedLeaveEvent event) {
-        Player player = event.getPlayer();
-        List<EntityTamableFox> foxesOf = getFoxesOf(player);
-
-        for (EntityTamableFox tamableFox : foxesOf) {
-            tamableFox.setSleeping(false);
-            if (tamableFox.isSitting()) {
-                tamableFox.setSitting(true);
-            }
-        }
-    }
-
-    @EventHandler
-    public void onEntityDeathEvent(EntityDeathEvent event) {
-        Entity entity = event.getEntity();
-        if (!Utils.isTamableFox(entity)) return; // Is the entity a tamable fox?
-        // Remove the fox from storage
-        spawnedFoxes.remove(entity);
-        // Notify the owner
-        EntityTamableFox tamableFox = (EntityTamableFox) ((CraftEntity) entity).getHandle();
-        if (tamableFox.getOwner() != null) {
-            Player owner = ((EntityPlayer) tamableFox.getOwner()).getBukkitEntity();
-            owner.sendMessage(Utils.getPrefix() + ChatColor.RED + (tamableFox.hasCustomName() ? tamableFox.getBukkitEntity().getCustomName() : "Your fox") + " was killed!");
-        }
-    }
 
     public EntityTamableFox spawnTamableFox(Location loc, EntityFox.Type type) {
         EntityTamableFox tamableFox = (EntityTamableFox) ((CraftEntity) loc.getWorld().spawnEntity(loc, EntityType.FOX)).getHandle();
@@ -263,9 +112,6 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
         return tamableFox;
     }
 
-    public List<EntityTamableFox> getFoxesOf(Player player) {
-        return spawnedFoxes.stream().filter(fox -> fox.getOwner() != null && fox.getOwner().getUniqueID().equals(player.getUniqueId())).collect(Collectors.toList());
-    }
 
     public static TamableFoxes getPlugin() {
         return plugin;
