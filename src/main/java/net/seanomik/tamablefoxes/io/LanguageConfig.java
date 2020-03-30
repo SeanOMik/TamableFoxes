@@ -1,6 +1,7 @@
 package net.seanomik.tamablefoxes.io;
 
 import net.minecraft.server.v1_15_R1.EntityFox;
+import net.minecraft.server.v1_15_R1.IChatBaseComponent;
 import net.seanomik.tamablefoxes.TamableFoxes;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -75,40 +76,56 @@ public class LanguageConfig extends YamlConfiguration  {
         }
     }
 
+    // Auto replace alternate color codes.
+    @Override
+    public String getString(String path) {
+        // Only attempt to translate if the text is not empty.
+        return (super.getString(path).isEmpty()) ? super.getString(path) : ChatColor.translateAlternateColorCodes('&', super.getString(path));
+    }
+
+    // Get the error that shows during register when they try to run the plugin on an unsupported mc version.
     public static String getUnsupportedMCVersionRegister() {
         return getConfig().getString("unsupported-mc-version-not-registering");
     }
 
+    // Get the error that shows during disable when they try to run the plugin on an unsupported mc version.
     public static String getUnsupportedMCVersionDisable() {
         return getConfig().getString("unsupported-mc-version-disabling");
     }
 
+    // Get the message that shows when we successfully replaced the entity.
     public static String getSuccessReplaced() {
         return getConfig().getString("success-replaced-entity");
     }
 
+    // Get the error when it failed to replace the entity.
     public static String getFailureReplace() {
         return getConfig().getString("error-to-replaced-entity");
     }
 
+    // Get the message when saving foxes.
     public static String getSavingFoxMessage() {
         return getConfig().getString("saving-foxes-message");
     }
 
+    // Get the message that shows when you tame a fox.
     public static String getTamedMessage() {
         return getConfig().getString("taming-tamed-message");
     }
 
+    // Get the message when you ask for the foxes name.
     public static String getTamingAskingName() {
         return getConfig().getString("taming-asking-for-name-message");
     }
 
+    // Get the message when you give feed back on the new fox name.
     public static String getTamingChosenPerfect(String chosen) {
-        return getConfig().getString("taming-chosen-name-perfect").replaceAll("%NAME%", chosen);
+        return getConfig().getString("taming-chosen-name-perfect").replaceAll("%NEW_FOX_NAME%", chosen);
     }
 
-    public static String getFoxNameFormat() {
-        return getConfig().getString("fox-name-format");
+    // Get the fox name format.
+    public static String getFoxNameFormat(String foxName, String ownerName) {
+        return getConfig().getString((Config.doesShowOwnerInFoxName()) ? "fox-name-format" : "fox-name-no-owner-name-format").replaceAll("%FOX_NAME%", foxName).replaceAll("%OWNER%", ownerName);
     }
 
     public static String getNoPermMessage() {

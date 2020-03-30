@@ -2,10 +2,14 @@ package net.seanomik.tamablefoxes;
 
 import net.minecraft.server.v1_15_R1.*;
 import net.seanomik.tamablefoxes.io.Config;
+import net.seanomik.tamablefoxes.io.LanguageConfig;
 import net.seanomik.tamablefoxes.versions.version_1_15.pathfinding.*;
+import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.v1_15_R1.event.CraftEventFactory;
 import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
+import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 
 import javax.annotation.Nullable;
@@ -304,23 +308,54 @@ public class EntityTamableFox extends EntityFox {
                     }
                 }
             } else if (item == Items.CHICKEN) {
-                // Only remove the item from the player if they're in survival mode.
-                if (!entityhuman.abilities.canInstantlyBuild) {
-                    itemstack.subtract(1);
-                }
+                // Check if the player has permissions to tame the fox
+                if (Config.canPlayerTameFox((Player) entityhuman.getBukkitEntity())) {
+                    // Only remove the item from the player if they're in survival mode.
+                    if (!entityhuman.abilities.canInstantlyBuild) {
+                        itemstack.subtract(1);
+                    }
 
-                // 0.33% chance to tame the fox, also check if the called tame entity event is cancelled or not.
-                if (this.random.nextInt(3) == 0 && !CraftEventFactory.callEntityTameEvent(this, entityhuman).isCancelled()) {
-                    this.tame(entityhuman);
+                    // 0.33% chance to tame the fox, also check if the called tame entity event is cancelled or not.
+                    if (this.random.nextInt(3) == 0 && !CraftEventFactory.callEntityTameEvent(this, entityhuman).isCancelled()) {
+                        this.tame(entityhuman);
 
-                    // Remove all navigation when tamed.
-                    this.navigation.o();
-                    this.setGoalTarget(null);
-                    this.goalSit.setSitting(true);
+                        // Remove all navigation when tamed.
+                        this.navigation.o();
+                        this.setGoalTarget(null);
+                        this.goalSit.setSitting(true);
 
-                    getBukkitEntity().getWorld().spawnParticle(org.bukkit.Particle.HEART, getBukkitEntity().getLocation(), 6, 0.5D, 0.5D, 0.5D);
-                } else {
-                    getBukkitEntity().getWorld().spawnParticle(org.bukkit.Particle.SMOKE_NORMAL, getBukkitEntity().getLocation(), 10, 0.2D, 0.2D, 0.2D, 0.15D);
+                        getBukkitEntity().getWorld().spawnParticle(org.bukkit.Particle.HEART, getBukkitEntity().getLocation(), 6, 0.5D, 0.5D, 0.5D);
+
+                        // Give player tamed message.
+                        ((Player) entityhuman.getBukkitEntity()).sendMessage(Utils.getPrefix() + ChatColor.GREEN + LanguageConfig.getTamedMessage());
+
+                        // Let the player choose the new fox's name if its enabled in config.
+                        if (Config.askForNameAfterTaming()) {
+                            Player player = (Player) entityhuman.getBukkitEntity();
+
+                            player.sendMessage(Utils.getPrefix() + ChatColor.RED + LanguageConfig.getTamingAskingName());
+                            new AnvilGUI.Builder()
+                                    .onComplete((plr, input) -> { // Called when the inventory output slot is clicked
+                                        if (!input.equals("")) {
+                                            org.bukkit.entity.Entity tamableFox = this.getBukkitEntity();
+
+                                            // This will auto format the name for config settings.
+                                            String foxName = LanguageConfig.getFoxNameFormat(input, player.getDisplayName());
+
+                                            tamableFox.setCustomName(foxName);
+                                            tamableFox.setCustomNameVisible(true);
+                                            plr.sendMessage(Utils.getPrefix() + ChatColor.GREEN + LanguageConfig.getTamingChosenPerfect(input));
+                                        }
+
+                                        return AnvilGUI.Response.close();
+                                    })
+                                    .text("Fox name")      // Sets the text the GUI should start with
+                                    .plugin(TamableFoxes.getPlugin())          // Set the plugin instance
+                                    .open(player);         // Opens the GUI for the player provided
+                        }
+                    } else {
+                        getBukkitEntity().getWorld().spawnParticle(org.bukkit.Particle.SMOKE_NORMAL, getBukkitEntity().getLocation(), 10, 0.2D, 0.2D, 0.2D, 0.15D);
+                    }
                 }
 
                 return true;

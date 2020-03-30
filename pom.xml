@@ -39,7 +39,7 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_1.15.2_\plugins\TamableFoxes-MC-v1.15.1-v${project.version}.jar</outputFile>
+                            <outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_1.15.2_\plugins\TamableFoxes-MC-v1.15.X-v${project.version}.jar</outputFile>
                             <!--<outputFile>C:\Users\Checkium\Desktop\vps\smp\SMP\plugins\TamableFoxes-MC-v1.15.X-v${project.version}.jar</outputFile>-->
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                         </configuration>
@@ -76,6 +76,11 @@
             <artifactId>spigot</artifactId>
             <version>1.15.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.WesJD.AnvilGUI</groupId>
+            <artifactId>anvilgui</artifactId>
+            <version>478e0c1</version>
         </dependency>
         <!--<dependency>
             <groupId>org.spigotmc</groupId>
