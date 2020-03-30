@@ -14,11 +14,11 @@ import java.lang.reflect.Modifier;
 
 // @TODO:
 
-/* @CHANGELOG (1.5.2):
- *    Code cleanup
- *    Updated old path finding goals
- *    Added a section in language.yml to customize how a foxes owner's name is displayed.
- *    Added a choice in the config.yml to disable the Anvil naming GUI so all foxes would have to be named by name tags.
+/* @CHANGELOG (1.6.0):
+ *    Code cleanup.
+ *    Fixed low TPS issues. (If you run into any please DM me or create a github issue)
+ *    When you tame a fox you now get the taming advancement.
+ *    Added support for color codes in language.yml
  */
 public final class TamableFoxes extends JavaPlugin implements Listener {
     private static TamableFoxes plugin;
