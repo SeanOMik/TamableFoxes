@@ -14,11 +14,8 @@ import java.lang.reflect.Modifier;
 
 // @TODO:
 
-/* @CHANGELOG (1.6.0):
- *    Code cleanup.
- *    Fixed low TPS issues. (If you run into any please DM me or create a github issue)
- *    When you tame a fox you now get the taming advancement.
- *    Added support for color codes in language.yml
+/* @CHANGELOG (1.6.0-SNAPSHOT):
+ *    Fix a bug of duplicating water/lava buckets.
  */
 public final class TamableFoxes extends JavaPlugin implements Listener {
     private static TamableFoxes plugin;
