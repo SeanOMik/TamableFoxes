@@ -14,7 +14,7 @@ import java.lang.reflect.Modifier;
 
 // @TODO:
 
-/* @CHANGELOG (1.6.0-SNAPSHOT):
+/* @CHANGELOG (1.6.1-SNAPSHOT):
  *    Fix a bug of duplicating water/lava buckets.
  */
 public final class TamableFoxes extends JavaPlugin implements Listener {
