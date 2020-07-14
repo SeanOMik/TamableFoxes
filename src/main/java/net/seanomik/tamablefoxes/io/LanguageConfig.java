@@ -1,8 +1,7 @@
 package net.seanomik.tamablefoxes.io;
 
-import net.minecraft.server.v1_15_R1.EntityFox;
-import net.minecraft.server.v1_15_R1.IChatBaseComponent;
 import net.seanomik.tamablefoxes.TamableFoxes;
+import net.seanomik.tamablefoxes.versions.NMSInterface;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -83,6 +82,11 @@ public class LanguageConfig extends YamlConfiguration  {
         return (super.getString(path).isEmpty()) ? super.getString(path) : ChatColor.translateAlternateColorCodes('&', super.getString(path));
     }
 
+    // This is the text that shows when registering the custom entity
+    public static String getMCVersionLoading(String mcVersionStr) {
+        return getConfig().getString("mc-version-loading").replaceAll("%MC_VERSION%", mcVersionStr);
+    }
+
     // Get the error that shows during register when they try to run the plugin on an unsupported mc version.
     public static String getUnsupportedMCVersionRegister() {
         return getConfig().getString("unsupported-mc-version-not-registering");
@@ -136,7 +140,7 @@ public class LanguageConfig extends YamlConfiguration  {
         return getConfig().getString("only-run-by-player");
     }
 
-    public static String getSpawnedFoxMessage(EntityFox.Type type) {
+    public static String getSpawnedFoxMessage(NMSInterface.FoxType type) {
         String typeStr = ((type == type.SNOW) ? ChatColor.AQUA + "Snow" : ChatColor.RED + "Red") + ChatColor.RESET;
         return getConfig().getString("spawned-fox-message").replaceAll("%TYPE%", typeStr);
     }

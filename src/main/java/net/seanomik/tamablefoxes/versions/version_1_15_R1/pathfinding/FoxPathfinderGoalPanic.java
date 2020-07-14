@@ -1,8 +1,8 @@
-package net.seanomik.tamablefoxes.versions.version_1_15.pathfinding;
+package net.seanomik.tamablefoxes.versions.version_1_15_R1.pathfinding;
 
 import net.minecraft.server.v1_15_R1.EntityFox;
 import net.minecraft.server.v1_15_R1.PathfinderGoalPanic;
-import net.seanomik.tamablefoxes.EntityTamableFox;
+import net.seanomik.tamablefoxes.versions.version_1_15_R1.EntityTamableFox;
 
 import java.lang.reflect.Method;
 

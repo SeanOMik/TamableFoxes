@@ -6,7 +6,7 @@
 
     <groupId>net.seanomik</groupId>
     <artifactId>tamablefoxes</artifactId>
-    <version>1.6.1-SNAPSHOT</version>
+    <version>1.7-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Tamablefoxes</name>
@@ -39,8 +39,8 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_1.15.2_\plugins\TamableFoxes-MC-v1.15.X-v${project.version}.jar</outputFile>
-                            <!--<outputFile>C:\Users\Checkium\Desktop\vps\smp\SMP\plugins\TamableFoxes-MC-v1.15.X-v${project.version}.jar</outputFile>-->
+                            <outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_1.16.1_\plugins\TamableFoxes-MC-v1.15.X-v1.16.X-v${project.version}.jar</outputFile>
+                            <!--<outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_1.15.2_\plugins\TamableFoxes-MC-v1.15.X-v${project.version}.jar</outputFile>-->
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                         </configuration>
                     </execution>
@@ -72,22 +72,22 @@
 
     <dependencies>
         <dependency>
+            <groupId>local.spigot.nms</groupId>
+            <artifactId>AllSpigotNMS</artifactId>
+            <version>LATEST</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/spigot-14-15-16-nms.jar</systemPath>
+        </dependency>
+        <dependency> <!-- We need to do this so we get the spigot api without nms. -->
             <groupId>org.spigotmc</groupId>
-            <artifactId>spigot</artifactId>
-            <version>1.15.2-R0.1-SNAPSHOT</version>
+            <artifactId>spigot-api</artifactId>
+            <version>1.14.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.github.WesJD.AnvilGUI</groupId>
             <artifactId>anvilgui</artifactId>
-            <version>478e0c1</version>
+            <version>master-ef71db62ec-1</version>
         </dependency>
-        <!--<dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot</artifactId>
-            <scope>system</scope>
-            <version>1.15.2</version>
-            <systemPath>C:/Users/Checkium/Desktop/Servers/SMP/cache/patched_1.15.2.jar</systemPath>
-        </dependency>-->
     </dependencies>
 </project>

@@ -1,18 +1,20 @@
-package net.seanomik.tamablefoxes;
+package net.seanomik.tamablefoxes.versions.version_1_15_R1;
 
 import net.minecraft.server.v1_15_R1.*;
+import net.seanomik.tamablefoxes.TamableFoxes;
+import net.seanomik.tamablefoxes.Utils;
 import net.seanomik.tamablefoxes.io.Config;
 import net.seanomik.tamablefoxes.io.LanguageConfig;
-import net.seanomik.tamablefoxes.versions.version_1_15.pathfinding.*;
+import net.seanomik.tamablefoxes.versions.version_1_15_R1.pathfinding.*;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.craftbukkit.libs.jline.internal.Nullable;
 import org.bukkit.craftbukkit.v1_15_R1.event.CraftEventFactory;
 import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 
-import javax.annotation.Nullable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;

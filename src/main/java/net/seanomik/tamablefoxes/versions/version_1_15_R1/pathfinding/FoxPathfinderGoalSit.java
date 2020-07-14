@@ -1,6 +1,6 @@
-package net.seanomik.tamablefoxes.versions.version_1_15.pathfinding;
+package net.seanomik.tamablefoxes.versions.version_1_15_R1.pathfinding;
 
-import net.seanomik.tamablefoxes.EntityTamableFox;
+import net.seanomik.tamablefoxes.versions.version_1_15_R1.EntityTamableFox;
 import net.minecraft.server.v1_15_R1.EntityLiving;
 import net.minecraft.server.v1_15_R1.PathfinderGoal;
 

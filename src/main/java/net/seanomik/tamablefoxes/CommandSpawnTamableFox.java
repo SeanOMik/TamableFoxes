@@ -1,9 +1,6 @@
-package net.seanomik.tamablefoxes.versions.version_1_15.command;
+package net.seanomik.tamablefoxes;
 
-import net.seanomik.tamablefoxes.EntityTamableFox;
-import net.seanomik.tamablefoxes.TamableFoxes;
-import net.minecraft.server.v1_15_R1.EntityFox;
-import net.seanomik.tamablefoxes.Utils;
+import net.seanomik.tamablefoxes.versions.NMSInterface;
 import net.seanomik.tamablefoxes.io.LanguageConfig;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -40,8 +37,8 @@ public class CommandSpawnTamableFox implements TabExecutor {
             switch (args[0]) {
                 case "red":
                     try {
-                        EntityTamableFox fox = plugin.spawnTamableFox(player.getLocation(), EntityFox.Type.RED);
-                        player.sendMessage(Utils.getPrefix() + ChatColor.RESET + LanguageConfig.getSpawnedFoxMessage(EntityFox.Type.RED));
+                        plugin.nmsInterface.spawnTamableFox(player.getLocation(), NMSInterface.FoxType.RED);
+                        player.sendMessage(Utils.getPrefix() + ChatColor.RESET + LanguageConfig.getSpawnedFoxMessage(NMSInterface.FoxType.RED));
                     } catch (Exception e) {
                         e.printStackTrace();
                         player.sendMessage(Utils.getPrefix() + ChatColor.RED + LanguageConfig.getFailureSpawn());
@@ -49,8 +46,8 @@ public class CommandSpawnTamableFox implements TabExecutor {
                     break;
                 case "snow":
                     try {
-                        EntityTamableFox spawnedFox = plugin.spawnTamableFox(player.getLocation(), EntityFox.Type.SNOW);
-                        player.sendMessage(Utils.getPrefix() + ChatColor.RESET + LanguageConfig.getSpawnedFoxMessage(EntityFox.Type.SNOW));
+                        plugin.nmsInterface.spawnTamableFox(player.getLocation(), NMSInterface.FoxType.SNOW);
+                        player.sendMessage(Utils.getPrefix() + ChatColor.RESET + LanguageConfig.getSpawnedFoxMessage(NMSInterface.FoxType.SNOW));
                     } catch (Exception e) {
                         e.printStackTrace();
                         player.sendMessage(Utils.getPrefix() + ChatColor.RED + LanguageConfig.getFailureSpawn());
