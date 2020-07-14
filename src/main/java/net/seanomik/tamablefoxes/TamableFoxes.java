@@ -13,6 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 /* @CHANGELOG (1.7-SNAPSHOT):
  *    Update to Minecraft 1.16.1.
  *    This jar file will also work with Minecraft 1.15.2, and 1.16.1.
+ *    Foxes now sleep with their owner once again.
  */
 public final class TamableFoxes extends JavaPlugin implements Listener {
     private static TamableFoxes plugin;

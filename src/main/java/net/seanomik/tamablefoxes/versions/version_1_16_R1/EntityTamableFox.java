@@ -69,11 +69,11 @@ public class EntityTamableFox extends EntityFox {
 
             this.goalSelector.a(0, getFoxInnerPathfinderGoal("g")); // FoxFloatGoal
             this.goalSelector.a(1, getFoxInnerPathfinderGoal("b")); // FaceplantGoal
-            this.goalSelector.a(2, new FoxPathfinderGoalPanic(this, 2.2D)); // FoxPanicGoal
+            this.goalSelector.a(2, new FoxPathfinderGoalPanic(this, 2.2D));
             this.goalSelector.a(3, getFoxInnerPathfinderGoal("e", Arrays.asList(1.0D), Arrays.asList(double.class))); // FoxBreedGoal
 
             this.goalSelector.a(4, new PathfinderGoalAvoidTarget(this, EntityHuman.class, 16.0F, 1.6D, 1.4D, (entityliving) -> {
-                return !isTamed() && bC.test((EntityLiving) entityliving);
+                return !isTamed() && bC.test((EntityLiving) entityliving) && !this.isDefending();
             }));
             this.goalSelector.a(4, new PathfinderGoalAvoidTarget(this, EntityWolf.class, 8.0F, 1.6D, 1.4D, (entityliving) -> {
                 return !((EntityWolf)entityliving).isTamed() && !this.isDefending();
@@ -93,8 +93,6 @@ public class EntityTamableFox extends EntityFox {
             this.goalSelector.a(11, getFoxInnerPathfinderGoal("p")); // FoxSearchForItemsGoal
             this.goalSelector.a(12, getFoxInnerPathfinderGoal("j", Arrays.asList(this, EntityHuman.class, 24.0f),
                         Arrays.asList(EntityInsentient.class, Class.class, float.class))); // LookAtPlayer
-
-            //this.goalSelector.a(10, new EntityFox.f(1.2000000476837158D, 12, 2));
 
             this.targetSelector.a(1, new FoxPathfinderGoalOwnerHurtByTarget(this));
             this.targetSelector.a(2, new FoxPathfinderGoalOwnerHurtTarget(this));

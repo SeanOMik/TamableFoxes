@@ -1,6 +1,5 @@
 D:\Code\java\spigotPlugins\myPlugins\TamableFoxes\src\main\java\net\seanomik\tamablefoxes\versions\version_1_15_R1\pathfinding\FoxPathfinderGoalHurtByTarget.java
 D:\Code\java\spigotPlugins\myPlugins\TamableFoxes\src\main\java\net\seanomik\tamablefoxes\versions\version_1_16_R1\pathfinding\FoxPathfinderGoalPanic.java
-D:\Code\java\spigotPlugins\myPlugins\TamableFoxes\src\main\java\net\seanomik\tamablefoxes\versions\version_1_15_R1\pathfinding\FoxPathfinderGoalMeleeAttack.java
 D:\Code\java\spigotPlugins\myPlugins\TamableFoxes\src\main\java\net\seanomik\tamablefoxes\versions\version_1_16_R1\pathfinding\FoxPathfinderGoalOwnerHurtByTarget.java
 D:\Code\java\spigotPlugins\myPlugins\TamableFoxes\src\main\java\net\seanomik\tamablefoxes\versions\version_1_15_R1\EntityTamableFox.java
 D:\Code\java\spigotPlugins\myPlugins\TamableFoxes\src\main\java\net\seanomik\tamablefoxes\Utils.java
@@ -17,7 +16,9 @@ D:\Code\java\spigotPlugins\myPlugins\TamableFoxes\src\main\java\net\seanomik\tam
 D:\Code\java\spigotPlugins\myPlugins\TamableFoxes\src\main\java\net\seanomik\tamablefoxes\versions\version_1_16_R1\pathfinding\FoxPathfinderGoalSit.java
 D:\Code\java\spigotPlugins\myPlugins\TamableFoxes\src\main\java\net\seanomik\tamablefoxes\versions\version_1_15_R1\pathfinding\FoxPathfinderGoalFollowOwner.java
 D:\Code\java\spigotPlugins\myPlugins\TamableFoxes\src\main\java\net\seanomik\tamablefoxes\versions\version_1_15_R1\pathfinding\FoxPathfinderGoalSit.java
+D:\Code\java\spigotPlugins\myPlugins\TamableFoxes\src\main\java\net\seanomik\tamablefoxes\versions\version_1_16_R1\pathfinding\FoxPathfinderGoalSleepWithOwner.java
 D:\Code\java\spigotPlugins\myPlugins\TamableFoxes\src\main\java\net\seanomik\tamablefoxes\io\LanguageConfig.java
 D:\Code\java\spigotPlugins\myPlugins\TamableFoxes\src\main\java\net\seanomik\tamablefoxes\versions\version_1_15_R1\NMSInterface_1_15_R1.java
 D:\Code\java\spigotPlugins\myPlugins\TamableFoxes\src\main\java\net\seanomik\tamablefoxes\CommandSpawnTamableFox.java
 D:\Code\java\spigotPlugins\myPlugins\TamableFoxes\src\main\java\net\seanomik\tamablefoxes\versions\version_1_15_R1\pathfinding\FoxPathfinderGoalOwnerHurtTarget.java
+D:\Code\java\spigotPlugins\myPlugins\TamableFoxes\src\main\java\net\seanomik\tamablefoxes\versions\version_1_15_R1\pathfinding\FoxPathfinderGoalSleepWithOwner.java

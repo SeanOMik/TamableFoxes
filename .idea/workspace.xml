@@ -2,28 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dcab9632-7b1a-44d7-9283-be9b37640afc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15_R1/NMSInterface_1_15_R1.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/EntityTamableFox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15_R1/EntityTamableFox.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/TamableFoxes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/TamableFoxes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/io/LanguageConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/io/LanguageConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15/command/CommandSpawnTamableFox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/CommandSpawnTamableFox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15/pathfinding/FoxPathfinderGoalFollowOwner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15_R1/pathfinding/FoxPathfinderGoalFollowOwner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15/pathfinding/FoxPathfinderGoalHurtByTarget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15_R1/pathfinding/FoxPathfinderGoalHurtByTarget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15/pathfinding/FoxPathfinderGoalMeleeAttack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15_R1/pathfinding/FoxPathfinderGoalMeleeAttack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15/pathfinding/FoxPathfinderGoalOwnerHurtByTarget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15_R1/pathfinding/FoxPathfinderGoalOwnerHurtByTarget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15/pathfinding/FoxPathfinderGoalOwnerHurtTarget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15_R1/pathfinding/FoxPathfinderGoalOwnerHurtTarget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15/pathfinding/FoxPathfinderGoalPanic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15_R1/pathfinding/FoxPathfinderGoalPanic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15/pathfinding/FoxPathfinderGoalSit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15_R1/pathfinding/FoxPathfinderGoalSit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/language.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/language.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15_R1/EntityTamableFox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15_R1/EntityTamableFox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15_R1/pathfinding/FoxPathfinderGoalMeleeAttack.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_16_R1/EntityTamableFox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_16_R1/EntityTamableFox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_16_R1/pathfinding/FoxPathfinderGoalSleepWithOwner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_16_R1/pathfinding/FoxPathfinderGoalSleepWithOwner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/plugin.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,6 +71,7 @@
       <recent name="net.seanomik.tamablefoxes.versions" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="net.seanomik.tamablefoxes.versions.version_1_15_R1.pathfinding" />
       <recent name="net.seanomik.tamablefoxes.versions.version_1_16_R1.command" />
       <recent name="net.seanomik.tamablefoxes.versions.version_1_15_R1.command" />
       <recent name="net.seanomik.tamablefoxes.versions.version_1_15" />
@@ -94,7 +83,7 @@
       <recent name="E:\TamableFoxesCustomEntity\src\main\resources" />
     </key>
   </component>
-  <component name="RunManager" selected="JAR Application.Spigot-1.16.1">
+  <component name="RunManager" selected="JAR Application.Spigot-1.15.2">
     <configuration name="Spigot-1.15.2" type="JarApplication">
       <option name="JAR_PATH" value="$PROJECT_DIR$/../../_TEST_SERVER_1.15.2_/spigot-1.15.2.jar" />
       <option name="PROGRAM_PARAMETERS" value="nogui" />
@@ -226,38 +215,38 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1590119699228" />
-    <state width="1877" height="197" key="GridCell.Tab.0.bottom" timestamp="1594748168001">
+    <state width="1877" height="211" key="GridCell.Tab.0.bottom" timestamp="1594752102677">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="197" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594748168001" />
-    <state width="1877" height="197" key="GridCell.Tab.0.center" timestamp="1594748168001">
+    <state width="1877" height="211" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594752102677" />
+    <state width="1877" height="211" key="GridCell.Tab.0.center" timestamp="1594752102676">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="197" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594748168001" />
-    <state width="1877" height="197" key="GridCell.Tab.0.left" timestamp="1594748168001">
+    <state width="1877" height="211" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594752102676" />
+    <state width="1877" height="211" key="GridCell.Tab.0.left" timestamp="1594752102676">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="197" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594748168001" />
-    <state width="1877" height="197" key="GridCell.Tab.0.right" timestamp="1594748168001">
+    <state width="1877" height="211" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594752102676" />
+    <state width="1877" height="211" key="GridCell.Tab.0.right" timestamp="1594752102676">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="197" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594748168001" />
-    <state width="1877" height="197" key="GridCell.Tab.1.bottom" timestamp="1594748167920">
+    <state width="1877" height="211" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594752102676" />
+    <state width="1877" height="211" key="GridCell.Tab.1.bottom" timestamp="1594752102527">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="197" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594748167920" />
-    <state width="1877" height="197" key="GridCell.Tab.1.center" timestamp="1594748167920">
+    <state width="1877" height="211" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594752102527" />
+    <state width="1877" height="211" key="GridCell.Tab.1.center" timestamp="1594752102527">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="197" key="GridCell.Tab.1.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594748167920" />
-    <state width="1877" height="197" key="GridCell.Tab.1.left" timestamp="1594748167919">
+    <state width="1877" height="211" key="GridCell.Tab.1.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594752102527" />
+    <state width="1877" height="211" key="GridCell.Tab.1.left" timestamp="1594752102527">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="197" key="GridCell.Tab.1.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594748167919" />
-    <state width="1877" height="197" key="GridCell.Tab.1.right" timestamp="1594748167920">
+    <state width="1877" height="211" key="GridCell.Tab.1.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594752102527" />
+    <state width="1877" height="211" key="GridCell.Tab.1.right" timestamp="1594752102527">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="197" key="GridCell.Tab.1.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594748167920" />
+    <state width="1877" height="211" key="GridCell.Tab.1.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594752102527" />
     <state x="461" y="162" key="SettingsEditor" timestamp="1588876397734">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -266,14 +255,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="656" y="343" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1590119557040" />
-    <state x="-876" y="0" width="883" height="1047" key="dock-window-1" timestamp="1594704170924">
+    <state x="607" y="135" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1594751055964">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="607" y="135" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594751055964" />
+    <state x="568" y="283" width="1348" height="1027" key="dock-window-1" timestamp="1594751513464">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="568" y="283" width="1348" height="1027" key="dock-window-1/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594751513464" />
+    <state x="-941" y="0" width="948" height="1047" key="dock-window-2" timestamp="1594749231953">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="-876" y="0" width="883" height="1047" key="dock-window-1/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594704170924" />
-    <state x="-941" y="0" width="948" height="1047" key="dock-window-2" timestamp="1594707356239">
-      <screen x="-1920" y="0" width="1920" height="1040" />
-    </state>
-    <state x="-941" y="0" width="948" height="1047" key="dock-window-2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594707356239" />
+    <state x="-941" y="0" width="948" height="1047" key="dock-window-2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594749231953" />
     <state x="656" y="252" width="607" height="536" key="find.popup" timestamp="1594704998390">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

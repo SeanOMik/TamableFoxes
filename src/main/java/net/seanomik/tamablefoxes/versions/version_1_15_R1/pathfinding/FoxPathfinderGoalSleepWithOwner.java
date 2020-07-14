@@ -1,7 +1,7 @@
-package net.seanomik.tamablefoxes.versions.version_1_16_R1.pathfinding;
+package net.seanomik.tamablefoxes.versions.version_1_15_R1.pathfinding;
 
-import net.minecraft.server.v1_16_R1.*;
-import net.seanomik.tamablefoxes.versions.version_1_16_R1.EntityTamableFox;
+import net.minecraft.server.v1_15_R1.*;
+import net.seanomik.tamablefoxes.versions.version_1_15_R1.EntityTamableFox;
 
 import java.util.Iterator;
 import java.util.List;
@@ -34,14 +34,11 @@ public class FoxPathfinderGoalSleepWithOwner extends PathfinderGoal {
                     return false;
                 }
 
-                BlockPosition blockposition = this.b.getChunkCoordinates();
+                BlockPosition blockposition = new BlockPosition(this.b);
                 IBlockData iblockdata = this.a.world.getType(blockposition);
                 if (iblockdata.getBlock().a(TagsBlock.BEDS)) {
-                    this.c = (BlockPosition)iblockdata.d(BlockBed.FACING).map((enumdirection) -> {
-                        return blockposition.shift(enumdirection.opposite());
-                    }).orElseGet(() -> {
-                        return new BlockPosition(blockposition);
-                    });
+                    EnumDirection enumdirection = (EnumDirection)iblockdata.get(BlockBed.FACING);
+                    this.c = new BlockPosition(blockposition.getX() - enumdirection.getAdjacentX(), blockposition.getY(), blockposition.getZ() - enumdirection.getAdjacentZ());
                     return !this.g();
                 }
             }
@@ -84,12 +81,12 @@ public class FoxPathfinderGoalSleepWithOwner extends PathfinderGoal {
     public void d() {
         this.a.setSleeping(false);
         float f = this.a.world.f(1.0F);
-        if (this.b.eB() >= 100 && (double)f > 0.77D && (double)f < 0.8D && (double)this.a.world.getRandom().nextFloat() < 0.7D) {
+        if (this.b.ef() >= 100 && (double)f > 0.77D && (double)f < 0.8D && (double)this.a.world.getRandom().nextFloat() < 0.7D) {
             this.h();
         }
 
         this.d = 0;
-        //this.a.y(false); // setRelaxStateOne
+        //this.a.v(false); // setRelaxStateOne
         this.a.getNavigation().o();
     }
 
@@ -100,7 +97,7 @@ public class FoxPathfinderGoalSleepWithOwner extends PathfinderGoal {
         this.a.a((double)(blockposition_mutableblockposition.getX() + random.nextInt(11) - 5), (double)(blockposition_mutableblockposition.getY() + random.nextInt(5) - 2), (double)(blockposition_mutableblockposition.getZ() + random.nextInt(11) - 5), false);
         blockposition_mutableblockposition.g(this.a.getChunkCoordinates());
         LootTable loottable = this.a.world.getMinecraftServer().getLootTableRegistry().getLootTable(LootTables.ak);
-        net.minecraft.server.v1_16_R1.LootTableInfo.Builder loottableinfo_builder = (new net.minecraft.server.v1_16_R1.LootTableInfo.Builder((WorldServer)this.a.world)).set(LootContextParameters.POSITION, blockposition_mutableblockposition).set(LootContextParameters.THIS_ENTITY, this.a).a(random);
+        LootTableInfo.Builder loottableinfo_builder = (new LootTableInfo.Builder((WorldServer)this.a.world)).set(LootContextParameters.POSITION, blockposition_mutableblockposition).set(LootContextParameters.THIS_ENTITY, this.a).a(random);
         List<ItemStack> list = loottable.populateLoot(loottableinfo_builder.build(LootContextParameterSets.GIFT));
         Iterator iterator = list.iterator();
 
@@ -129,6 +126,5 @@ public class FoxPathfinderGoalSleepWithOwner extends PathfinderGoal {
                 //this.a.x(false);
             }
         }
-
     }
 }

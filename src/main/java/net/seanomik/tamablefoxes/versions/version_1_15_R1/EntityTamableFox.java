@@ -24,12 +24,14 @@ public class EntityTamableFox extends EntityFox {
 
     protected static final DataWatcherObject<Byte> tamed;
     protected static final DataWatcherObject<Optional<UUID>> ownerUUID;
+    private static final DataWatcherObject<Byte> bx;
     private static final Predicate<Entity> bD;
 
     static {
         tamed = DataWatcher.a(EntityTamableFox.class, DataWatcherRegistry.a);
         ownerUUID = DataWatcher.a(EntityTamableFox.class, DataWatcherRegistry.o);
 
+        bx = DataWatcher.a(EntityFox.class, DataWatcherRegistry.a);
         bD = (entity) -> !entity.bm() && IEntitySelector.e.test(entity);
     }
 
@@ -43,50 +45,8 @@ public class EntityTamableFox extends EntityFox {
     @Override
     public void initPathfinder() {
         try {
-            this.goalSelector.a(0, getFoxInnerPathfinderGoal("g")); // FloatGoal
-
             this.goalSit = new FoxPathfinderGoalSit(this);
             this.goalSelector.a(1, goalSit);
-
-            this.goalSelector.a(2, getFoxInnerPathfinderGoal("b")); // FaceplantGoal
-            this.goalSelector.a(3, new FoxPathfinderGoalPanic(this, 2.2D)); // PanicGoal
-            this.goalSelector.a(4, getFoxInnerPathfinderGoal("e", Arrays.asList(1.0D), Arrays.asList(double.class))); // BreedGoal
-
-            // Avoid human only if not tamed
-            this.goalSelector.a(5, new PathfinderGoalAvoidTarget(this, EntityHuman.class, 16.0F, 1.6D, 1.4D, (entityliving) -> {
-                return !isTamed() && bD.test((EntityLiving) entityliving);
-            }));
-
-            // Avoid wolf if it is not tamed
-            this.goalSelector.a(5, new PathfinderGoalAvoidTarget(this, EntityWolf.class, 8.0F, 1.6D, 1.4D, (entityliving) -> {
-                try {
-                    Method eFMethod = EntityFox.class.getDeclaredMethod("eF");
-                    eFMethod.setAccessible(true);
-                    boolean eF = (boolean) eFMethod.invoke(this);
-                    eFMethod.setAccessible(false);
-
-                    return !((EntityWolf) entityliving).isTamed() && !eF;
-                } catch (Exception e) {
-                    return !((EntityWolf) entityliving).isTamed();
-                }
-            }));
-
-            this.goalSelector.a(8, new FoxPathfinderGoalMeleeAttack(this, 1.2000000476837158D, true));
-            this.goalSelector.a(9, new FoxPathfinderGoalFollowOwner(this, 1.3D, 10.0F, 2.0F, false));
-            this.goalSelector.a(6, getFoxInnerPathfinderGoal("u")); // StalkPrey
-            this.goalSelector.a(7, new o()); // Pounce
-
-            this.goalSelector.a(9, getFoxInnerPathfinderGoal("h", Arrays.asList(this, 1.25D), Arrays.asList(EntityFox.class, double.class))); // FollowParent
-
-            this.goalSelector.a(11, new PathfinderGoalLeapAtTarget(this, 0.4F));
-            this.goalSelector.a(12, new PathfinderGoalRandomStrollLand(this, 1.15D));
-
-            this.goalSelector.a(12, getFoxInnerPathfinderGoal("p")); // SearchForItems
-            this.goalSelector.a(13, getFoxInnerPathfinderGoal("j", Arrays.asList(this, EntityHuman.class, 24.0f), Arrays.asList(EntityInsentient.class, Class.class, float.class))); // LookAtPlayer
-
-            this.targetSelector.a(1, new FoxPathfinderGoalOwnerHurtByTarget(this));
-            this.targetSelector.a(2, new FoxPathfinderGoalOwnerHurtTarget(this));
-            this.targetSelector.a(3, (new FoxPathfinderGoalHurtByTarget(this, new Class[0])).a(new Class[0]));
 
             // Wild animal attacking
             Field bE = this.getClass().getSuperclass().getDeclaredField("bE");
@@ -107,29 +67,56 @@ public class EntityTamableFox extends EntityFox {
                 return (!isTamed() || (Config.doesTamedAttackWildAnimals() && isTamed())) && entityliving instanceof EntityFishSchool;
             }));
 
+            this.goalSelector.a(0, getFoxInnerPathfinderGoal("g")); // FoxFloatGoal
+            this.goalSelector.a(1, getFoxInnerPathfinderGoal("b")); // FaceplantGoal
+            this.goalSelector.a(2, new FoxPathfinderGoalPanic(this, 2.2D));
+            this.goalSelector.a(3, getFoxInnerPathfinderGoal("e", Arrays.asList(1.0D), Arrays.asList(double.class))); // FoxBreedGoal
+
+            this.goalSelector.a(4, new PathfinderGoalAvoidTarget(this, EntityHuman.class, 16.0F, 1.6D, 1.4D, (entityliving) -> {
+                return !isTamed() && bD.test((EntityLiving) entityliving) && !this.isDefending();
+            }));
+            this.goalSelector.a(4, new PathfinderGoalAvoidTarget(this, EntityWolf.class, 8.0F, 1.6D, 1.4D, (entityliving) -> {
+                return !((net.minecraft.server.v1_16_R1.EntityWolf)entityliving).isTamed() && !this.isDefending();
+            }));
+
+            this.goalSelector.a(5, getFoxInnerPathfinderGoal("u")); // StalkPreyGoal
+            this.goalSelector.a(6, getFoxInnerPathfinderGoal("o")); // FoxPounceGoal
+            this.goalSelector.a(7, getFoxInnerPathfinderGoal("l", Arrays.asList(1.2000000476837158D, true), Arrays.asList(double.class, boolean.class))); // FoxMeleeAttackGoal
+            this.goalSelector.a(8, getFoxInnerPathfinderGoal("h", Arrays.asList(this, 1.25D), Arrays.asList(EntityFox.class, double.class))); // FoxFollowParentGoal
+            this.goalSelector.a(8, new FoxPathfinderGoalSleepWithOwner(this));
+            this.goalSelector.a(9, new FoxPathfinderGoalFollowOwner(this, 1.3D, 10.0F, 2.0F, false));
+            this.goalSelector.a(10, new PathfinderGoalLeapAtTarget(this, 0.4F));
+            this.goalSelector.a(11, new PathfinderGoalRandomStrollLand(this, 1.0D));
+            this.goalSelector.a(11, getFoxInnerPathfinderGoal("p")); // FoxSearchForItemsGoal
+            this.goalSelector.a(12, getFoxInnerPathfinderGoal("j", Arrays.asList(this, EntityHuman.class, 24.0F), Arrays.asList(EntityInsentient.class, Class.class, float.class))); // FoxLookAtPlayerGoal
+
+            this.targetSelector.a(1, new FoxPathfinderGoalOwnerHurtByTarget(this));
+            this.targetSelector.a(2, new FoxPathfinderGoalOwnerHurtTarget(this));
+            this.targetSelector.a(3, (new FoxPathfinderGoalHurtByTarget(this)).a(new Class[0]));
+
             untamedGoals = new ArrayList<>();
 
             // Sleep
             PathfinderGoal sleep = getFoxInnerPathfinderGoal("t");
-            this.goalSelector.a(8, sleep);
+            this.goalSelector.a(7, sleep);
             untamedGoals.add(sleep);
 
             // PerchAndSearch (Random sitting?)
             PathfinderGoal perchAndSearch = getFoxInnerPathfinderGoal("r");
-            this.goalSelector.a(14, perchAndSearch);
+            this.goalSelector.a(13, perchAndSearch);
             untamedGoals.add(perchAndSearch);
 
             // EatBerries (Pick berry bushes)
             PathfinderGoal eatBerries = new f(1.2000000476837158D, 12, 2);
-            this.goalSelector.a(11, eatBerries);
+            this.goalSelector.a(10, eatBerries);
             untamedGoals.add(eatBerries); // Maybe this should be configurable too?
 
             PathfinderGoal seekShelter = getFoxInnerPathfinderGoal("s", Arrays.asList(1.25D), Arrays.asList(double.class));
-            this.goalSelector.a(7, seekShelter); // SeekShelter
+            this.goalSelector.a(6, seekShelter); // SeekShelter
             untamedGoals.add(seekShelter);
 
             PathfinderGoal strollThroughVillage = getFoxInnerPathfinderGoal("q", Arrays.asList(32, 200), Arrays.asList(int.class, int.class));
-            this.goalSelector.a(10, strollThroughVillage); // StrollThroughVillage
+            this.goalSelector.a(9, strollThroughVillage); // StrollThroughVillage
             untamedGoals.add(strollThroughVillage);
 
         } catch (Exception e) {
@@ -159,6 +146,16 @@ public class EntityTamableFox extends EntityFox {
             this.getAttributeInstance(GenericAttributes.MAX_HEALTH).setValue(24.0D);
             this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(3.0D);
         }
+    }
+
+    // deobf: getFlag
+    private boolean t(int i) {
+        return ((Byte)this.datawatcher.get(bx) & i) != 0;
+    }
+
+    // deobf: 'isDefending' from 'eF'
+    public boolean isDefending() {
+        return this.t(128);
     }
 
     public static Object getPrivateField(String fieldName, Class clazz, Object object) {
