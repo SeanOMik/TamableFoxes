@@ -4,14 +4,15 @@
     <list default="true" id="dcab9632-7b1a-44d7-9283-be9b37640afc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/TamableFoxes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/TamableFoxes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/Utils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15_R1/EntityTamableFox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15_R1/EntityTamableFox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15_R1/pathfinding/FoxPathfinderGoalMeleeAttack.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_16_R1/EntityTamableFox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_16_R1/EntityTamableFox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_16_R1/pathfinding/FoxPathfinderGoalSleepWithOwner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_16_R1/pathfinding/FoxPathfinderGoalSleepWithOwner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/plugin.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +53,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_16_R1" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -78,12 +79,20 @@
       <recent name="net.seanomik.tamablefoxes.versions.version_1_16" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Code\java\spigotPlugins\myPlugins\TamableFoxes\src\main\java\net\seanomik\tamablefoxes\versions" />
       <recent name="D:\Code\java\spigotPlugins\myPlugins\TamableFoxes\src\main\java\net\seanomik\tamablefoxes\versions\version_1_16_R1" />
       <recent name="D:\Code\java\spigotPlugins\myPlugins\GitTamableFoxes\src\main\java\net\seanomik\tamablefoxes\io" />
       <recent name="E:\TamableFoxesCustomEntity\src\main\resources" />
     </key>
   </component>
-  <component name="RunManager" selected="JAR Application.Spigot-1.15.2">
+  <component name="RunManager" selected="JAR Application.Spigot-1.16.1">
+    <configuration name="Spigot-1.14.4" type="JarApplication">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/../../_TEST_SERVER_1.14.4_/spigot-1.14.4.jar" />
+      <option name="PROGRAM_PARAMETERS" value="nogui" />
+      <option name="WORKING_DIRECTORY" value="D:\Code\java\spigotPlugins\_TEST_SERVER_1.14.4_" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2" />
+    </configuration>
     <configuration name="Spigot-1.15.2" type="JarApplication">
       <option name="JAR_PATH" value="$PROJECT_DIR$/../../_TEST_SERVER_1.15.2_/spigot-1.15.2.jar" />
       <option name="PROGRAM_PARAMETERS" value="nogui" />
@@ -132,6 +141,7 @@
     </configuration>
     <list>
       <item itemvalue="JAR Application.Spigot-1.15.2" />
+      <item itemvalue="JAR Application.Spigot-1.14.4" />
       <item itemvalue="JAR Application.Spigot-1.16.1" />
       <item itemvalue="Maven.TamableFoxesCustomEntity build" />
     </list>
@@ -195,10 +205,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="New way of implementing foxes" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594704621064">
+    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594757119591">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594704621064" />
+    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594757119591" />
     <state x="765" y="229" key="#com.intellij.ide.util.MemberChooser" timestamp="1594703907165">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -215,38 +225,38 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1590119699228" />
-    <state width="1877" height="211" key="GridCell.Tab.0.bottom" timestamp="1594752102677">
+    <state width="1877" height="211" key="GridCell.Tab.0.bottom" timestamp="1594762175885">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="211" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594752102677" />
-    <state width="1877" height="211" key="GridCell.Tab.0.center" timestamp="1594752102676">
+    <state width="1877" height="211" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594762175885" />
+    <state width="1877" height="211" key="GridCell.Tab.0.center" timestamp="1594762175885">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="211" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594752102676" />
-    <state width="1877" height="211" key="GridCell.Tab.0.left" timestamp="1594752102676">
+    <state width="1877" height="211" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594762175885" />
+    <state width="1877" height="211" key="GridCell.Tab.0.left" timestamp="1594762175885">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="211" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594752102676" />
-    <state width="1877" height="211" key="GridCell.Tab.0.right" timestamp="1594752102676">
+    <state width="1877" height="211" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594762175885" />
+    <state width="1877" height="211" key="GridCell.Tab.0.right" timestamp="1594762175885">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="211" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594752102676" />
-    <state width="1877" height="211" key="GridCell.Tab.1.bottom" timestamp="1594752102527">
+    <state width="1877" height="211" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594762175885" />
+    <state width="1877" height="211" key="GridCell.Tab.1.bottom" timestamp="1594762175796">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="211" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594752102527" />
-    <state width="1877" height="211" key="GridCell.Tab.1.center" timestamp="1594752102527">
+    <state width="1877" height="211" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594762175796" />
+    <state width="1877" height="211" key="GridCell.Tab.1.center" timestamp="1594762175796">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="211" key="GridCell.Tab.1.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594752102527" />
-    <state width="1877" height="211" key="GridCell.Tab.1.left" timestamp="1594752102527">
+    <state width="1877" height="211" key="GridCell.Tab.1.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594762175796" />
+    <state width="1877" height="211" key="GridCell.Tab.1.left" timestamp="1594762175795">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="211" key="GridCell.Tab.1.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594752102527" />
-    <state width="1877" height="211" key="GridCell.Tab.1.right" timestamp="1594752102527">
+    <state width="1877" height="211" key="GridCell.Tab.1.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594762175795" />
+    <state width="1877" height="211" key="GridCell.Tab.1.right" timestamp="1594762175796">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="211" key="GridCell.Tab.1.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594752102527" />
+    <state width="1877" height="211" key="GridCell.Tab.1.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594762175796" />
     <state x="461" y="162" key="SettingsEditor" timestamp="1588876397734">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -263,10 +273,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="568" y="283" width="1348" height="1027" key="dock-window-1/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594751513464" />
-    <state x="-941" y="0" width="948" height="1047" key="dock-window-2" timestamp="1594749231953">
+    <state x="-1332" y="0" width="1348" height="788" key="dock-window-2" timestamp="1594756513862">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="-941" y="0" width="948" height="1047" key="dock-window-2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594749231953" />
+    <state x="-1332" y="0" width="1348" height="788" key="dock-window-2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594756513862" />
     <state x="656" y="252" width="607" height="536" key="find.popup" timestamp="1594704998390">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

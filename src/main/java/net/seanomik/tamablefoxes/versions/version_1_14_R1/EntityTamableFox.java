@@ -1,22 +1,22 @@
-package net.seanomik.tamablefoxes.versions.version_1_15_R1;
+package net.seanomik.tamablefoxes.versions.version_1_14_R1;
 
-import net.minecraft.server.v1_15_R1.*;
+import net.minecraft.server.v1_14_R1.*;
 import net.seanomik.tamablefoxes.TamableFoxes;
 import net.seanomik.tamablefoxes.Utils;
 import net.seanomik.tamablefoxes.io.Config;
 import net.seanomik.tamablefoxes.io.LanguageConfig;
-import net.seanomik.tamablefoxes.versions.version_1_15_R1.pathfinding.*;
+import net.seanomik.tamablefoxes.versions.version_1_14_R1.pathfinding.*;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.libs.jline.internal.Nullable;
-import org.bukkit.craftbukkit.v1_15_R1.event.CraftEventFactory;
-import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_14_R1.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.function.Predicate;
 
@@ -49,21 +49,21 @@ public class EntityTamableFox extends EntityFox {
             this.goalSelector.a(1, goalSit);
 
             // Wild animal attacking
-            Field landTargetGoal = this.getClass().getSuperclass().getDeclaredField("bE");
+            Field landTargetGoal = this.getClass().getSuperclass().getDeclaredField("bH");
             landTargetGoal.setAccessible(true);
             landTargetGoal.set(this, new PathfinderGoalNearestAttackableTarget(this, EntityAnimal.class, 10, false, false, (entityliving) -> {
                 return (!isTamed() || (Config.doesTamedAttackWildAnimals() && isTamed())) && (entityliving instanceof EntityChicken || entityliving instanceof EntityRabbit);
             }));
             landTargetGoal.setAccessible(false);
 
-            Field turtleEggTargetGoal = this.getClass().getSuperclass().getDeclaredField("bF");
+            Field turtleEggTargetGoal = this.getClass().getSuperclass().getDeclaredField("bI");
             turtleEggTargetGoal.setAccessible(true);
             turtleEggTargetGoal.set(this, new PathfinderGoalNearestAttackableTarget(this, EntityTurtle.class, 10, false, false, (entityLiving) -> {
-                return (!isTamed() || (Config.doesTamedAttackWildAnimals() && isTamed())) && EntityTurtle.bw.test((EntityLiving) entityLiving);
+                return (!isTamed() || (Config.doesTamedAttackWildAnimals() && isTamed())) && EntityTurtle.bz.test((EntityLiving) entityLiving);
             }));
             turtleEggTargetGoal.setAccessible(false);
 
-            Field fishTargetGoal = this.getClass().getSuperclass().getDeclaredField("bG");
+            Field fishTargetGoal = this.getClass().getSuperclass().getDeclaredField("bJ");
             fishTargetGoal.setAccessible(true);
             fishTargetGoal.set(this, new PathfinderGoalNearestAttackableTarget(this, EntityFish.class, 20, false, false, (entityliving) -> {
                 return (!isTamed() || (Config.doesTamedAttackWildAnimals() && isTamed())) && entityliving instanceof EntityFishSchool;
@@ -76,7 +76,7 @@ public class EntityTamableFox extends EntityFox {
             this.goalSelector.a(3, getFoxInnerPathfinderGoal("e", Arrays.asList(1.0D), Arrays.asList(double.class))); // FoxBreedGoal
 
             this.goalSelector.a(4, new PathfinderGoalAvoidTarget(this, EntityHuman.class, 16.0F, 1.6D, 1.4D, (entityliving) -> {
-                return !isTamed() && bD.test((EntityLiving) entityliving) && !this.isDefending();
+                return !isTamed() && !((EntityLiving) entityliving).isSneaking() && IEntitySelector.e.test((EntityLiving) entityliving) && !this.isDefending();
             }));
             this.goalSelector.a(4, new PathfinderGoalAvoidTarget(this, EntityWolf.class, 8.0F, 1.6D, 1.4D, (entityliving) -> {
                 return !((net.minecraft.server.v1_16_R1.EntityWolf)entityliving).isTamed() && !this.isDefending();
@@ -87,7 +87,7 @@ public class EntityTamableFox extends EntityFox {
             this.goalSelector.a(7, getFoxInnerPathfinderGoal("l", Arrays.asList(1.2000000476837158D, true), Arrays.asList(double.class, boolean.class))); // FoxMeleeAttackGoal
             this.goalSelector.a(8, getFoxInnerPathfinderGoal("h", Arrays.asList(this, 1.25D), Arrays.asList(EntityFox.class, double.class))); // FoxFollowParentGoal
             this.goalSelector.a(8, new FoxPathfinderGoalSleepWithOwner(this));
-            this.goalSelector.a(9, new FoxPathfinderGoalFollowOwner(this, 1.3D, 10.0F, 2.0F, false));
+            this.goalSelector.a(9, new FoxPathfinderGoalFollowOwner(this, 1.0D, 10.0F, 2.0F));
             this.goalSelector.a(10, new PathfinderGoalLeapAtTarget(this, 0.4F));
             this.goalSelector.a(11, new PathfinderGoalRandomStrollLand(this, 1.0D));
             this.goalSelector.a(11, getFoxInnerPathfinderGoal("p")); // FoxSearchForItemsGoal
@@ -505,5 +505,9 @@ public class EntityTamableFox extends EntityFox {
         EnumSet<?> targetEnumSet = (EnumSet<?>) getPrivateField("f", PathfinderGoalSelector.class, targetSelector);
         goalEnumSet.clear();
         targetEnumSet.clear();
+    }
+
+    public FoxPathfinderGoalSit getGoalSit() {
+        return goalSit;
     }
 }

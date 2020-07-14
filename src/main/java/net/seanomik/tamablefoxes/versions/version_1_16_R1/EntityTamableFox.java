@@ -40,6 +40,16 @@ public class EntityTamableFox extends EntityFox {
 
     public EntityTamableFox(EntityTypes<? extends EntityFox> entitytypes, World world) {
         super(entitytypes, world);
+
+        this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(0.33000001192092896D);
+        if (isTamed()) {
+            this.getAttributeInstance(GenericAttributes.MAX_HEALTH).setValue(24.0D);
+            this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(3.0D);
+            this.setHealth(this.getMaxHealth());
+        } else {
+            this.getAttributeInstance(GenericAttributes.MAX_HEALTH).setValue(10.0D);
+            this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(2.0D);
+        }
     }
 
     @Override
@@ -124,44 +134,10 @@ public class EntityTamableFox extends EntityFox {
             PathfinderGoal strollThroughVillage = getFoxInnerPathfinderGoal("q", Arrays.asList(32, 200), Arrays.asList(int.class, int.class));
             this.goalSelector.a(9, strollThroughVillage); // StrollThroughVillage
             untamedGoals.add(strollThroughVillage);
-
-            // This is DefendTrustedTargetGoal so I don't think its needed
-            /*this.targetSelector.a(3, new EntityFox.a(EntityLiving.class, false, false, (entityliving) -> {
-                return bA.test(entityliving) && !this.c(entityliving.getUniqueID());
-            }));*/
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-    /* I need to find out a new way to do this.
-     * 1.16.1 introduced a new way that attributes are created. These methods are static methods
-     * which makes it so I can't override them. Each entity also has a unique method name.
-     */
-    /*protected void initAttributes() {
-        this.getAttributeMap().b(GenericAttributes.MAX_HEALTH);
-        this.getAttributeMap().b(GenericAttributes.KNOCKBACK_RESISTANCE);
-        this.getAttributeMap().b(GenericAttributes.MOVEMENT_SPEED);
-        this.getAttributeMap().b(GenericAttributes.ARMOR);
-        this.getAttributeMap().b(GenericAttributes.ARMOR_TOUGHNESS);
-
-        // Default value is 32, might want to make this configurable in the future
-        this.getAttributeMap().b(GenericAttributes.FOLLOW_RANGE);//.setValue(32.0D);
-        EntityLiving.cK().a(GenericAttributes.FOLLOW_RANGE, 16.0D).
-        //this.ck(GenericAttributes.FOLLOW_RANGE, 32.0D);
-
-        this.getAttributeMap().b(GenericAttributes.ATTACK_KNOCKBACK);
-
-        this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(0.30000001192092896D);
-
-        if (!isTamed()) {
-            this.getAttributeInstance(GenericAttributes.MAX_HEALTH).setValue(10.0D);
-            this.getAttributeMap().b(GenericAttributes.ATTACK_DAMAGE).setValue(2.0D);
-        } else {
-            this.getAttributeInstance(GenericAttributes.MAX_HEALTH).setValue(24.0D);
-            this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(3.0D);
-        }
-    }*/
 
     // deobf: getFlag
     private boolean t(int i) {
@@ -172,19 +148,6 @@ public class EntityTamableFox extends EntityFox {
     public boolean isDefending() {
         return this.t(128);
     }
-
-    // deobf: setFlag
-    /*public void d(int i, boolean flag) {
-        if (flag) {
-            this.datawatcher.set(bw, (byte)((Byte)this.datawatcher.get(bw) | i));
-        } else {
-            this.datawatcher.set(bw, (byte)((Byte)this.datawatcher.get(bw) & ~i));
-        }
-    }*/
-
-    /*public void x(boolean flag) {
-        this.datawatcher.set(bA, flag);
-    }*/
 
     public static Object getPrivateField(String fieldName, Class clazz, Object object) {
         Field field;

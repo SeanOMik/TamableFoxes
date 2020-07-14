@@ -1,6 +1,7 @@
 package net.seanomik.tamablefoxes;
 
 import net.seanomik.tamablefoxes.versions.NMSInterface;
+import net.seanomik.tamablefoxes.versions.version_1_14_R1.NMSInterface_1_14_R1;
 import net.seanomik.tamablefoxes.versions.version_1_15_R1.NMSInterface_1_15_R1;
 import net.seanomik.tamablefoxes.io.LanguageConfig;
 import net.seanomik.tamablefoxes.versions.version_1_16_R1.NMSInterface_1_16_R1;
@@ -12,7 +13,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 /* @CHANGELOG (1.7-SNAPSHOT):
  *    Update to Minecraft 1.16.1.
- *    This jar file will also work with Minecraft 1.15.2, and 1.16.1.
+ *    This jar file will also work with Minecraft 1.14.X, 1.15.X, and 1.16.X.
+ *    Due to merging 1.14 support with all other versions, I also fixed SEVERAL issues that the versions for 1.14 had.
  *    Foxes now sleep with their owner once again.
  */
 public final class TamableFoxes extends JavaPlugin implements Listener {
@@ -29,7 +31,9 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
         LanguageConfig.getConfig().saveDefault();
 
         String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
-        if (version.equals("v1_15_R1")) {
+        if (version.equals("v1_14_R1")) {
+            nmsInterface = new NMSInterface_1_14_R1();
+        } else if (version.equals("v1_15_R1")) {
             nmsInterface = new NMSInterface_1_15_R1();
         } else if (version.equals("v1_16_R1")) {
             nmsInterface = new NMSInterface_1_16_R1();
