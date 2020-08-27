@@ -18,11 +18,14 @@ Features:
 * Foxes are automatically spawned inside the world. (Same areas as vanilla foxes)
 * Foxes attack chickens and rabbits.
 * Snow and red foxes.
+* Language.yml
+* Message for when a tamed fox dies
 
 Commands:
 * /spawntamablefox [red/snow]: Spawns a tamable fox at the players location.
 Permissions:
-* tamablefoxes.spawn: Gives permission to run the command /spawntamablefox.
+* tamablefoxes.spawn: Gives permission to run the command /spawntamablefox. Default: `op`
+* tamablefoxes.tame: Gives the player the ability to tame a fox. Default: `Everybody`
 
 ![foxes sleeping](https://www.spigotmc.org/attachments/2019-07-18_23-19-12-png.441396/)
 ![foxes sitting on bed](https://www.spigotmc.org/attachments/2019-07-18_23-20-49-png.441398/)
