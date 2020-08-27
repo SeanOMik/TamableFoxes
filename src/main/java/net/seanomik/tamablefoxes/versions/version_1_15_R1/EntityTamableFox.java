@@ -79,7 +79,7 @@ public class EntityTamableFox extends EntityFox {
                 return !isTamed() && bD.test((EntityLiving) entityliving) && !this.isDefending();
             }));
             this.goalSelector.a(4, new PathfinderGoalAvoidTarget(this, EntityWolf.class, 8.0F, 1.6D, 1.4D, (entityliving) -> {
-                return !((net.minecraft.server.v1_16_R1.EntityWolf)entityliving).isTamed() && !this.isDefending();
+                return !((EntityWolf) entityliving).isTamed() && !this.isDefending();
             }));
 
             this.goalSelector.a(5, getFoxInnerPathfinderGoal("u")); // StalkPreyGoal

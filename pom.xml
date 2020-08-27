@@ -6,7 +6,7 @@
 
     <groupId>net.seanomik</groupId>
     <artifactId>tamablefoxes</artifactId>
-    <version>1.7-SNAPSHOT</version>
+    <version>1.7.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Tamablefoxes</name>
@@ -39,9 +39,9 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <!--<outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_1.14.4_\plugins\TamableFoxes-MC-v1.14.X-v1.16.X_v${project.version}.jar</outputFile>-->
-                            <!--<outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_1.15.2_\plugins\TamableFoxes-MC-v1.14.X-v1.16.X_v${project.version}.jar</outputFile>-->
-                            <outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_1.16.1_\plugins\TamableFoxes-MC-v1.14.X-v1.16.X_v${project.version}.jar</outputFile>
+                            <!--<outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_1.14.4_\plugins\TamableFoxes_v${project.version}.jar</outputFile>-->
+                            <outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_1.15.2_\plugins\TamableFoxes_v${project.version}.jar</outputFile>
+                            <!--<outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_1.16.1_\plugins\TamableFoxes_v${project.version}.jar</outputFile>-->
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                         </configuration>
                     </execution>
@@ -77,7 +77,7 @@
             <artifactId>AllSpigotNMS</artifactId>
             <version>LATEST</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/spigot-14-15-16-nms.jar</systemPath>
+            <systemPath>${project.basedir}/spigot-14-15-16_R1-16_R2.jar</systemPath>
         </dependency>
         <dependency> <!-- We need to do this so we get the spigot api without nms. -->
             <groupId>org.spigotmc</groupId>
