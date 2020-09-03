@@ -242,12 +242,13 @@ public class EntityTamableFox extends EntityFox {
     }
 
     // deobf: mobInteract
+    @Override
     public EnumInteractionResult b(EntityHuman entityhuman, EnumHand enumhand) {
         ItemStack itemstack = entityhuman.b(enumhand);
         Item item = itemstack.getItem();
 
         if (itemstack.getItem() instanceof ItemMonsterEgg) {
-            return super.a(entityhuman, enumhand);
+            return super.b(entityhuman, enumhand);
         } else {
             if (this.isTamed()) {
 

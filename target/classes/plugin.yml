@@ -1,5 +1,5 @@
 name: Tamablefoxes
-version: 1.7.2-SNAPSHOT
+version: 1.7.3-SNAPSHOT
 main: net.seanomik.tamablefoxes.TamableFoxes
 api-version: 1.14
 load: STARTUP
@@ -13,7 +13,7 @@ commands:
 permissions:
   tamablefoxes.spawn:
     description: "Gives the player the ability to spawn tamable foxes."
-    default: false
+    default: op
   tamablefoxes.tame:
     description: "Gives the player the ability to tame a fox."
-    default: false
+    default: true
