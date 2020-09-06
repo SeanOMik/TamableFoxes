@@ -1,5 +1,5 @@
 name: Tamablefoxes
-version: 1.7.3-SNAPSHOT
+version: 1.7.4-SNAPSHOT
 main: net.seanomik.tamablefoxes.TamableFoxes
 api-version: 1.14
 load: STARTUP

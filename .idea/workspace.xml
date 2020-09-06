@@ -5,9 +5,12 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_14_R1/EntityTamableFox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_14_R1/EntityTamableFox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15_R1/EntityTamableFox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_15_R1/EntityTamableFox.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_16_R1/EntityTamableFox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_16_R1/EntityTamableFox.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_16_R2/EntityTamableFox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/seanomik/tamablefoxes/versions/version_1_16_R2/EntityTamableFox.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/plugin.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -233,26 +236,26 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594707084828" />
-    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1599089220553">
+    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1599232108509">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599089220553" />
-    <state width="1877" height="186" key="GridCell.Tab.0.bottom" timestamp="1599154617624">
+    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599232108509" />
+    <state width="1877" height="186" key="GridCell.Tab.0.bottom" timestamp="1599191713976">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="186" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599154617624" />
-    <state width="1877" height="186" key="GridCell.Tab.0.center" timestamp="1599154617624">
+    <state width="1877" height="186" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599191713976" />
+    <state width="1877" height="186" key="GridCell.Tab.0.center" timestamp="1599191713975">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="186" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599154617624" />
-    <state width="1877" height="186" key="GridCell.Tab.0.left" timestamp="1599154617623">
+    <state width="1877" height="186" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599191713975" />
+    <state width="1877" height="186" key="GridCell.Tab.0.left" timestamp="1599191713975">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="186" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599154617623" />
-    <state width="1877" height="186" key="GridCell.Tab.0.right" timestamp="1599154617624">
+    <state width="1877" height="186" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599191713975" />
+    <state width="1877" height="186" key="GridCell.Tab.0.right" timestamp="1599191713975">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="186" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599154617624" />
+    <state width="1877" height="186" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599191713975" />
     <state width="1877" height="259" key="GridCell.Tab.1.bottom" timestamp="1599090864717">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -273,10 +276,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="162" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1595187631542" />
-    <state x="656" y="343" key="com.intellij.ide.util.TipDialog" timestamp="1599154463093">
+    <state x="656" y="343" key="com.intellij.ide.util.TipDialog" timestamp="1599232057643">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="656" y="343" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599154463093" />
+    <state x="656" y="343" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599232057643" />
     <state x="607" y="135" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1594751055964">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -289,10 +292,14 @@
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1332" y="0" width="1348" height="788" key="dock-window-2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594756513862" />
-    <state x="656" y="252" width="607" height="536" key="find.popup" timestamp="1594704998390">
+    <state x="656" y="252" width="684" height="536" key="find.popup" timestamp="1599176113607">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="656" y="252" width="607" height="536" key="find.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594704998390" />
+    <state x="656" y="252" width="684" height="536" key="find.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599176113607" />
+    <state x="342" y="190" key="new project wizard" timestamp="1599232154987">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="342" y="190" key="new project wizard/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599232154987" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1594697967242">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

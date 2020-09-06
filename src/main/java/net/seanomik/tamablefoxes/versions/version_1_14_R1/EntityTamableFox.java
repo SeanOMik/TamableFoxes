@@ -185,16 +185,17 @@ public class EntityTamableFox extends EntityFox {
     }
 
     // readAdditionalSaveData
+    @Override
     public void a(NBTTagCompound compound) {
         super.a(compound);
-        String ownerUuid;
+        String ownerUuid = "";
 
         if (compound.hasKeyOfType("OwnerUUID", 8)) {
             ownerUuid = compound.getString("OwnerUUID");
-        } else {
+        }/* else {
             String var2 = compound.getString("Owner");
             ownerUuid = NameReferencingFileConverter.a(this.getMinecraftServer(), var2);
-        }
+        }*/
 
         if (!ownerUuid.isEmpty()) {
             try {
