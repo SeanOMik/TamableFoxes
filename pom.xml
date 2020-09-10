@@ -6,13 +6,13 @@
 
     <groupId>net.seanomik</groupId>
     <artifactId>tamablefoxes</artifactId>
-    <version>1.7.4-SNAPSHOT</version>
+    <version>1.7.5-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Tamablefoxes</name>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>1.14</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -24,8 +24,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.7.0</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <source>9</source>
+                    <target>9</target>
                 </configuration>
             </plugin>
             <plugin>
