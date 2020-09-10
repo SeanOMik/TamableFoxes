@@ -6,7 +6,7 @@
 
     <groupId>net.seanomik</groupId>
     <artifactId>tamablefoxes</artifactId>
-    <version>1.7.4-SNAPSHOT</version>
+    <version>1.7.5-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Tamablefoxes</name>
