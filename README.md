@@ -28,6 +28,9 @@ Features:
 
 Commands:
 * /spawntamablefox [red/snow]: Spawns a tamable fox at the players location.
+
+<br>
+
 Permissions:
 * tamablefoxes.spawn: Gives permission to run the command /spawntamablefox. Default: `op`
 * tamablefoxes.tame: Gives the player the ability to tame a fox. Default: `Everybody`
