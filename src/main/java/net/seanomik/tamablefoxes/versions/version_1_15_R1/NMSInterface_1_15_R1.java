@@ -37,6 +37,7 @@ public class NMSInterface_1_15_R1 implements NMSInterface {
             Bukkit.getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.GREEN + LanguageConfig.getSuccessReplaced());
         } catch (Exception e) {
             Bukkit.getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.RED + LanguageConfig.getFailureReplace());
+            e.printStackTrace();
         }
     }
 
