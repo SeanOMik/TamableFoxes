@@ -34,6 +34,7 @@ Commands:
 Permissions:
 * tamablefoxes.spawn: Gives permission to run the command /spawntamablefox. Default: `op`
 * tamablefoxes.tame: Gives the player the ability to tame a fox. Default: `Everybody`
+* tamablefoxes.tame.unlimited: Lets players bypass the tame limit. Default: `op`
 
 ![foxes sleeping](https://www.spigotmc.org/attachments/2019-07-18_23-19-12-png.441396/)
 ![foxes sitting on bed](https://www.spigotmc.org/attachments/2019-07-18_23-20-49-png.441398/)
