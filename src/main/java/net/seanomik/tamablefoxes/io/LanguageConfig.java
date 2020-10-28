@@ -132,6 +132,10 @@ public class LanguageConfig extends YamlConfiguration  {
         return getConfig().getString((Config.doesShowOwnerInFoxName()) ? "fox-name-format" : "fox-name-no-owner-name-format").replaceAll("%FOX_NAME%", foxName).replaceAll("%OWNER%", ownerName);
     }
 
+    public static String getFoxDoesntTrust() {
+        return getConfig().getString("fox-doesnt-trust");
+    }
+
     public static String getNoPermMessage() {
         return getConfig().getString("no-permission");
     }

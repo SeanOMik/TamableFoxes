@@ -6,7 +6,7 @@
 
     <groupId>net.seanomik</groupId>
     <artifactId>tamablefoxes</artifactId>
-    <version>1.7.6-SNAPSHOT</version>
+    <version>1.7.7-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Tamablefoxes</name>
@@ -44,7 +44,8 @@
                             <!--<outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_PAPER_1.16.1_\plugins\TamableFoxes_v${project.version}.jar</outputFile>-->
                             <!--<outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_1.16.1_\plugins\TamableFoxes_v${project.version}.jar</outputFile>-->
                             <!--<outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_1.16.2_\plugins\TamableFoxes_v${project.version}.jar</outputFile>-->
-                            <outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_PAPER_1.16.2_\plugins\TamableFoxes_v${project.version}.jar</outputFile>
+                            <!--<outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_PAPER_1.16.2_\plugins\TamableFoxes_v${project.version}.jar</outputFile>-->
+                            <outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_1.16.3_\plugins\TamableFoxes_v${project.version}.jar</outputFile>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                         </configuration>
                     </execution>

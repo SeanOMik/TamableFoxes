@@ -15,7 +15,11 @@ public class Config {
 
     // Check if the player can tame the fox.
     public static boolean canPlayerTameFox(Player player) {
-        return !config.getBoolean("enable-taming-permission") || (config.getBoolean("enable-taming-permission") && (player.hasPermission("tamablefoxes.tame") || player.isOp()));
+        return player.hasPermission("tamablefoxes.tame") || player.isOp();
+    }
+
+    public static int getMaxPlayerFoxTames() {
+        return config.getInt("max-fox-tames");
     }
 
     // Check if the plugin asks for a fox name after taming.

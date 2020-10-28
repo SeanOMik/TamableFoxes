@@ -10,6 +10,7 @@ taming-asking-for-name-message: "What do you want to call it?"
 taming-chosen-name-perfect: "%NEW_FOX_NAME% is perfect!"
 fox-name-format: "%FOX_NAME% (%OWNER%'s Fox)"
 fox-name-no-owner-name-format: "%FOX_NAME%"
+fox-doesnt-trust: "The fox doesn't trust you! You have too many foxes!"
 
 no-permission: "You do not have the permission for this command."
 only-run-by-player: "Command can only be run from player state!"

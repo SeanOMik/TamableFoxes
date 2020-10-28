@@ -6,7 +6,6 @@ import java.lang.reflect.Constructor;
 import java.util.List;
 
 public class Utils {
-
     public static String getPrefix() {
         return ChatColor.RED + "[Tamable Foxes] ";
     }

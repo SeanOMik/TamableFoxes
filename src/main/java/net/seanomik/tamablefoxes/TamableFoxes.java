@@ -1,5 +1,8 @@
 package net.seanomik.tamablefoxes;
 
+import net.seanomik.tamablefoxes.io.Config;
+import net.seanomik.tamablefoxes.io.sqlite.SQLiteHandler;
+import net.seanomik.tamablefoxes.io.sqlite.SQLiteHelper;
 import net.seanomik.tamablefoxes.versions.NMSInterface;
 import net.seanomik.tamablefoxes.versions.version_1_14_R1.NMSInterface_1_14_R1;
 import net.seanomik.tamablefoxes.versions.version_1_15_R1.NMSInterface_1_15_R1;
@@ -12,11 +15,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 // @TODO:
 
-/* @CHANGELOG (1.7-SNAPSHOT):
- *    Update to Minecraft 1.16.1.
- *    This jar file will also work with Minecraft 1.14.X, 1.15.X, and 1.16.X.
- *    Due to merging 1.14 support with all other versions, I also fixed SEVERAL issues that the versions for 1.14 had.
- *    Foxes now sleep with their owner once again.
+/* @CHANGELOG (1.7.7-SNAPSHOT):
+ *    Make foxes sleep on the bed with players, similar to what cats do.
+ *    Add a configurable option to set the maximum about of foxes a player can tame.
  */
 public final class TamableFoxes extends JavaPlugin implements Listener {
     private static TamableFoxes plugin;
@@ -31,24 +32,34 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
 
         LanguageConfig.getConfig().saveDefault();
 
+        // Verify server version
         String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
-        if (version.equals("v1_14_R1")) {
-            nmsInterface = new NMSInterface_1_14_R1();
-        } else if (version.equals("v1_15_R1")) {
-            nmsInterface = new NMSInterface_1_15_R1();
-        } else if (version.equals("v1_16_R1")) {
-            nmsInterface = new NMSInterface_1_16_R1();
-        } else if (version.equals("v1_16_R2")) {
-            nmsInterface = new NMSInterface_1_16_R2();
-        } else {
-            Bukkit.getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.RED + LanguageConfig.getUnsupportedMCVersionRegister());
-            versionSupported = false;
-            return;
+        switch (version) {
+            case "v1_14_R1":
+                nmsInterface = new NMSInterface_1_14_R1();
+                break;
+            case "v1_15_R1":
+                nmsInterface = new NMSInterface_1_15_R1();
+                break;
+            case "v1_16_R1":
+                nmsInterface = new NMSInterface_1_16_R1();
+                break;
+            case "v1_16_R2":
+                nmsInterface = new NMSInterface_1_16_R2();
+                break;
+            default:
+                Bukkit.getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.RED + LanguageConfig.getUnsupportedMCVersionRegister());
+                versionSupported = false;
+                return;
         }
 
-        // Display starting message
+        // Display starting message then register entity.
         Bukkit.getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.YELLOW + LanguageConfig.getMCVersionLoading(version));
         nmsInterface.registerCustomFoxEntity();
+
+        if (Config.getMaxPlayerFoxTames() != 0) {
+            SQLiteHelper.getInstance().createTablesIfNotExist();
+        }
     }
 
     @Override

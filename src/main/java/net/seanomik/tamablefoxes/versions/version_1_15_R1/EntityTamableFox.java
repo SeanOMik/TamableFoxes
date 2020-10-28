@@ -5,6 +5,7 @@ import net.seanomik.tamablefoxes.TamableFoxes;
 import net.seanomik.tamablefoxes.Utils;
 import net.seanomik.tamablefoxes.io.Config;
 import net.seanomik.tamablefoxes.io.LanguageConfig;
+import net.seanomik.tamablefoxes.io.sqlite.SQLiteHelper;
 import net.seanomik.tamablefoxes.versions.version_1_15_R1.pathfinding.*;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Bukkit;
@@ -16,7 +17,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.*;
 import java.util.function.Predicate;
 
@@ -73,6 +73,7 @@ public class EntityTamableFox extends EntityFox {
             this.goalSelector.a(0, getFoxInnerPathfinderGoal("g")); // FoxFloatGoal
             this.goalSelector.a(1, getFoxInnerPathfinderGoal("b")); // FaceplantGoal
             this.goalSelector.a(2, new FoxPathfinderGoalPanic(this, 2.2D));
+            this.goalSelector.a(2, new FoxPathfinderGoalRelaxOnOwner(this));
             this.goalSelector.a(3, getFoxInnerPathfinderGoal("e", Arrays.asList(1.0D), Arrays.asList(double.class))); // FoxBreedGoal
 
             this.goalSelector.a(4, new PathfinderGoalAvoidTarget(this, EntityHuman.class, 16.0F, 1.6D, 1.4D, (entityliving) -> {
@@ -311,6 +312,14 @@ public class EntityTamableFox extends EntityFox {
                         itemstack.subtract(1);
                     }
 
+                    SQLiteHelper sqLiteHelper = SQLiteHelper.getInstance();
+                    int maxTameCount = Config.getMaxPlayerFoxTames();
+                    if (maxTameCount > 0 && sqLiteHelper.getPlayerFoxAmount(entityhuman.getUniqueID()) >= maxTameCount) {
+                        ((Player) entityhuman.getBukkitEntity()).sendMessage(Utils.getPrefix() + ChatColor.RED + LanguageConfig.getFoxDoesntTrust());
+
+                        return true;
+                    }
+
                     // 0.33% chance to tame the fox, also check if the called tame entity event is cancelled or not.
                     if (this.random.nextInt(3) == 0 && !CraftEventFactory.callEntityTameEvent(this, entityhuman).isCancelled()) {
                         this.tame(entityhuman);
@@ -319,6 +328,10 @@ public class EntityTamableFox extends EntityFox {
                         this.navigation.o();
                         this.setGoalTarget(null);
                         this.goalSit.setSitting(true);
+
+                        if (maxTameCount > 0) {
+                            sqLiteHelper.addPlayerFoxAmount(entityhuman.getUniqueID(), 1);
+                        }
 
                         getBukkitEntity().getWorld().spawnParticle(org.bukkit.Particle.HEART, getBukkitEntity().getLocation(), 6, 0.5D, 0.5D, 0.5D);
 
@@ -477,6 +490,12 @@ public class EntityTamableFox extends EntityFox {
     public void die(DamageSource damageSource) {
         if (!this.world.isClientSide && this.world.getGameRules().getBoolean(GameRules.SHOW_DEATH_MESSAGES) && this.getOwner() instanceof EntityPlayer) {
             this.getOwner().sendMessage(this.getCombatTracker().getDeathMessage());
+
+            // Remove the amount of foxes the player has tamed if the limit is enabled.
+            if (Config.getMaxPlayerFoxTames() > 0) {
+                SQLiteHelper sqliteHelper = SQLiteHelper.getInstance();
+                sqliteHelper.removePlayerFoxAmount(this.getOwner().getUniqueID(), 1);
+            }
         }
 
         super.die(damageSource);
