@@ -15,9 +15,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 // @TODO:
 
-/* @CHANGELOG (1.7.7-SNAPSHOT):
- *    Make foxes sleep on the bed with players, similar to what cats do.
- *    Add a configurable option to set the maximum about of foxes a player can tame.
+/* @CHANGELOG (1.7.8-SNAPSHOT):
+ *    Add a permission to allow players to bypass the tame limit.
  */
 public final class TamableFoxes extends JavaPlugin implements Listener {
     private static TamableFoxes plugin;

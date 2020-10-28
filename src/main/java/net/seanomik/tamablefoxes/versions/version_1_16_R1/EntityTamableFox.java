@@ -317,7 +317,7 @@ public class EntityTamableFox extends EntityFox {
 
                     SQLiteHelper sqLiteHelper = SQLiteHelper.getInstance();
                     int maxTameCount = Config.getMaxPlayerFoxTames();
-                    if (maxTameCount > 0 && sqLiteHelper.getPlayerFoxAmount(entityhuman.getUniqueID()) >= maxTameCount) {
+                    if ( !((Player) entityhuman.getBukkitEntity()).hasPermission("tamablefoxes.tame.unlimited") && maxTameCount > 0 && sqLiteHelper.getPlayerFoxAmount(entityhuman.getUniqueID()) >= maxTameCount) {
                         ((Player) entityhuman.getBukkitEntity()).sendMessage(Utils.getPrefix() + ChatColor.RED + LanguageConfig.getFoxDoesntTrust());
 
                         return EnumInteractionResult.SUCCESS;

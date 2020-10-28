@@ -17,3 +17,6 @@ permissions:
   tamablefoxes.tame:
     description: "Gives the player the ability to tame a fox."
     default: true
+  tamablefoxes.tame.unlimited:
+    description: "Lets players bypass the tame limit."
+    default: op
