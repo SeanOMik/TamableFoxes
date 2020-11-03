@@ -1,5 +1,6 @@
 package net.seanomik.tamablefoxes.io.sqlite;
 
+import net.seanomik.tamablefoxes.TamableFoxes;
 import org.bukkit.Bukkit;
 
 import java.sql.Connection;
@@ -21,10 +22,8 @@ public class SQLiteHandler {
 
 	public void connect() {
 		try {
-			String baseLoc = Bukkit.getWorldContainer().toURI().toString().substring(6);
-			baseLoc = baseLoc.substring(0,baseLoc.length()-2);
-
-			String url = "jdbc:sqlite:" + baseLoc + "plugins/Tamablefoxes/userFoxAmount.db";
+			String pluginFolder = TamableFoxes.getPlugin().getDataFolder().getAbsolutePath();
+			String url = "jdbc:sqlite:" + pluginFolder + "/userFoxAmount.db";
 			connection = DriverManager.getConnection(url);
 
 		} catch (SQLException e) {

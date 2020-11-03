@@ -15,8 +15,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 // @TODO:
 
-/* @CHANGELOG (1.7.8-SNAPSHOT):
- *    Add a permission to allow players to bypass the tame limit.
+/* @CHANGELOG (1.7.9-SNAPSHOT):
+ *    Fix some crashes and errors with the sqlite database failing to be found.
  */
 public final class TamableFoxes extends JavaPlugin implements Listener {
     private static TamableFoxes plugin;
