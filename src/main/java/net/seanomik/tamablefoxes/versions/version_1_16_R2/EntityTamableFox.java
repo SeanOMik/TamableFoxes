@@ -79,7 +79,7 @@ public class EntityTamableFox extends EntityFox {
             this.goalSelector.a(0, getFoxInnerPathfinderGoal("g")); // FoxFloatGoal
             this.goalSelector.a(1, getFoxInnerPathfinderGoal("b")); // FaceplantGoal
             this.goalSelector.a(2, new FoxPathfinderGoalPanic(this, 2.2D));
-            this.goalSelector.a(2, new FoxPathfinderGoalRelaxOnOwner(this));
+            this.goalSelector.a(2, new FoxPathfinderGoalSleepWithOwner(this));
             this.goalSelector.a(3, getFoxInnerPathfinderGoal("e", Arrays.asList(1.0D), Arrays.asList(double.class))); // FoxBreedGoal
 
             this.goalSelector.a(4, new PathfinderGoalAvoidTarget(this, EntityHuman.class, 16.0F, 1.6D, 1.4D, (entityliving) -> {

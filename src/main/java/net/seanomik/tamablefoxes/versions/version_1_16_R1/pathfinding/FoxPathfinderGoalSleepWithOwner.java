@@ -20,7 +20,7 @@ public class FoxPathfinderGoalSleepWithOwner extends PathfinderGoal {
     public boolean a() {
         if (!this.a.isTamed()) {
             return false;
-        } else if (this.a.isSitting()) { // this.a.isWillSit()
+        } else if (this.a.isSitting()) {
             return false;
         } else {
             EntityLiving entityliving = this.a.getOwner();

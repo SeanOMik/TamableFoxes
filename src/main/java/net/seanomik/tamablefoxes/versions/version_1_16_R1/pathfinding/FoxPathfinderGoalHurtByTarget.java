@@ -84,7 +84,7 @@ public class FoxPathfinderGoalHurtByTarget extends PathfinderGoalTarget {
                                 entityinsentient = (EntityInsentient)iterator.next();
                             } while(this.e == entityinsentient);
                         } while(entityinsentient.getGoalTarget() != null);
-                    } while(this.e instanceof EntityTameableAnimal && ((EntityTameableAnimal)this.e).getOwner() != ((EntityTameableAnimal)entityinsentient).getOwner());
+                    } while(this.e instanceof EntityTamableFox && ((EntityTamableFox)this.e).getOwner() != ((EntityTamableFox)entityinsentient).getOwner());
                 } while(entityinsentient.r(this.e.getLastDamager()));
 
                 if (this.i == null) {
