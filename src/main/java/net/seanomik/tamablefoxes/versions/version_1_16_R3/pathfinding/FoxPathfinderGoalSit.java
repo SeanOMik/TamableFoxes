@@ -2,9 +2,16 @@ package net.seanomik.tamablefoxes.versions.version_1_16_R3.pathfinding;
 
 import net.minecraft.server.v1_16_R3.EntityLiving;
 import net.minecraft.server.v1_16_R3.PathfinderGoal;
+import net.minecraft.server.v1_16_R3.Vec3D;
+import net.seanomik.tamablefoxes.TamableFoxes;
 import net.seanomik.tamablefoxes.versions.version_1_16_R3.EntityTamableFox;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.util.Vector;
 
 import java.util.EnumSet;
+import java.util.LinkedList;
+import java.util.List;
 
 public class FoxPathfinderGoalSit extends PathfinderGoal {
     private final EntityTamableFox entity;
@@ -17,24 +24,29 @@ public class FoxPathfinderGoalSit extends PathfinderGoal {
 
     public boolean b() {
         return this.willSit;
-    } // return this.entity.isWillSit();
+    }
 
     public boolean a() {
         if (!this.entity.isTamed()) {
-            return this.willSit && this.entity.getGoalTarget() == null; // this.entity.isWillSit()
+            return this.willSit && this.entity.getGoalTarget() == null;
         } else if (this.entity.aG()) {
             return false;
         } else if (!this.entity.isOnGround()) {
             return false;
         } else {
             EntityLiving entityliving = this.entity.getOwner();
-            return entityliving == null ? true : (this.entity.h(entityliving) < 144.0D && entityliving.getLastDamager() != null ? false : this.willSit); // this.entity.isWillSit()
+            return entityliving == null || ((!(this.entity.h(entityliving) < 144.0D) || entityliving.getLastDamager() == null) && this.willSit);
         }
     }
 
     public void c() {
         this.entity.getNavigation().o();
-        this.entity.setSitting(true);
+        this.entity.setGoalTarget(null);
+
+        // For some reason it needs to be ran later.
+        Bukkit.getScheduler().runTaskLater(TamableFoxes.getPlugin(), () -> {
+            this.entity.setSitting(true);
+        }, 1L);
     }
 
     public void d() {

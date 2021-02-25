@@ -16,8 +16,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 // @TODO:
 
-/* @CHANGELOG (1.7.9-SNAPSHOT):
- *    Fix some crashes and errors with the sqlite database failing to be found.
+/* @CHANGELOG (1.8.1-SNAPSHOT):
+ * Fixes #32. Kinda hacky but will work for now
  */
 public final class TamableFoxes extends JavaPlugin implements Listener {
     private static TamableFoxes plugin;
@@ -52,6 +52,7 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
                 break;
             default:
                 Bukkit.getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.RED + LanguageConfig.getUnsupportedMCVersionRegister());
+                Bukkit.getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.RED + "You're trying to run MC version " + version + " which is not supported!");
                 versionSupported = false;
                 return;
         }

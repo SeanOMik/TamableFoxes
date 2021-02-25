@@ -1,8 +1,10 @@
 package net.seanomik.tamablefoxes.versions.version_1_14_R1.pathfinding;
 
+import net.seanomik.tamablefoxes.TamableFoxes;
 import net.seanomik.tamablefoxes.versions.version_1_14_R1.EntityTamableFox;
 import net.minecraft.server.v1_14_R1.EntityLiving;
 import net.minecraft.server.v1_14_R1.PathfinderGoal;
+import org.bukkit.Bukkit;
 
 import java.util.EnumSet;
 
@@ -34,7 +36,12 @@ public class FoxPathfinderGoalSit extends PathfinderGoal {
 
     public void c() {
         this.entity.getNavigation().o();
-        this.entity.setSitting(true);
+        this.entity.setGoalTarget(null);
+
+        // For some reason it needs to be ran later.
+        Bukkit.getScheduler().runTaskLater(TamableFoxes.getPlugin(), () -> {
+            this.entity.setSitting(true);
+        }, 1L);
     }
 
     public void d() {

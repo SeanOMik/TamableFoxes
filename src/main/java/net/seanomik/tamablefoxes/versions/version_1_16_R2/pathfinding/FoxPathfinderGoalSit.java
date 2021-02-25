@@ -2,7 +2,9 @@ package net.seanomik.tamablefoxes.versions.version_1_16_R2.pathfinding;
 
 import net.minecraft.server.v1_16_R2.EntityLiving;
 import net.minecraft.server.v1_16_R2.PathfinderGoal;
+import net.seanomik.tamablefoxes.TamableFoxes;
 import net.seanomik.tamablefoxes.versions.version_1_16_R2.EntityTamableFox;
+import org.bukkit.Bukkit;
 
 import java.util.EnumSet;
 
@@ -28,13 +30,18 @@ public class FoxPathfinderGoalSit extends PathfinderGoal {
             return false;
         } else {
             EntityLiving entityliving = this.entity.getOwner();
-            return entityliving == null ? true : (this.entity.h(entityliving) < 144.0D && entityliving.getLastDamager() != null ? false : this.willSit); // this.entity.isWillSit()
+            return entityliving == null || ((!(this.entity.h(entityliving) < 144.0D) || entityliving.getLastDamager() == null) && this.willSit); // this.entity.isWillSit()
         }
     }
 
     public void c() {
         this.entity.getNavigation().o();
-        this.entity.setSitting(true);
+        this.entity.setGoalTarget(null);
+
+        // For some reason it needs to be ran later.
+        Bukkit.getScheduler().runTaskLater(TamableFoxes.getPlugin(), () -> {
+            this.entity.setSitting(true);
+        }, 1L);
     }
 
     public void d() {
