@@ -272,7 +272,7 @@ public class EntityTamableFox extends EntityFox {
                     if (!entityhuman.isSneaking() && (flag != EnumInteractionResult.SUCCESS || this.isBaby())) {
                         this.goalSit.setSitting(!this.isSitting());
                         return flag;
-                    } else if (entityhuman.isSneaking()) { // Swap/Put/Take item from fox.
+                    } else if (entityhuman.isSneaking() && enumhand == EnumHand.MAIN_HAND) { // Swap/Put/Take item from fox.
                         // Ignore buckets since they can be easily duplicated.
                         if (itemstack.getItem() == Items.BUCKET || itemstack.getItem() == Items.LAVA_BUCKET || itemstack.getItem() == Items.WATER_BUCKET) {
                             return EnumInteractionResult.PASS;
