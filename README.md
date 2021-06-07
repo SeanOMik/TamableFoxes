@@ -17,6 +17,7 @@ Features:
 * Foxes follow owner
 * You can shift + right-click to let the fox hold items
 * Right-click to make the fox sit
+* Shift Right-click with an empty hand to make the fox sleep
 * If the fox is holding a totem of undying, the fox will consume it and be reborn.
 * Foxes attack the owner's target
 * Foxes attack the thing that attacked the owner.

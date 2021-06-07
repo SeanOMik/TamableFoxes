@@ -270,6 +270,7 @@ public class EntityTamableFox extends EntityFox {
                     // If the player is not sneaking and the fox cannot breed, then make the fox sit.
                     // @TODO: Do I need to use this.eQ() instead of flag != EnumInteractionResult.SUCCESS?
                     if (!entityhuman.isSneaking() && (flag != EnumInteractionResult.SUCCESS || this.isBaby())) {
+                        this.setSleeping(false);
                         this.goalSit.setSitting(!this.isSitting());
                         return flag;
                     } else if (entityhuman.isSneaking() && enumhand == EnumHand.MAIN_HAND) { // Swap/Put/Take item from fox.
@@ -278,6 +279,7 @@ public class EntityTamableFox extends EntityFox {
                             return EnumInteractionResult.PASS;
                         }
 
+                        // Check if the player has something in their main hand.
                         if (!this.getEquipment(EnumItemSlot.MAINHAND).isEmpty()) {
                             getBukkitEntity().getWorld().dropItem(getBukkitEntity().getLocation(), CraftItemStack.asBukkitCopy(this.getEquipment(EnumItemSlot.MAINHAND)));
                             this.setSlot(EnumItemSlot.MAINHAND, new ItemStack(Items.AIR));
@@ -297,6 +299,11 @@ public class EntityTamableFox extends EntityFox {
                                 }
 
                                 this.setSlot(EnumItemSlot.MAINHAND, c);
+                            }
+                            // If the player doesn't have anything in their hand, make the fox sleep or wakeup.
+                            else {
+                                this.goalSit.setSitting(false);
+                                this.setSleeping(!this.isSleeping());
                             }
                         }, (long) 0.1);
 
