@@ -9,10 +9,13 @@ SpigotMC Plugin that gives you the ability to tame foxes!
 --add-exports=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-exports=jdk.unsupported/sun.misc=ALL-UNNAMED
 ```
 
-### <a href="https://github.com/SeanOMik/TamableFoxes/blob/master/Plugin/src/main/resources/config.yml">Default Config</a>
-
+### Default configurations:
+* <a href="https://github.com/SeanOMik/TamableFoxes/blob/master/Plugin/src/main/resources/config.yml">Default config.yml</a>
+* <a href="https://github.com/SeanOMik/TamableFoxes/blob/master/Plugin/src/main/resources/language.yml">Default language.yml</a>
 <br>
+
 If you get any errors, <a href="https://github.com/SeanOMik/TamableFoxes/issues/new">create an issue!</a><br><br>
+
 Have you ever wanted to tame foxes? Well, now you can! Use chicken to tame and sweet berries to breed them!<br><br>
 
 ### Features:

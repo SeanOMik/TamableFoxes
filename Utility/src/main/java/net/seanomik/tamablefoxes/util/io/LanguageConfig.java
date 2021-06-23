@@ -79,7 +79,11 @@ public class LanguageConfig extends YamlConfiguration  {
     @Override
     public String getString(String path) {
         // Only attempt to translate if the text is not empty.
-        return (super.getString(path).isEmpty()) ? super.getString(path) : ChatColor.translateAlternateColorCodes('&', super.getString(path));
+        if (contains(path)) {
+            return (super.getString(path).isEmpty()) ? super.getString(path) : ChatColor.translateAlternateColorCodes('&', super.getString(path));
+        }
+
+        return "";
     }
 
     // This is the text that shows when registering the custom entity
