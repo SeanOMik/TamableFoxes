@@ -2,30 +2,27 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>net.seanomik</groupId>
         <artifactId>tamablefoxes-parent</artifactId>
         <version>2.0.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>net.seanomik</groupId>
     <artifactId>tamablefoxes</artifactId>
-    <version>2.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Tamablefoxes</name>
 
     <properties>
-        <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <server.version>1.17</server.version>
     </properties>
 
     <build>
         <plugins>
-            <plugin>
+            <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
@@ -33,11 +30,10 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                 </configuration>
-            </plugin>
+            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.3.0-SNAPSHOT</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -45,7 +41,7 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <outputFile>D:\Code\java\spigotPlugins\servers\${server.version}\plugins\TamableFoxes_v${project.version}.jar</outputFile>
+                            <outputFile>D:\Code\java\spigotPlugins\servers\${server.version}\plugins\TamableFoxes_v${project.parent.version}.jar</outputFile>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                         </configuration>
                     </execution>
@@ -84,9 +80,34 @@
     </repositories>
 
     <dependencies>
+        <!-- Entity implementations -->
         <dependency>
             <groupId>net.seanomik</groupId>
-            <artifactId>tamablefoxes-util</artifactId>
+            <artifactId>tamablefoxes_v1_14_R1</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.seanomik</groupId>
+            <artifactId>tamablefoxes_v1_15_R1</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.seanomik</groupId>
+            <artifactId>tamablefoxes_v1_16_R1</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.seanomik</groupId>
+            <artifactId>tamablefoxes_v1_16_R2</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.seanomik</groupId>
+            <artifactId>tamablefoxes_v1_16_R3</artifactId>
             <version>${project.parent.version}</version>
             <scope>compile</scope>
         </dependency>
@@ -96,15 +117,14 @@
             <version>${project.parent.version}</version>
             <scope>compile</scope>
         </dependency>
+        <!-- End of entity implementations -->
         <dependency>
-            <groupId>local.spigot.nms</groupId>
-            <artifactId>AllSpigotNMS</artifactId>
-            <version>LATEST</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/Spigot_v14_v15_v16-v165.jar</systemPath>
+            <groupId>net.seanomik</groupId>
+            <artifactId>tamablefoxes-util</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
         </dependency>
-        <!-- We need to do this so we get the spigot api without nms. -->
-        <dependency>
+        <dependency> <!-- We need to do this so we get the spigot api without nms. -->
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>1.14-R0.1-SNAPSHOT</version>

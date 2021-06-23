@@ -1,6 +1,5 @@
 package net.seanomik.tamablefoxes;
 
-import net.seanomik.tamablefoxes.versions.version_1_17_R1.NMSInterface_1_17_R1;
 import net.seanomik.tamablefoxes.util.NMSInterface;
 import net.seanomik.tamablefoxes.util.Utils;
 import net.seanomik.tamablefoxes.util.io.Config;
@@ -10,6 +9,7 @@ import net.seanomik.tamablefoxes.versions.version_1_15_R1.NMSInterface_1_15_R1;
 import net.seanomik.tamablefoxes.versions.version_1_16_R1.NMSInterface_1_16_R1;
 import net.seanomik.tamablefoxes.versions.version_1_16_R2.NMSInterface_1_16_R2;
 import net.seanomik.tamablefoxes.versions.version_1_16_R3.NMSInterface_1_16_R3;
+import net.seanomik.tamablefoxes.versions.version_1_17_R1.NMSInterface_1_17_R1;
 import net.seanomik.tamablefoxes.util.io.LanguageConfig;
 import org.bukkit.*;
 import org.bukkit.event.Listener;
