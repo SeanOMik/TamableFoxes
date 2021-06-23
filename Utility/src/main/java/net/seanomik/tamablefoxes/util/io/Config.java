@@ -3,9 +3,15 @@ package net.seanomik.tamablefoxes.util.io;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 
 public class Config {
     private static FileConfiguration config = null;
+
+    public static void reloadConfig(Plugin plugin) {
+        plugin.reloadConfig();
+        Config.config = plugin.getConfig();
+    }
 
     public static void setConfig(FileConfiguration config) {
         Config.config = config;

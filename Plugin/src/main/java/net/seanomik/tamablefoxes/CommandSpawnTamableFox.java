@@ -57,6 +57,7 @@ public class CommandSpawnTamableFox implements TabExecutor {
                     break;
                 case "reload":
                     plugin.reloadConfig();
+                    Config.reloadConfig(plugin);
                     LanguageConfig.getConfig(plugin).reloadConfig();
                     player.sendMessage(Config.getPrefix() + ChatColor.GREEN + LanguageConfig.getReloadMessage());
                     break;
