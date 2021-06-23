@@ -5,98 +5,51 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.seanomik</groupId>
-    <artifactId>tamablefoxes</artifactId>
-    <version>1.9.2.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <artifactId>tamablefoxes-parent</artifactId>
+    <version>2.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
-    <name>Tamablefoxes</name>
+    <modules>
+        <module>Plugin</module>
+        <module>Utility</module>
+        <module>1_17_R1</module>
+    </modules>
 
     <properties>
-        <java.version>8</java.version>
+        <maven.compiler.target>16</maven.compiler.target>
+        <maven.compiler.source>16</maven.compiler.source>
+        <!--<java.version.source>16</java.version.source>
+        <java.version.target>16</java.version.target>-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <build>
-        <defaultGoal>clean package</defaultGoal>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <!--<outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_1.14.4_\plugins\TamableFoxes_v${project.version}.jar</outputFile>-->
-                            <!--<outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_1.15.2_\plugins\TamableFoxes_v${project.version}.jar</outputFile>-->
-                            <!--<outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_PAPER_1.16.1_\plugins\TamableFoxes_v${project.version}.jar</outputFile>-->
-                            <!--<outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_1.16.1_\plugins\TamableFoxes_v${project.version}.jar</outputFile>-->
-                            <!--<outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_1.16.2_\plugins\TamableFoxes_v${project.version}.jar</outputFile>-->
-                            <!--<outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_PAPER_1.16.2_\plugins\TamableFoxes_v${project.version}.jar</outputFile>-->
-                            <!--<outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_1.16.3_\plugins\TamableFoxes_v${project.version}.jar</outputFile>-->
-                            <!--<outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_1.16.4_\plugins\TamableFoxes_v${project.version}.jar</outputFile>-->
-                            <!--<outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_1.16.5_\plugins\TamableFoxes_v${project.version}.jar</outputFile>-->
-                            <!--<outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_PAPER_1.16.4_\plugins\TamableFoxes_v${project.version}.jar</outputFile>-->
-                            <outputFile>D:\Code\java\spigotPlugins\_TEST_SERVER_PAPER_1.16.5_\plugins\TamableFoxes_v${project.version}.jar</outputFile>
-                            <createDependencyReducedPom>false</createDependencyReducedPom>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.1</version>
+                    <!--<configuration>
+                        <source>${java.version.source}</source>
+                        <target>${java.version.target}</target>
+                    </configuration>-->
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <version>3.2.4</version>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>shade</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
-    <repositories>
-        <repository>
-            <id>spigot-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-        </repository>
-        <repository>
-            <id>sonatype</id>
-            <url>https://oss.sonatype.org/content/groups/public/</url>
-        </repository>
-        <repository>
-            <id>codemc-snapshots</id>
-            <url>https://repo.codemc.io/repository/maven-snapshots/</url>
-        </repository>
-    </repositories>
-
-    <dependencies>
-        <dependency>
-            <groupId>local.spigot.nms</groupId>
-            <artifactId>AllSpigotNMS</artifactId>
-            <version>LATEST</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/Spigot_v14_v15_v16-v165.jar</systemPath>
-        </dependency>
-        <dependency> <!-- We need to do this so we get the spigot api without nms. -->
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.14.4-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.wesjd</groupId>
-            <artifactId>anvilgui</artifactId>
-            <version>1.5.0-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
 </project>

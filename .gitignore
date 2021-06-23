@@ -1,6 +1,9 @@
 # Don't track content of these folders
 .idea/*
 target/*
+1_17_R1/target/*
+Plugin/target/*
+Utility/target/*
 
 # Compiled source #
 ###################
