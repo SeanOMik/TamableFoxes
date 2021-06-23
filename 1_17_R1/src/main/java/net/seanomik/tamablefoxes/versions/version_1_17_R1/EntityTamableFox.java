@@ -382,7 +382,7 @@ public class EntityTamableFox extends EntityFox {
                     SQLiteHelper sqLiteHelper = SQLiteHelper.getInstance(Utils.tamableFoxesPlugin);
                     int maxTameCount = Config.getMaxPlayerFoxTames();
                     if ( !((Player) entityhuman.getBukkitEntity()).hasPermission("tamablefoxes.tame.unlimited") && maxTameCount > 0 && sqLiteHelper.getPlayerFoxAmount(entityhuman.getUniqueID()) >= maxTameCount) {
-                        ((Player) entityhuman.getBukkitEntity()).sendMessage(Utils.getPrefix() + ChatColor.RED + LanguageConfig.getFoxDoesntTrust());
+                        ((Player) entityhuman.getBukkitEntity()).sendMessage(Config.getPrefix() + ChatColor.RED + LanguageConfig.getFoxDoesntTrust());
 
                         return EnumInteractionResult.a;
                     }
@@ -403,11 +403,11 @@ public class EntityTamableFox extends EntityFox {
                         getBukkitEntity().getWorld().spawnParticle(org.bukkit.Particle.HEART, getBukkitEntity().getLocation(), 6, 0.5D, 0.5D, 0.5D);
 
                         // Give player tamed message.
-                        ((Player) entityhuman.getBukkitEntity()).sendMessage(Utils.getPrefix() + ChatColor.GREEN + LanguageConfig.getTamedMessage());
+                        ((Player) entityhuman.getBukkitEntity()).sendMessage(Config.getPrefix() + ChatColor.GREEN + LanguageConfig.getTamedMessage());
 
                         // Let the player choose the new fox's name if its enabled in config.
                         if (Config.askForNameAfterTaming()) {
-                            player.sendMessage(Utils.getPrefix() + ChatColor.RED + LanguageConfig.getTamingAskingName());
+                            player.sendMessage(Config.getPrefix() + ChatColor.RED + LanguageConfig.getTamingAskingName());
                             new AnvilGUI.Builder()
                                     .onComplete((plr, input) -> { // Called when the inventory output slot is clicked
                                         if (!input.equals("")) {
@@ -418,7 +418,7 @@ public class EntityTamableFox extends EntityFox {
 
                                             tamableFox.setCustomName(foxName);
                                             tamableFox.setCustomNameVisible(true);
-                                            plr.sendMessage(Utils.getPrefix() + ChatColor.GREEN + LanguageConfig.getTamingChosenPerfect(input));
+                                            plr.sendMessage(Config.getPrefix() + ChatColor.GREEN + LanguageConfig.getTamingChosenPerfect(input));
                                         }
 
                                         return AnvilGUI.Response.close();

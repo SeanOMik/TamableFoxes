@@ -2,6 +2,7 @@ package net.seanomik.tamablefoxes;
 
 import net.seanomik.tamablefoxes.util.NMSInterface;
 import net.seanomik.tamablefoxes.util.Utils;
+import net.seanomik.tamablefoxes.util.io.Config;
 import net.seanomik.tamablefoxes.util.io.LanguageConfig;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -24,12 +25,12 @@ public class CommandSpawnTamableFox implements TabExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(Utils.getPrefix() + ChatColor.RED + LanguageConfig.getOnlyRunPlayer());
+            sender.sendMessage(Config.getPrefix() + ChatColor.RED + LanguageConfig.getOnlyRunPlayer());
             return true;
         }
 
         if (!sender.hasPermission("tamablefoxes.spawntamablefox")) {
-            sender.sendMessage(Utils.getPrefix() + ChatColor.RED + LanguageConfig.getNoPermMessage());
+            sender.sendMessage(Config.getPrefix() + ChatColor.RED + LanguageConfig.getNoPermMessage());
             return true;
         }
 
@@ -39,25 +40,25 @@ public class CommandSpawnTamableFox implements TabExecutor {
                 case "red":
                     try {
                         plugin.nmsInterface.spawnTamableFox(player.getLocation(), NMSInterface.FoxType.RED);
-                        player.sendMessage(Utils.getPrefix() + ChatColor.RESET + LanguageConfig.getSpawnedFoxMessage(NMSInterface.FoxType.RED));
+                        player.sendMessage(Config.getPrefix() + ChatColor.RESET + LanguageConfig.getSpawnedFoxMessage(NMSInterface.FoxType.RED));
                     } catch (Exception e) {
                         e.printStackTrace();
-                        player.sendMessage(Utils.getPrefix() + ChatColor.RED + LanguageConfig.getFailureSpawn());
+                        player.sendMessage(Config.getPrefix() + ChatColor.RED + LanguageConfig.getFailureSpawn());
                     }
                     break;
                 case "snow":
                     try {
                         plugin.nmsInterface.spawnTamableFox(player.getLocation(), NMSInterface.FoxType.SNOW);
-                        player.sendMessage(Utils.getPrefix() + ChatColor.RESET + LanguageConfig.getSpawnedFoxMessage(NMSInterface.FoxType.SNOW));
+                        player.sendMessage(Config.getPrefix() + ChatColor.RESET + LanguageConfig.getSpawnedFoxMessage(NMSInterface.FoxType.SNOW));
                     } catch (Exception e) {
                         e.printStackTrace();
-                        player.sendMessage(Utils.getPrefix() + ChatColor.RED + LanguageConfig.getFailureSpawn());
+                        player.sendMessage(Config.getPrefix() + ChatColor.RED + LanguageConfig.getFailureSpawn());
                     }
                     break;
                 case "reload":
                     plugin.reloadConfig();
                     LanguageConfig.getConfig(plugin).reloadConfig();
-                    player.sendMessage(Utils.getPrefix() + ChatColor.GREEN + LanguageConfig.getReloadMessage());
+                    player.sendMessage(Config.getPrefix() + ChatColor.GREEN + LanguageConfig.getReloadMessage());
                     break;
                 default:
                     player.sendMessage(ChatColor.RED + "/spawntamablefox " + ChatColor.GRAY + "[red | snow | reload]");

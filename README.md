@@ -9,11 +9,13 @@ SpigotMC Plugin that gives you the ability to tame foxes!
 --add-exports=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-exports=jdk.unsupported/sun.misc=ALL-UNNAMED
 ```
 
+### <a href="https://github.com/SeanOMik/TamableFoxes/blob/master/Plugin/src/main/resources/config.yml">Default Config</a>
+
 <br>
 If you get any errors, <a href="https://github.com/SeanOMik/TamableFoxes/issues/new">create an issue!</a><br><br>
 Have you ever wanted to tame foxes? Well, now you can! Use chicken to tame and sweet berries to breed them!<br><br>
 
-Features:
+### Features:
 * 33% Chance of taming
 * Breeding
 * Wild foxes pick berry bushes
@@ -32,12 +34,11 @@ Features:
 * Language.yml
 * Message for when a tamed fox dies
 
-Commands:
+### Commands:
 * /spawntamablefox [red/snow]: Spawns a tamable fox at the players location.
-
 <br>
 
-Permissions:
+### Permissions:
 * tamablefoxes.spawn: Gives permission to run the command /spawntamablefox. Default: `op`
 * tamablefoxes.tame: Gives the player the ability to tame a fox. Default: `Everybody`
 * tamablefoxes.tame.unlimited: Lets players bypass the tame limit. Default: `op`

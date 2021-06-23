@@ -2,6 +2,7 @@
 show-owner-in-fox-name: true
 ask-for-name-after-taming: true
 max-fox-tames: 0
+prefix: "&c[Tamable Foxes] "
 
 tamed-behavior:
   attack-wild-animals: true

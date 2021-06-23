@@ -52,14 +52,14 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
                 nmsInterface = new NMSInterface_1_17_R1();
                 break;
             default:
-                Bukkit.getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.RED + LanguageConfig.getUnsupportedMCVersionRegister());
-                Bukkit.getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.RED + "You're trying to run MC version " + version + " which is not supported!");
+                Bukkit.getServer().getConsoleSender().sendMessage(Config.getPrefix() + ChatColor.RED + LanguageConfig.getUnsupportedMCVersionRegister());
+                Bukkit.getServer().getConsoleSender().sendMessage(Config.getPrefix() + ChatColor.RED + "You're trying to run MC version " + version + " which is not supported!");
                 versionSupported = false;
                 return;
         }
 
         // Display starting message then register entity.
-        Bukkit.getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.YELLOW + LanguageConfig.getMCVersionLoading(version));
+        Bukkit.getServer().getConsoleSender().sendMessage(Config.getPrefix() + ChatColor.YELLOW + LanguageConfig.getMCVersionLoading(version));
         nmsInterface.registerCustomFoxEntity();
 
         if (Config.getMaxPlayerFoxTames() != 0) {
@@ -70,7 +70,7 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         if (!versionSupported) {
-            Bukkit.getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.RED + LanguageConfig.getUnsupportedMCVersionDisable());
+            Bukkit.getServer().getConsoleSender().sendMessage(Config.getPrefix() + ChatColor.RED + LanguageConfig.getUnsupportedMCVersionDisable());
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
@@ -85,7 +85,7 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
-        getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.YELLOW + LanguageConfig.getSavingFoxMessage());
+        getServer().getConsoleSender().sendMessage(Config.getPrefix() + ChatColor.YELLOW + LanguageConfig.getSavingFoxMessage());
     }
 
     public static TamableFoxes getPlugin() {

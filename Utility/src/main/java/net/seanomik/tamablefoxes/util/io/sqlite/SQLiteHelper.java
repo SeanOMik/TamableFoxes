@@ -1,6 +1,7 @@
 package net.seanomik.tamablefoxes.util.io.sqlite;
 
 import net.seanomik.tamablefoxes.util.Utils;
+import net.seanomik.tamablefoxes.util.io.Config;
 import org.bukkit.plugin.Plugin;
 
 import java.sql.DatabaseMetaData;
@@ -42,7 +43,7 @@ public class SQLiteHelper {
                 PreparedStatement statement = sqLiteHandler.getConnection().prepareStatement(userFoxAmountQuery);
                 statement.executeUpdate();
 
-                plugin.getServer().getConsoleSender().sendMessage(Utils.getPrefix() + "Created previous player bans table!");
+                plugin.getServer().getConsoleSender().sendMessage(Config.getPrefix() + "Created previous player bans table!");
             }
         } catch (SQLException e) {
             e.printStackTrace();

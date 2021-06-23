@@ -1,5 +1,6 @@
 package net.seanomik.tamablefoxes.util.io;
 
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
@@ -27,4 +28,8 @@ public class Config {
 
     // Check if the plugin asks for a fox name after taming.
     public static boolean askForNameAfterTaming() { return config.getBoolean("ask-for-name-after-taming"); }
+
+    public static String getPrefix() {
+        return ChatColor.translateAlternateColorCodes('&', config.contains("prefix") ? config.getString("prefix") : "&c[Tamable Foxes] ");
+    }
 }

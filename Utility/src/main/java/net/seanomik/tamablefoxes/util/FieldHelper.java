@@ -1,5 +1,6 @@
 package net.seanomik.tamablefoxes.util;
 
+import net.seanomik.tamablefoxes.util.io.Config;
 import net.seanomik.tamablefoxes.util.io.LanguageConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -39,7 +40,7 @@ public final class FieldHelper {
                     fieldMutable.setAccessible(false);
                 }
             } catch (NoSuchFieldException | IllegalAccessException e) {
-                Bukkit.getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.RED + LanguageConfig.getFailureReplace());
+                Bukkit.getServer().getConsoleSender().sendMessage(Config.getPrefix() + ChatColor.RED + LanguageConfig.getFailureReplace());
                 e.printStackTrace();
             }
         } else {

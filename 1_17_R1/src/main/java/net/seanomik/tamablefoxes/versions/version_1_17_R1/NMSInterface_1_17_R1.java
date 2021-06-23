@@ -5,6 +5,7 @@ import net.minecraft.world.entity.animal.EntityFox;
 import net.seanomik.tamablefoxes.util.FieldHelper;
 import net.seanomik.tamablefoxes.util.NMSInterface;
 import net.seanomik.tamablefoxes.util.Utils;
+import net.seanomik.tamablefoxes.util.io.Config;
 import net.seanomik.tamablefoxes.util.io.LanguageConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -27,9 +28,9 @@ public class NMSInterface_1_17_R1 implements NMSInterface {
             EntityTypes<EntityFox> type = method.invoke(null, "fox", EntityTypes.Builder.a(EntityTamableFox::new, EnumCreatureType.C))*/
 
             FieldHelper.setField(field, EntityTypes.E, (EntityTypes.b<EntityFox>) EntityTamableFox::new);
-            Bukkit.getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.GREEN + LanguageConfig.getSuccessReplaced());
+            Bukkit.getServer().getConsoleSender().sendMessage(Config.getPrefix() + ChatColor.GREEN + LanguageConfig.getSuccessReplaced());
         } catch (Exception e) {
-            Bukkit.getServer().getConsoleSender().sendMessage(Utils.getPrefix() + ChatColor.RED + LanguageConfig.getFailureReplace());
+            Bukkit.getServer().getConsoleSender().sendMessage(Config.getPrefix() + ChatColor.RED + LanguageConfig.getFailureReplace());
             e.printStackTrace();
         }
     }
