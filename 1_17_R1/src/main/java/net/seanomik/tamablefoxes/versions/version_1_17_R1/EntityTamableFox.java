@@ -11,6 +11,7 @@ import net.minecraft.world.EnumHand;
 import net.minecraft.world.EnumInteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.GenericAttributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.PathfinderGoalNearestAttackableTarget;
 import net.minecraft.world.entity.animal.*;
@@ -76,16 +77,15 @@ public class EntityTamableFox extends EntityFox {
     public EntityTamableFox(EntityTypes<? extends EntityFox> entitytypes, World world) {
         super(entitytypes, world);
 
-        System.out.println("Set default attributes");
-        /*this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(0.33000001192092896D);
+        this.getAttributeInstance(GenericAttributes.d).setValue(0.33000001192092896D); // Set movement speed
         if (isTamed()) {
-            this.getAttributeInstance(GenericAttributes.MAX_HEALTH).setValue(24.0D);
-            this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(3.0D);
+            this.getAttributeInstance(GenericAttributes.a).setValue(24.0D); // Set max health
+            this.getAttributeInstance(GenericAttributes.f).setValue(3.0D); // Set attack damage
             this.setHealth(this.getMaxHealth());
         } else {
-            this.getAttributeInstance(GenericAttributes.MAX_HEALTH).setValue(10.0D);
-            this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(2.0D);
-        }*/
+            this.getAttributeInstance(GenericAttributes.a).setValue(10.0D); // Set max health
+            this.getAttributeInstance(GenericAttributes.f).setValue(2.0D); // Set attack damage
+        }
     }
 
     @Override
@@ -275,15 +275,14 @@ public class EntityTamableFox extends EntityFox {
         }
         this.reassessTameGoals();
 
-        System.out.println("setTamed set attributes");
-        /*if (tamed_) {
-            this.getAttributeInstance(GenericAttributes.MAX_HEALTH).setValue(24.0D);
-            this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(3.0D);
-            this.setHealth(this.getMaxHealth());
+        if (tamed_) {
+            this.getAttributeInstance(GenericAttributes.a).setValue(24.0D); // Set max health
+            this.getAttributeInstance(GenericAttributes.f).setValue(3.0D); // Set attack damage
         } else {
-            this.getAttributeInstance(GenericAttributes.MAX_HEALTH).setValue(10.0D);
-            this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(2.0D);
-        }*/
+            this.getAttributeInstance(GenericAttributes.a).setValue(10.0D); // Set max health
+            this.getAttributeInstance(GenericAttributes.f).setValue(2.0D); // Set attack damage
+        }
+        this.setHealth(this.getMaxHealth());
     }
 
     // Remove untamed goals if its tamed.
