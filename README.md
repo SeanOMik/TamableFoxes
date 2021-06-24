@@ -16,7 +16,7 @@ SpigotMC Plugin that gives you the ability to tame foxes!
 
 If you get any errors, <a href="https://github.com/SeanOMik/TamableFoxes/issues/new">create an issue!</a><br><br>
 
-Have you ever wanted to tame foxes? Well, now you can! Use chicken to tame and sweet berries to breed them!<br><br>
+Have you ever wanted to tame foxes? Well, now you can! <b>Use chicken to tame</b> and sweet berries to breed them!<br><br>
 
 ### Features:
 * 33% Chance of taming
