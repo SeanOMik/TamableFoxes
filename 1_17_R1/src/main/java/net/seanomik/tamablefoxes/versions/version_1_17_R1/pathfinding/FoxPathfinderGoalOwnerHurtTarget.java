@@ -1,46 +1,47 @@
 package net.seanomik.tamablefoxes.versions.version_1_17_R1.pathfinding;
 
-import net.minecraft.world.entity.EntityLiving;
-import net.minecraft.world.entity.ai.goal.target.PathfinderGoalTarget;
-import net.minecraft.world.entity.ai.targeting.PathfinderTargetCondition;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.target.TargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.seanomik.tamablefoxes.versions.version_1_17_R1.EntityTamableFox;
 import org.bukkit.event.entity.EntityTargetEvent.TargetReason;
 
 import java.util.EnumSet;
 
-public class FoxPathfinderGoalOwnerHurtTarget extends PathfinderGoalTarget {
-    private final EntityTamableFox a;
-    private EntityLiving b;
-    private int c;
+public class FoxPathfinderGoalOwnerHurtTarget extends TargetGoal {
+    private final EntityTamableFox tameAnimal;
+    private LivingEntity ownerLastHurt;
+    private int timestamp;
 
-    public FoxPathfinderGoalOwnerHurtTarget(EntityTamableFox tamableFox) {
-        super(tamableFox, false);
-        this.a = tamableFox;
-        this.a(EnumSet.of(Type.d));
+    public FoxPathfinderGoalOwnerHurtTarget(EntityTamableFox entitytameableanimal) {
+        super(entitytameableanimal, false);
+        this.tameAnimal = entitytameableanimal;
+        this.setFlags(EnumSet.of(Goal.Flag.TARGET));
     }
 
-    public boolean a() {
-        if (this.a.isTamed() && !this.a.isSitting()) { // !this.a.isWillSit()
-            EntityLiving entityliving = this.a.getOwner();
+    public boolean canUse() {
+        if (this.tameAnimal.isTamed() && !this.tameAnimal.isOrderedToSit() && !this.tameAnimal.isOrderedToSleep()) {
+            LivingEntity entityliving = this.tameAnimal.getOwner();
             if (entityliving == null) {
                 return false;
             } else {
-                this.b = entityliving.dI();
-                int i = entityliving.dJ();
-                return i != this.c && this.a(this.b, PathfinderTargetCondition.a) && this.a.wantsToAttack(this.b, entityliving);
+                this.ownerLastHurt = entityliving.getLastHurtMob();
+                int i = entityliving.getLastHurtMobTimestamp();
+                return i != this.timestamp && this.canAttack(this.ownerLastHurt, TargetingConditions.DEFAULT) && this.tameAnimal.wantsToAttack(this.ownerLastHurt, entityliving);
             }
         } else {
             return false;
         }
     }
 
-    public void c() {
-        this.e.setGoalTarget(this.b, TargetReason.OWNER_ATTACKED_TARGET, true);
-        EntityLiving entityliving = this.a.getOwner();
+    public void start() {
+        this.mob.setGoalTarget(this.ownerLastHurt, TargetReason.OWNER_ATTACKED_TARGET, true);
+        LivingEntity entityliving = this.tameAnimal.getOwner();
         if (entityliving != null) {
-            this.c = entityliving.dJ();
+            this.timestamp = entityliving.getLastHurtMobTimestamp();
         }
 
-        super.c();
+        super.start();
     }
 }

@@ -1,13 +1,12 @@
 package net.seanomik.tamablefoxes.versions.version_1_17_R1.pathfinding;
 
-import net.minecraft.world.entity.EntityInsentient;
-import net.minecraft.world.entity.EntityLiving;
-import net.minecraft.world.entity.EntityTypes;
-import net.minecraft.world.entity.IEntitySelector;
-import net.minecraft.world.entity.ai.goal.target.PathfinderGoalTarget;
-import net.minecraft.world.entity.ai.targeting.PathfinderTargetCondition;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.TargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.level.GameRules;
-import net.minecraft.world.phys.AxisAlignedBB;
+import net.minecraft.world.phys.AABB;
 import net.seanomik.tamablefoxes.versions.version_1_17_R1.EntityTamableFox;
 import org.bukkit.event.entity.EntityTargetEvent.TargetReason;
 
@@ -15,27 +14,28 @@ import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.List;
 
-public class FoxPathfinderGoalHurtByTarget extends PathfinderGoalTarget {
-    private static final PathfinderTargetCondition a = PathfinderTargetCondition.a().d().e();
-    private boolean b;
-    private int c;
-    private final Class<?>[] d;
-    private Class<?>[] i;
+public class FoxPathfinderGoalHurtByTarget extends TargetGoal {
+    private static final TargetingConditions HURT_BY_TARGETING = TargetingConditions.forCombat().ignoreLineOfSight().ignoreInvisibilityTesting();
+    private static final int ALERT_RANGE_Y = 10;
+    private boolean alertSameType;
+    private int timestamp;
+    private final Class<?>[] toIgnoreDamage;
+    private Class<?>[] toIgnoreAlert;
 
-    public FoxPathfinderGoalHurtByTarget(EntityTamableFox tamableFox, Class<?>... aclass) {
-        super(tamableFox, true);
-        this.d = aclass;
-        this.a(EnumSet.of(Type.d));
+    public FoxPathfinderGoalHurtByTarget(PathfinderMob entitycreature, Class<?>... aclass) {
+        super(entitycreature, true);
+        this.toIgnoreDamage = aclass;
+        this.setFlags(EnumSet.of(Flag.TARGET));
     }
 
-    public boolean a() {
-        int i = this.e.dH();
-        EntityLiving entityliving = this.e.getLastDamager();
-        if (i != this.c && entityliving != null) {
-            if (entityliving.getEntityType() == EntityTypes.bi && this.e.getWorld().getGameRules().getBoolean(GameRules.I)) {
+    public boolean canUse() {
+        int i = this.mob.getLastHurtByMobTimestamp();
+        LivingEntity entityliving = this.mob.getLastHurtByMob();
+        if (i != this.timestamp && entityliving != null) {
+            if (entityliving.getType() == EntityType.PLAYER && this.mob.level.getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
                 return false;
             } else {
-                Class[] aclass = this.d;
+                Class[] aclass = this.toIgnoreDamage;
                 int j = aclass.length;
 
                 for(int k = 0; k < j; ++k) {
@@ -45,39 +45,39 @@ public class FoxPathfinderGoalHurtByTarget extends PathfinderGoalTarget {
                     }
                 }
 
-                return this.a(entityliving, a);
+                return this.canAttack(entityliving, HURT_BY_TARGETING);
             }
         } else {
             return false;
         }
     }
 
-    public FoxPathfinderGoalHurtByTarget a(Class<?>... aclass) {
-        this.b = true;
-        this.i = aclass;
+    public FoxPathfinderGoalHurtByTarget setAlertOthers(Class<?>... aclass) {
+        this.alertSameType = true;
+        this.toIgnoreAlert = aclass;
         return this;
     }
 
-    public void c() {
-        this.e.setGoalTarget(this.e.getLastDamager(), TargetReason.TARGET_ATTACKED_ENTITY, true);
-        this.g = this.e.getGoalTarget();
-        this.c = this.e.dH();
-        this.h = 300;
-        if (this.b) {
-            this.g();
+    public void start() {
+        this.mob.setGoalTarget(this.mob.getLastHurtByMob(), TargetReason.TARGET_ATTACKED_ENTITY, true);
+        this.targetMob = this.mob.getTarget();
+        this.timestamp = this.mob.getLastHurtByMobTimestamp();
+        this.unseenMemoryTicks = 300;
+        if (this.alertSameType) {
+            this.alertOthers();
         }
 
-        super.c();
+        super.start();
     }
 
-    protected void g() {
-        double d0 = this.k();
-        AxisAlignedBB axisalignedbb = AxisAlignedBB.a(this.e.getPositionVector()).grow(d0, 10.0D, d0);
-        List<? extends EntityInsentient> list = this.e.getWorld().a(this.e.getClass(), axisalignedbb, IEntitySelector.f);
+    protected void alertOthers() {
+        double d0 = this.getFollowDistance();
+        AABB axisalignedbb = AABB.unitCubeFromLowerCorner(this.mob.position()).inflate(d0, 10.0D, d0);
+        List<? extends Mob> list = this.mob.level.getEntitiesOfClass(this.mob.getClass(), axisalignedbb, EntitySelector.NO_SPECTATORS);
         Iterator iterator = list.iterator();
 
         while(true) {
-            EntityInsentient entityinsentient;
+            Mob entityinsentient;
             boolean flag;
             do {
                 do {
@@ -88,18 +88,18 @@ public class FoxPathfinderGoalHurtByTarget extends PathfinderGoalTarget {
                                     return;
                                 }
 
-                                entityinsentient = (EntityInsentient)iterator.next();
-                            } while(this.e == entityinsentient);
-                        } while(entityinsentient.getGoalTarget() != null);
-                    } while(this.e instanceof EntityTamableFox && ((EntityTamableFox)this.e).getOwner() != ((EntityTamableFox)entityinsentient).getOwner());
-                } while(entityinsentient.r(this.e.getLastDamager()));
+                                entityinsentient = (Mob)iterator.next();
+                            } while(this.mob == entityinsentient);
+                        } while(entityinsentient.getTarget() != null);
+                    } while(this.mob instanceof EntityTamableFox && ((EntityTamableFox)this.mob).getOwner() != ((EntityTamableFox)entityinsentient).getOwner());
+                } while(entityinsentient.isAlliedTo(this.mob.getLastHurtByMob()));
 
-                if (this.i == null) {
+                if (this.toIgnoreAlert == null) {
                     break;
                 }
 
                 flag = false;
-                Class[] aclass = this.i;
+                Class[] aclass = this.toIgnoreAlert;
                 int i = aclass.length;
 
                 for(int j = 0; j < i; ++j) {
@@ -111,11 +111,11 @@ public class FoxPathfinderGoalHurtByTarget extends PathfinderGoalTarget {
                 }
             } while(flag);
 
-            this.a(entityinsentient, this.e.getLastDamager());
+            this.alertOther(entityinsentient, this.mob.getLastHurtByMob());
         }
     }
 
-    protected void a(EntityInsentient entityinsentient, EntityLiving entityliving) {
+    protected void alertOther(Mob entityinsentient, LivingEntity entityliving) {
         entityinsentient.setGoalTarget(entityliving, TargetReason.TARGET_ATTACKED_NEARBY_ENTITY, true);
     }
 }

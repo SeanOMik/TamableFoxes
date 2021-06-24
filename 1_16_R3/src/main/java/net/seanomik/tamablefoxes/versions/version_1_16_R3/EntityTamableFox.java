@@ -261,7 +261,7 @@ public class EntityTamableFox extends EntityFox {
                     return EnumInteractionResult.CONSUME;
                 }
 
-                if (isOwnedBy(entityhuman)) {
+                if (isOwnedBy(entityhuman) && enumhand == EnumHand.MAIN_HAND) {
                     // This super method checks if the fox can breed or not.
                     EnumInteractionResult flag = super.b(entityhuman, enumhand);
 
@@ -271,16 +271,22 @@ public class EntityTamableFox extends EntityFox {
                         this.setSleeping(false);
                         this.goalSit.setSitting(!this.isSitting());
                         return flag;
-                    } else if (entityhuman.isSneaking() && enumhand == EnumHand.MAIN_HAND) { // Swap/Put/Take item from fox.
+                    } else if (entityhuman.isSneaking()) { // Swap/Put/Take item from fox.
                         // Ignore buckets since they can be easily duplicated.
-                        if (itemstack.getItem() == Items.BUCKET || itemstack.getItem() == Items.LAVA_BUCKET || itemstack.getItem() == Items.WATER_BUCKET) {
+                        if (itemstack.getItem() instanceof ItemBucket) {
                             return EnumInteractionResult.PASS;
                         }
 
-                        // Check if the player has something in their main hand.
+                        // If the fox has something in its mouth and the player has something in its hand, empty it.
                         if (!this.getEquipment(EnumItemSlot.MAINHAND).isEmpty()) {
                             getBukkitEntity().getWorld().dropItem(getBukkitEntity().getLocation(), CraftItemStack.asBukkitCopy(this.getEquipment(EnumItemSlot.MAINHAND)));
-                            this.setSlot(EnumItemSlot.MAINHAND, new ItemStack(Items.AIR));
+                            this.setSlot(EnumItemSlot.MAINHAND, new ItemStack(Items.AIR), false);
+                        } // Check if the player's hand is empty and if it is, make the fox sleep.
+                          // The reason its here is to make sure that we don't take the item
+                          // from its mouth and make it sleep in a single click.
+                        else if (entityhuman.getEquipment(EnumItemSlot.MAINHAND).isEmpty()) {
+                            this.goalSit.setSitting(false);
+                            this.setSleeping(!this.isSleeping());
                         }
 
                         // Run this task async to make sure to not slow the server down.
@@ -297,11 +303,6 @@ public class EntityTamableFox extends EntityFox {
                                 }
 
                                 this.setSlot(EnumItemSlot.MAINHAND, c);
-                            }
-                            // If the player doesn't have anything in their hand, make the fox sleep or wakeup.
-                            else {
-                                this.goalSit.setSitting(false);
-                                this.setSleeping(!this.isSleeping());
                             }
                         }, (long) 0.1);
 
