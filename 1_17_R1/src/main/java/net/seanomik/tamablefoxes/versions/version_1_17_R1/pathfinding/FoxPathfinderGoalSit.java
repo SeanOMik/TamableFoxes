@@ -40,18 +40,18 @@ public class FoxPathfinderGoalSit extends PathfinderGoal {
     }
 
     public void c() {
-        this.entity.getNavigation().o();
-        this.entity.setGoalTarget(null);
-
         // For some reason it needs to be ran later to not have the fox slide across the floor.
         Bukkit.getScheduler().runTaskLater(Utils.tamableFoxesPlugin, () -> {
             this.entity.setSitting(true);
+            this.entity.getNavigation().o();
         }, 1L);
     }
 
     public void d() {
         this.entity.setSitting(false);
     }
+
+    public boolean isWillSit() { return this.willSit; }
 
     public void setSitting(boolean flag) {
         this.willSit = flag;

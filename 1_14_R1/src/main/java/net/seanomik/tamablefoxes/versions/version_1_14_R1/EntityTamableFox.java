@@ -181,7 +181,7 @@ public class EntityTamableFox extends EntityFox {
             compound.setString("OwnerUUID", this.getOwnerUUID().toString());
         }
 
-        compound.setBoolean("Sitting", this.isSitting());
+        compound.setBoolean("Sitting", this.goalSit.isWillSit());
     }
 
     // readAdditionalSaveData
@@ -192,10 +192,7 @@ public class EntityTamableFox extends EntityFox {
 
         if (compound.hasKeyOfType("OwnerUUID", 8)) {
             ownerUuid = compound.getString("OwnerUUID");
-        }/* else {
-            String var2 = compound.getString("Owner");
-            ownerUuid = NameReferencingFileConverter.a(this.getMinecraftServer(), var2);
-        }*/
+        }
 
         if (!ownerUuid.isEmpty()) {
             try {
@@ -210,7 +207,9 @@ public class EntityTamableFox extends EntityFox {
             this.goalSit.setSitting(compound.getBoolean("Sitting"));
         }
 
-        this.setSitting(compound.getBoolean("Sitting"));
+        if (!this.isTamed()) {
+            goalSit.setSitting(false);
+        }
     }
 
     public boolean isTamed() {

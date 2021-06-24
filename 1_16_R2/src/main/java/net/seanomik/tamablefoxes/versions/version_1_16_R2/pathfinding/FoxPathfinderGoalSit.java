@@ -48,6 +48,8 @@ public class FoxPathfinderGoalSit extends PathfinderGoal {
         this.entity.setSitting(false);
     }
 
+    public boolean isWillSit() { return this.willSit; }
+
     public void setSitting(boolean flag) {
         this.willSit = flag;
     }
