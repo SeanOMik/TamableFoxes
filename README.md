@@ -4,7 +4,7 @@ SpigotMC Plugin that gives you the ability to tame foxes!
 </p>
 
 ### WARNING: Do not reload the plugin, you may loose foxes!!
-#### NOTE: IF YOU ARE RUNNING JAVA 16, YOU NEED TO ADD SOME STUFF TO YOUR PROGRAM ARGUMENTS IN YOUR SERVER START SCRIPT:
+#### NOTE: IF YOU ARE RUNNING JAVA 16, YOU NEED TO ADD SOME STUFF TO YOUR JVM ARGUMENTS (make sure its before the -jar argument) IN YOUR SERVER START SCRIPT:
 ```bash
 --add-exports=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-exports=jdk.unsupported/sun.misc=ALL-UNNAMED
 ```
