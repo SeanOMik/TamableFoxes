@@ -240,6 +240,27 @@ public class EntityTamableFox extends EntityFox {
         }
     }
 
+    public void rename(org.bukkit.entity.Player player) {
+        new AnvilGUI.Builder()
+                .onComplete((plr, input) -> { // Called when the inventory output slot is clicked
+                    if (!input.equals("")) {
+                        org.bukkit.entity.Entity tamableFox = this.getBukkitEntity();
+
+                        // This will auto format the name for config settings.
+                        String foxName = LanguageConfig.getFoxNameFormat(input, player.getDisplayName());
+
+                        tamableFox.setCustomName(foxName);
+                        tamableFox.setCustomNameVisible(true);
+                        plr.sendMessage(Config.getPrefix() + ChatColor.GREEN + LanguageConfig.getTamingChosenPerfect(input));
+                    }
+
+                    return AnvilGUI.Response.close();
+                })
+                .text("Fox name")      // Sets the text the GUI should start with
+                .plugin(Utils.tamableFoxesPlugin)          // Set the plugin instance
+                .open(player);         // Opens the GUI for the player provided
+    }
+
     // deobf: mobInteract
     public EnumInteractionResult b(EntityHuman entityhuman, EnumHand enumhand) {
         ItemStack itemstack = entityhuman.b(enumhand);
@@ -268,6 +289,13 @@ public class EntityTamableFox extends EntityFox {
                     // If the player is not sneaking and the fox cannot breed, then make the fox sit.
                     // @TODO: Do I need to use this.eQ() instead of flag != EnumInteractionResult.SUCCESS?
                     if (!entityhuman.isSneaking() && (flag != EnumInteractionResult.SUCCESS || this.isBaby())) {
+                        // Show the rename menu again when trying to use a nametag on the fox.
+                        if (itemstack.getItem() instanceof ItemNameTag) {
+                            org.bukkit.entity.Player player = (org.bukkit.entity.Player) entityhuman.getBukkitEntity();
+                            rename(player);
+                            return EnumInteractionResult.PASS;
+                        }
+
                         this.setSleeping(false);
                         this.goalSit.setSitting(!this.isSitting());
                         return flag;
@@ -349,24 +377,7 @@ public class EntityTamableFox extends EntityFox {
                             Player player = (Player) entityhuman.getBukkitEntity();
 
                             player.sendMessage(Config.getPrefix() + ChatColor.RED + LanguageConfig.getTamingAskingName());
-                            new AnvilGUI.Builder()
-                                    .onComplete((plr, input) -> { // Called when the inventory output slot is clicked
-                                        if (!input.equals("")) {
-                                            org.bukkit.entity.Entity tamableFox = this.getBukkitEntity();
-
-                                            // This will auto format the name for config settings.
-                                            String foxName = LanguageConfig.getFoxNameFormat(input, player.getDisplayName());
-
-                                            tamableFox.setCustomName(foxName);
-                                            tamableFox.setCustomNameVisible(true);
-                                            plr.sendMessage(Config.getPrefix() + ChatColor.GREEN + LanguageConfig.getTamingChosenPerfect(input));
-                                        }
-
-                                        return AnvilGUI.Response.close();
-                                    })
-                                    .text("Fox name")      // Sets the text the GUI should start with
-                                    .plugin(Utils.tamableFoxesPlugin)          // Set the plugin instance
-                                    .open(player);         // Opens the GUI for the player provided
+                            rename(player);
                         }
                     } else {
                         getBukkitEntity().getWorld().spawnParticle(org.bukkit.Particle.SMOKE_NORMAL, getBukkitEntity().getLocation(), 10, 0.2D, 0.2D, 0.2D, 0.15D);

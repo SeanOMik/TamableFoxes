@@ -1,5 +1,6 @@
 package net.seanomik.tamablefoxes.versions.version_1_17_R1;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.*;
@@ -45,14 +46,14 @@ import java.util.function.Predicate;
 
 public class EntityTamableFox extends Fox {
 
-    protected static final EntityDataAccessor<Byte> tamed;
+    protected static final EntityDataAccessor<Boolean> tamed;
     protected static final EntityDataAccessor<Optional<UUID>> ownerUUID;
 
     //private static final EntityDataAccessor<Byte> bw; // DATA_FLAGS_ID
     private static final Predicate<Entity> AVOID_PLAYERS; // AVOID_PLAYERS
 
     static {
-        tamed = SynchedEntityData.defineId(EntityTamableFox.class, EntityDataSerializers.BYTE);
+        tamed = SynchedEntityData.defineId(EntityTamableFox.class, EntityDataSerializers.BOOLEAN);
         ownerUUID = SynchedEntityData.defineId(EntityTamableFox.class, EntityDataSerializers.OPTIONAL_UUID);
 
         AVOID_PLAYERS = (entity) -> !entity.isCrouching();// && EntitySelector.test(entity);
@@ -74,6 +75,8 @@ public class EntityTamableFox extends Fox {
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(10.0D);
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.0D);
         }
+
+        this.setTamed(false);
     }
 
     @Override
@@ -103,7 +106,7 @@ public class EntityTamableFox extends Fox {
 
             this.goalSelector.addGoal(0, getFoxInnerPathfinderGoal("g")); // FoxFloatGoal
             this.goalSelector.addGoal(1, getFoxInnerPathfinderGoal("b")); // FaceplantGoal
-            this.goalSelector.addGoal(2, getFoxInnerPathfinderGoal("n", Arrays.asList(2.2D), Arrays.asList(double.class))); // FoxPanicGoal
+            this.goalSelector.addGoal(2, new FoxPathfinderGoalPanic(this, 2.2D)); // FoxPanicGoal
             this.goalSelector.addGoal(2, new FoxPathfinderGoalSleepWithOwner(this));
             this.goalSelector.addGoal(3, getFoxInnerPathfinderGoal("e", Arrays.asList(1.0D), Arrays.asList(double.class))); // FoxBreedGoal
 
@@ -178,10 +181,21 @@ public class EntityTamableFox extends Fox {
         return false;
     }
 
+    public void setDefending(boolean defending) {
+        try {
+            Method method = Fox.class.getDeclaredMethod("A", boolean.class); // setDefending
+            method.setAccessible(true);
+            method.invoke((Fox) this, defending);
+            method.setAccessible(false);
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(tamed, (byte) 0);
+        this.entityData.define(tamed, false);
         this.entityData.define(ownerUUID, Optional.empty());
     }
 
@@ -216,9 +230,11 @@ public class EntityTamableFox extends Fox {
             }
         }
 
-        if (ownerUuid != null) {
+        if (ownerUuid != null && !ownerUuid.equals(new UUID(0, 0))) {
             this.setOwnerUUID(ownerUuid);
             this.setTamed(true);
+        } else {
+            this.setTamed(false);
         }
 
         if (this.goalSitWhenOrdered != null) {
@@ -236,19 +252,15 @@ public class EntityTamableFox extends Fox {
     }
 
     public boolean isTamed() {
-        return ((Byte) this.entityData.get(tamed) & 4) != 0;
+        UUID ownerUuid = getOwnerUUID();
+        return this.entityData.get(tamed) && (ownerUuid != null && !ownerUuid.equals(new UUID(0, 0)));
     }
 
-    public void setTamed(boolean tamed_) {
-        byte isTamed = this.entityData.get(tamed);
-        if (tamed_) {
-            this.entityData.set(tamed, (byte) (isTamed | 4));
-        } else {
-            this.entityData.set(tamed, (byte) (isTamed & -5));
-        }
+    public void setTamed(boolean tamed) {
+        this.entityData.set(EntityTamableFox.tamed, tamed);
         this.reassessTameGoals();
 
-        if (tamed_) {
+        if (tamed) {
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(24.0D);
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(3.0D);
         } else {
@@ -265,6 +277,28 @@ public class EntityTamableFox extends Fox {
         for (Goal untamedGoal : untamedGoals) {
             this.goalSelector.removeGoal(untamedGoal);
         }
+    }
+
+    public void rename(org.bukkit.entity.Player player) {
+        new AnvilGUI.Builder()
+                .onComplete((plr, input) -> { // Called when the inventory output slot is clicked
+                    if (!input.equals("")) {
+                        org.bukkit.entity.Entity tamableFox = this.getBukkitEntity();
+
+                        // This will auto format the name for config settings.
+                        String foxName = LanguageConfig.getFoxNameFormat(input, player.getDisplayName());
+
+                        tamableFox.setCustomName(foxName);
+                        tamableFox.setCustomNameVisible(true);
+                        plr.sendMessage(Config.getPrefix() + ChatColor.GREEN + LanguageConfig.getTamingChosenPerfect(input));
+                    }
+
+                    return AnvilGUI.Response.close();
+                })
+                .preventClose()
+                .text("Fox name")      // Sets the text the GUI should start with
+                .plugin(Utils.tamableFoxesPlugin)          // Set the plugin instance
+                .open(player);         // Opens the GUI for the player provided
     }
 
     @Override
@@ -296,6 +330,13 @@ public class EntityTamableFox extends Fox {
                     // If the player is not sneaking and the fox cannot breed, then make the fox sit.
                     // @TODO: Do I need to use this.eQ() instead of flag != EnumInteractionResult.SUCCESS?
                     if (!entityhuman.isCrouching() && (flag != InteractionResult.SUCCESS || this.isBaby())) {
+                        // Show the rename menu again when trying to use a nametag on the fox.
+                        if (itemstack.getItem() instanceof NameTagItem) {
+                            org.bukkit.entity.Player player = (org.bukkit.entity.Player) entityhuman.getBukkitEntity();
+                            rename(player);
+                            return InteractionResult.PASS;
+                        }
+
                         this.goalSleepWhenOrdered.setOrderedToSleep(false);
                         this.goalSitWhenOrdered.setOrderedToSit(!this.isOrderedToSit());
                         return InteractionResult.SUCCESS;
@@ -374,24 +415,7 @@ public class EntityTamableFox extends Fox {
                         // Let the player choose the new fox's name if its enabled in config.
                         if (Config.askForNameAfterTaming()) {
                             player.sendMessage(Config.getPrefix() + ChatColor.RED + LanguageConfig.getTamingAskingName());
-                            new AnvilGUI.Builder()
-                                    .onComplete((plr, input) -> { // Called when the inventory output slot is clicked
-                                        if (!input.equals("")) {
-                                            org.bukkit.entity.Entity tamableFox = this.getBukkitEntity();
-
-                                            // This will auto format the name for config settings.
-                                            String foxName = LanguageConfig.getFoxNameFormat(input, player.getDisplayName());
-
-                                            tamableFox.setCustomName(foxName);
-                                            tamableFox.setCustomNameVisible(true);
-                                            plr.sendMessage(Config.getPrefix() + ChatColor.GREEN + LanguageConfig.getTamingChosenPerfect(input));
-                                        }
-
-                                        return AnvilGUI.Response.close();
-                                    })
-                                    .text("Fox name")      // Sets the text the GUI should start with
-                                    .plugin(Utils.tamableFoxesPlugin)          // Set the plugin instance
-                                    .open(player);         // Opens the GUI for the player provided
+                            rename(player);
                         }
                     } else {
                         getBukkitEntity().getWorld().spawnParticle(org.bukkit.Particle.SMOKE_NORMAL, getBukkitEntity().getLocation(), 10, 0.2D, 0.2D, 0.2D, 0.15D);

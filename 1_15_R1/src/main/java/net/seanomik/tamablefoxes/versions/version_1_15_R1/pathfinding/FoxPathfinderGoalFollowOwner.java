@@ -40,7 +40,7 @@ public class FoxPathfinderGoalFollowOwner extends PathfinderGoal {
             return false;
         } else if (entityliving.isSpectator()) {
             return false;
-        } else if (this.a.isSitting()) {
+        } else if (this.a.isSitting() || this.a.isSleeping()) {
             return false;
         } else if (this.a.h(entityliving) < (double)(this.h * this.h)) {
             return false;

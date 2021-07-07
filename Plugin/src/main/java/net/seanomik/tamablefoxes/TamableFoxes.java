@@ -11,12 +11,15 @@ import net.seanomik.tamablefoxes.versions.version_1_16_R2.NMSInterface_1_16_R2;
 import net.seanomik.tamablefoxes.versions.version_1_16_R3.NMSInterface_1_16_R3;
 import net.seanomik.tamablefoxes.versions.version_1_17_R1.NMSInterface_1_17_R1;
 import net.seanomik.tamablefoxes.util.io.LanguageConfig;
+import org.bstats.bukkit.Metrics;
+import org.bstats.charts.SingleLineChart;
 import org.bukkit.*;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class TamableFoxes extends JavaPlugin implements Listener {
     private static TamableFoxes plugin;
+    public static final int BSTATS_PLUGIN_ID = 11944;
 
     private boolean versionSupported = true;
 
@@ -65,6 +68,9 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
         if (Config.getMaxPlayerFoxTames() != 0) {
             SQLiteHelper.getInstance(this).createTablesIfNotExist();
         }
+
+        Metrics metrics = new Metrics(this, BSTATS_PLUGIN_ID);
+        //metrics.addCustomChart(new SingleLineChart("servers", () -> 1));
     }
 
     @Override

@@ -42,6 +42,16 @@ public class FoxPathfinderGoalOwnerHurtTarget extends TargetGoal {
             this.timestamp = entityliving.getLastHurtMobTimestamp();
         }
 
+        tameAnimal.setDefending(true);
+
         super.start();
+    }
+
+
+    @Override
+    public void stop() {
+        tameAnimal.setDefending(false);
+
+        super.stop();
     }
 }

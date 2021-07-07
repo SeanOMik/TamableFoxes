@@ -22,15 +22,28 @@
 
     <build>
         <plugins>
-            <!--<plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.1.0</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <relocations>
+                        <relocation>
+                            <pattern>org.bstats</pattern>
+                            <!-- Replace this with your package! -->
+                            <shadedPattern>net.seanomik.tamablefoxes.bstats</shadedPattern>
+                        </relocation>
+                    </relocations>
                 </configuration>
-            </plugin>-->
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -41,7 +54,7 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <outputFile>D:\Code\java\spigotPlugins\servers\${server.version}\plugins\TamableFoxes_v${project.parent.version}.jar</outputFile>
+                            <!--<outputFile>D:\Code\java\spigotPlugins\servers\${server.version}\plugins\TamableFoxes_v${project.parent.version}.jar</outputFile>-->
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                         </configuration>
                     </execution>
@@ -118,6 +131,12 @@
             <scope>compile</scope>
         </dependency>
         <!-- End of entity implementations -->
+        <dependency>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>2.2.1</version>
+            <scope>compile</scope>
+        </dependency>
         <dependency>
             <groupId>net.seanomik</groupId>
             <artifactId>tamablefoxes-util</artifactId>
