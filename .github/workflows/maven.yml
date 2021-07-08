@@ -36,7 +36,7 @@ jobs:
         remapped: remapped-mojang
     - name: Install with Maven
       run: |
-        mvn install
+        sudo mvn install
     - name: Build with Maven
       run: |
-        mvn package
+        sudo mvn package
