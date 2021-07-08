@@ -18,7 +18,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <server.version>1.17</server.version>
-        <outputFile>D:\Code\java\spigotPlugins\servers\${server.version}\plugins\TamableFoxes_v${project.parent.version}.jar</outputFile>
     </properties>
 
     <build>
@@ -55,7 +54,7 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <outputFile>${outputFile}</outputFile>
+                            <!--<outputFile>D:\Code\java\spigotPlugins\servers\${server.version}\plugins\TamableFoxes_v${project.parent.version}.jar</outputFile>-->
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                         </configuration>
                     </execution>
