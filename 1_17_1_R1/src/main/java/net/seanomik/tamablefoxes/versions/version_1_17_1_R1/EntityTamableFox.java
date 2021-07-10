@@ -1,16 +1,21 @@
-package net.seanomik.tamablefoxes.versions.version_1_17_R1;
+package net.seanomik.tamablefoxes.versions.version_1_17_1_R1;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.*;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
+import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
@@ -19,15 +24,13 @@ import net.minecraft.world.entity.monster.Ghast;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.GameRules;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.scores.Team;
 import net.seanomik.tamablefoxes.util.Utils;
 import net.seanomik.tamablefoxes.util.io.Config;
 import net.seanomik.tamablefoxes.util.io.LanguageConfig;
 import net.seanomik.tamablefoxes.util.io.sqlite.SQLiteHelper;
-import net.seanomik.tamablefoxes.versions.version_1_17_R1.pathfinding.*;
+import net.seanomik.tamablefoxes.versions.version_1_17_1_R1.pathfinding.*;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -87,17 +90,17 @@ public class EntityTamableFox extends Fox {
             this.goalSelector.addGoal(1, goalSleepWhenOrdered);
 
             // Wild animal attacking
-            Field landTargetGoal = this.getClass().getSuperclass().getDeclaredField("cj"); // landTargetGoal
+            Field landTargetGoal = this.getClass().getSuperclass().getDeclaredField("ck"); // landTargetGoal
             landTargetGoal.setAccessible(true);
             landTargetGoal.set(this, new NearestAttackableTargetGoal(this, Animal.class, 10, false, false, (entityliving) -> {
                 return (!isTamed() || (Config.doesTamedAttackWildAnimals() && isTamed())) && (entityliving instanceof Chicken || entityliving instanceof Rabbit);
             }));
 
-            Field turtleEggTargetGoal = this.getClass().getSuperclass().getDeclaredField("ck"); // turtleEggTargetGoal
+            Field turtleEggTargetGoal = this.getClass().getSuperclass().getDeclaredField("cl"); // turtleEggTargetGoal
             turtleEggTargetGoal.setAccessible(true);
             turtleEggTargetGoal.set(this, new NearestAttackableTargetGoal(this, Turtle.class, 10, false, false, Turtle.BABY_ON_LAND_SELECTOR));
 
-            Field fishTargetGoal = this.getClass().getSuperclass().getDeclaredField("cl"); // fishTargetGoal
+            Field fishTargetGoal = this.getClass().getSuperclass().getDeclaredField("cm"); // fishTargetGoal
             fishTargetGoal.setAccessible(true);
             fishTargetGoal.set(this, new NearestAttackableTargetGoal(this, AbstractFish.class, 20, false, false, (entityliving) -> {
                 return (!isTamed() || (Config.doesTamedAttackWildAnimals() && isTamed())) && entityliving instanceof AbstractSchoolingFish;
@@ -105,7 +108,7 @@ public class EntityTamableFox extends Fox {
 
             this.goalSelector.addGoal(0, getFoxInnerPathfinderGoal("g")); // FoxFloatGoal
             this.goalSelector.addGoal(1, getFoxInnerPathfinderGoal("b")); // FaceplantGoal
-            this.goalSelector.addGoal(2, new FoxPathfinderGoalPanic(this, 2.2D)); // FoxPanicGoal
+            this.goalSelector.addGoal(2, new FoxPathfinderGoalPanic(this, 2.2D));
             this.goalSelector.addGoal(2, new FoxPathfinderGoalSleepWithOwner(this));
             this.goalSelector.addGoal(3, getFoxInnerPathfinderGoal("e", Arrays.asList(1.0D), Arrays.asList(double.class))); // FoxBreedGoal
 
@@ -129,7 +132,7 @@ public class EntityTamableFox extends Fox {
             this.goalSelector.addGoal(11, new RandomStrollGoal(this, 1.0D));
             this.goalSelector.addGoal(11, getFoxInnerPathfinderGoal("p")); // FoxSearchForItemsGoal
             this.goalSelector.addGoal(12, getFoxInnerPathfinderGoal("j", Arrays.asList(this, Player.class, 24.0f),
-                        Arrays.asList(Mob.class, Class.class, float.class))); // LookAtPlayer
+                        Arrays.asList(Mob.class, Class.class, float.class))); // FoxLookAtPlayerGoal
 
             this.targetSelector.addGoal(1, new FoxPathfinderGoalOwnerHurtByTarget(this));
             this.targetSelector.addGoal(2, new FoxPathfinderGoalOwnerHurtTarget(this));
@@ -168,7 +171,7 @@ public class EntityTamableFox extends Fox {
 
     public boolean isDefending() {
         try {
-            Method method = Fox.class.getDeclaredMethod("fI"); // isDefending
+            Method method = Fox.class.getDeclaredMethod("fJ"); // isDefending
             method.setAccessible(true);
             boolean defending = (boolean) method.invoke((Fox) this);
             method.setAccessible(false);

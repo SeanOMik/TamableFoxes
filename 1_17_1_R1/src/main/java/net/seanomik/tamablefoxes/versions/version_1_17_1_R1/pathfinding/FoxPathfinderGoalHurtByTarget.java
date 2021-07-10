@@ -1,11 +1,11 @@
-package net.seanomik.tamablefoxes.versions.version_1_17_R1.pathfinding;
+package net.seanomik.tamablefoxes.versions.version_1_17_1_R1.pathfinding;
 
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.phys.AABB;
-import net.seanomik.tamablefoxes.versions.version_1_17_R1.EntityTamableFox;
+import net.seanomik.tamablefoxes.versions.version_1_17_1_R1.EntityTamableFox;
 import org.bukkit.event.entity.EntityTargetEvent.TargetReason;
 
 import java.util.EnumSet;
@@ -50,7 +50,7 @@ public class FoxPathfinderGoalHurtByTarget extends TargetGoal {
         }
     }
 
-    public net.seanomik.tamablefoxes.versions.version_1_17_R1.pathfinding.FoxPathfinderGoalHurtByTarget setAlertOthers(Class<?>... aclass) {
+    public FoxPathfinderGoalHurtByTarget setAlertOthers(Class<?>... aclass) {
         this.alertSameType = true;
         this.toIgnoreAlert = aclass;
         return this;

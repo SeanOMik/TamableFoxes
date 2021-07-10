@@ -1,4 +1,4 @@
-package net.seanomik.tamablefoxes.versions.version_1_17_R1.pathfinding;
+package net.seanomik.tamablefoxes.versions.version_1_17_1_R1.pathfinding;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -16,7 +16,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.AABB;
-import net.seanomik.tamablefoxes.versions.version_1_17_R1.EntityTamableFox;
+import net.seanomik.tamablefoxes.versions.version_1_17_1_R1.EntityTamableFox;
 import org.bukkit.event.entity.EntityDropItemEvent;
 
 import java.util.Iterator;

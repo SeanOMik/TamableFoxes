@@ -10,9 +10,10 @@ import net.seanomik.tamablefoxes.versions.version_1_16_R1.NMSInterface_1_16_R1;
 import net.seanomik.tamablefoxes.versions.version_1_16_R2.NMSInterface_1_16_R2;
 import net.seanomik.tamablefoxes.versions.version_1_16_R3.NMSInterface_1_16_R3;
 import net.seanomik.tamablefoxes.versions.version_1_17_R1.NMSInterface_1_17_R1;
+import net.seanomik.tamablefoxes.versions.version_1_17_1_R1.NMSInterface_1_17_1_R1;
 import net.seanomik.tamablefoxes.util.io.LanguageConfig;
+
 import org.bstats.bukkit.Metrics;
-import org.bstats.charts.SingleLineChart;
 import org.bukkit.*;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,6 +26,10 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
 
     public NMSInterface nmsInterface;
 
+    public boolean equalOrBetween(double num, double min, double max) {
+        return num >= min && num <= max;
+    }
+
     @Override
     public void onLoad() {
         plugin = this;
@@ -35,30 +40,30 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
 
         // Verify server version
         String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
-        switch (version) {
-            case "v1_14_R1":
-                nmsInterface = new NMSInterface_1_14_R1();
-                break;
-            case "v1_15_R1":
-                nmsInterface = new NMSInterface_1_15_R1();
-                break;
-            case "v1_16_R1":
-                nmsInterface = new NMSInterface_1_16_R1();
-                break;
-            case "v1_16_R2":
-                nmsInterface = new NMSInterface_1_16_R2();
-                break;
-            case "v1_16_R3":
-                nmsInterface = new NMSInterface_1_16_R3();
-                break;
-            case "v1_17_R1":
-                nmsInterface = new NMSInterface_1_17_R1();
-                break;
-            default:
-                Bukkit.getServer().getConsoleSender().sendMessage(Config.getPrefix() + ChatColor.RED + LanguageConfig.getUnsupportedMCVersionRegister());
-                Bukkit.getServer().getConsoleSender().sendMessage(Config.getPrefix() + ChatColor.RED + "You're trying to run MC version " + version + " which is not supported!");
-                versionSupported = false;
-                return;
+        String specificVersion = Bukkit.getVersion();
+        specificVersion = specificVersion.substring(specificVersion.indexOf("(MC: ") + 5, specificVersion.indexOf(')'));
+
+        double versionDouble = Double.parseDouble(specificVersion.substring(2));
+
+        System.out.println("MC Version: " + versionDouble);
+        if (equalOrBetween(versionDouble, 14D, 14.4D)) {
+            nmsInterface = new NMSInterface_1_14_R1();
+        } else if (equalOrBetween(versionDouble, 15D, 15.2D)) {
+            nmsInterface = new NMSInterface_1_15_R1();
+        } else if (versionDouble == 16D) {
+            nmsInterface = new NMSInterface_1_16_R1();
+        } else if (versionDouble == 16.2D || versionDouble == 16.3D) {
+            nmsInterface = new NMSInterface_1_16_R2();
+        } else if (versionDouble == 16.4D || versionDouble == 16.5D) {
+            nmsInterface = new NMSInterface_1_16_R3();
+        } else if (versionDouble == 17D) {
+            nmsInterface = new NMSInterface_1_17_R1();
+        } else if (versionDouble == 17.1D) {
+            nmsInterface = new NMSInterface_1_17_1_R1();
+        } else {
+            Bukkit.getServer().getConsoleSender().sendMessage(Config.getPrefix() + ChatColor.RED + LanguageConfig.getUnsupportedMCVersionRegister());
+            Bukkit.getServer().getConsoleSender().sendMessage(Config.getPrefix() + ChatColor.RED + "You're trying to run MC version " + specificVersion + " which is not supported!");
+            versionSupported = false;
         }
 
         // Display starting message then register entity.
