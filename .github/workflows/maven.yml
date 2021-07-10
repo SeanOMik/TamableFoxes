@@ -39,6 +39,9 @@ jobs:
         versions: 1.17
         threads: -1
         remapped: remapped-mojang
+    - name: Debug - java version
+      run: |
+          java -version
     - name: Install with Maven
       run: |
         sudo mvn install
