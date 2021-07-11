@@ -7,7 +7,7 @@
     <parent>
         <groupId>net.seanomik</groupId>
         <artifactId>tamablefoxes-parent</artifactId>
-        <version>2.1.1-SNAPSHOT</version>
+        <version>2.1.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>tamablefoxes</artifactId>
@@ -54,7 +54,7 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <!--<outputFile>D:\Code\java\spigotPlugins\servers\${server.version}\plugins\TamableFoxes_v${project.parent.version}.jar</outputFile>-->
+                            <outputFile>D:\Code\java\spigotPlugins\servers\${server.version}\plugins\TamableFoxes_v${project.parent.version}.jar</outputFile>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                         </configuration>
                     </execution>

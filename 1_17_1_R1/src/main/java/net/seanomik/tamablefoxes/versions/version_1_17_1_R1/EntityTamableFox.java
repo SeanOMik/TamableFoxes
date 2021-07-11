@@ -171,9 +171,9 @@ public class EntityTamableFox extends Fox {
 
     public boolean isDefending() {
         try {
-            Method method = Fox.class.getDeclaredMethod("fJ"); // isDefending
+            Method method = Fox.class.getDeclaredMethod("u", int.class); // getFlag
             method.setAccessible(true);
-            boolean defending = (boolean) method.invoke((Fox) this);
+            boolean defending = (boolean) method.invoke(this, 128);
             method.setAccessible(false);
             return defending;
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
@@ -185,9 +185,9 @@ public class EntityTamableFox extends Fox {
 
     public void setDefending(boolean defending) {
         try {
-            Method method = Fox.class.getDeclaredMethod("A", boolean.class); // setDefending
+            Method method = Fox.class.getDeclaredMethod("d", int.class, boolean.class); // setFlag
             method.setAccessible(true);
-            method.invoke((Fox) this, defending);
+            method.invoke(this, 128, defending);
             method.setAccessible(false);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
