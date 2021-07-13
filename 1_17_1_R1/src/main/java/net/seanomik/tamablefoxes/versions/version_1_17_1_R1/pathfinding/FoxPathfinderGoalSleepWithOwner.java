@@ -99,36 +99,8 @@ public class FoxPathfinderGoalSleepWithOwner extends Goal {
 
     public void stop() {
         this.fox.setSleeping(false);
-        float f = this.fox.level.getTimeOfDay(1.0F);
-        if (this.ownerPlayer.getSleepTimer() >= 100 && (double)f > 0.77D && (double)f < 0.8D && (double)this.fox.level.getRandom().nextFloat() < 0.7D) {
-            this.giveMorningGift();
-        }
-
         this.onBedTicks = 0;
         this.fox.getNavigation().stop();
-    }
-
-    private void giveMorningGift() {
-        Random random = this.fox.getRandom();
-        BlockPos.MutableBlockPos blockposition_mutableblockposition = new BlockPos.MutableBlockPos();
-        blockposition_mutableblockposition.set(this.fox.blockPosition());
-        this.fox.randomTeleport((double)(blockposition_mutableblockposition.getX() + random.nextInt(11) - 5), (double)(blockposition_mutableblockposition.getY() + random.nextInt(5) - 2), (double)(blockposition_mutableblockposition.getZ() + random.nextInt(11) - 5), false);
-        blockposition_mutableblockposition.set(this.fox.blockPosition());
-        LootTable loottable = this.fox.level.getServer().getLootTables().get(BuiltInLootTables.CAT_MORNING_GIFT);
-        net.minecraft.world.level.storage.loot.LootContext.Builder loottableinfo_builder = (new net.minecraft.world.level.storage.loot.LootContext.Builder((ServerLevel)this.fox.level)).withParameter(LootContextParams.ORIGIN, this.fox.position()).withParameter(LootContextParams.THIS_ENTITY, this.fox).withRandom(random);
-        List<ItemStack> list = loottable.getRandomItems(loottableinfo_builder.create(LootContextParamSets.GIFT));
-        Iterator iterator = list.iterator();
-
-        while(iterator.hasNext()) {
-            ItemStack itemstack = (ItemStack)iterator.next();
-            ItemEntity entityitem = new ItemEntity(this.fox.level, (double)blockposition_mutableblockposition.getX() - (double) Mth.sin(this.fox.yBodyRot * 0.017453292F), (double)blockposition_mutableblockposition.getY(), (double)blockposition_mutableblockposition.getZ() + (double)Mth.cos(this.fox.yBodyRot * 0.017453292F), itemstack);
-            EntityDropItemEvent event = new EntityDropItemEvent(this.fox.getBukkitEntity(), (org.bukkit.entity.Item)entityitem.getBukkitEntity());
-            entityitem.level.getCraftServer().getPluginManager().callEvent(event);
-            if (!event.isCancelled()) {
-                this.fox.level.addFreshEntity(entityitem);
-            }
-        }
-
     }
 
     public void tick() {

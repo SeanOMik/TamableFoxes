@@ -79,32 +79,8 @@ public class FoxPathfinderGoalSleepWithOwner extends PathfinderGoal {
 
     public void d() {
         this.a.setSleeping(false);
-        float f = this.a.world.j(1.0F);
-        if (this.b.dJ() >= 100 && (double)f > 0.77D && (double)f < 0.8D && (double)this.a.world.getRandom().nextFloat() < 0.7D) {
-            this.h();
-        }
-
         this.d = 0;
-        //this.a.v(false); < setRelaxStateOne
         this.a.getNavigation().o();
-    }
-
-    private void h() {
-        Random random = this.a.getRandom();
-        BlockPosition.MutableBlockPosition blockposition_mutableblockposition = new BlockPosition.MutableBlockPosition();
-        blockposition_mutableblockposition.a(this.a);
-        this.a.a((double)(blockposition_mutableblockposition.getX() + random.nextInt(11) - 5), (double)(blockposition_mutableblockposition.getY() + random.nextInt(5) - 2), (double)(blockposition_mutableblockposition.getZ() + random.nextInt(11) - 5), false);
-        blockposition_mutableblockposition.a(this.a);
-        LootTable loottable = this.a.world.getMinecraftServer().getLootTableRegistry().getLootTable(LootTables.af);
-        LootTableInfo.Builder loottableinfo_builder = (new LootTableInfo.Builder((WorldServer)this.a.world)).set(LootContextParameters.POSITION, blockposition_mutableblockposition).set(LootContextParameters.THIS_ENTITY, this.a).a(random);
-        List<ItemStack> list = loottable.populateLoot(loottableinfo_builder.build(LootContextParameterSets.GIFT));
-        Iterator iterator = list.iterator();
-
-        while(iterator.hasNext()) {
-            ItemStack itemstack = (ItemStack)iterator.next();
-            this.a.world.addEntity(new EntityItem(this.a.world, (double)((float)blockposition_mutableblockposition.getX() - MathHelper.sin(this.a.aK * 0.017453292F)), (double)blockposition_mutableblockposition.getY(), (double)((float)blockposition_mutableblockposition.getZ() + MathHelper.cos(this.a.aK * 0.017453292F)), itemstack));
-        }
-
     }
 
     public void e() {
