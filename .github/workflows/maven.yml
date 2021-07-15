@@ -27,9 +27,8 @@ jobs:
     - name: Set up JDK 16
       uses: actions/setup-java@v2
       with:
-        distribution: 'jdkfile'
-        jdkFile: ${{ runner.temp }}/java_package.tar.gz
-        java-version: '16'
+        distribution: 'adopt'
+        java-version: '16.0.1-9'
         architecture: x64
     #- name: Compile Spigot
     #  uses: SeanOMik/Action-SpigotMC@b23370e6a4c3e9cdd38b8d5bcd4a543f8c1e1c19
@@ -47,8 +46,12 @@ jobs:
       run: |
           java -version
     - name: Install with Maven
+      env:
+        JAVA_HOME: /opt/hostedtoolcache/Java_Adopt_jdk/16.0.1-9/x64
       run: |
         sudo mvn install
     - name: Build with Maven
+      env:
+        JAVA_HOME: /opt/hostedtoolcache/Java_Adopt_jdk/16.0.1-9/x64
       run: |
         sudo mvn package
