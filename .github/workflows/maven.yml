@@ -28,7 +28,7 @@ jobs:
       uses: actions/setup-java@v2
       with:
         distribution: 'adopt'
-        java-version: '16.0.1-9'
+        java-version: '16.0.1+9'
         architecture: x64
     #- name: Compile Spigot
     #  uses: SeanOMik/Action-SpigotMC@b23370e6a4c3e9cdd38b8d5bcd4a543f8c1e1c19
