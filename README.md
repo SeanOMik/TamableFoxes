@@ -50,4 +50,4 @@ Have you ever wanted to tame foxes? Well, now you can! <b>Use chicken to tame</b
 ![fox leaping towards chicken](https://proxy.spigotmc.org/4527d9b156ae8ad83f4b67a1407c67376eabcc52?url=https%3A%2F%2Fi.gyazo.com%2F367b397a86f31b0ba27fba228c295347.gif)
 
 
-<small>The plugin by default submits anonymous stats about your server (player count, plugin/server version and type) to a public statistics websites (bstats.org) in order to provide the developers with usage information. If you wish to opt out, you can do so in the `bstats/config.yml` file.
+<small>The plugin by default submits anonymous stats about your server (player count, plugin/server version, and type) to a public statistics website (bstats.org) in order to provide the developers with usage information. If you wish to opt-out, you can do so in the `bstats/config.yml` file. </small>
