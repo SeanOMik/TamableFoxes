@@ -4,10 +4,7 @@ SpigotMC Plugin that gives you the ability to tame foxes!
 </p>
 
 ### WARNING: Do not reload the plugin, you may loose foxes!!
-#### NOTE: IF YOU ARE RUNNING JAVA 16, YOU NEED TO ADD SOME STUFF TO YOUR JVM ARGUMENTS (make sure it's before the -jar argument) IN YOUR SERVER START SCRIPT:
-```bash
---add-exports=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-exports=jdk.unsupported/sun.misc=ALL-UNNAMED
-```
+#### NOTE: You no longer need to add the program arguments to your start file. If you previously had them, you can delete them, but I don't think it would harm if you leave them in.
 
 ### Default configuration files:
 * <a href="https://github.com/SeanOMik/TamableFoxes/blob/master/Plugin/src/main/resources/config.yml">config.yml</a>
@@ -51,3 +48,6 @@ Have you ever wanted to tame foxes? Well, now you can! <b>Use chicken to tame</b
 ![foxes with baby looking at player](https://www.spigotmc.org/attachments/2019-07-18_23-24-24-png.441399/)
 ![giving fox totem](https://proxy.spigotmc.org/3c5f51d25b3fbb2e6bdacaa995c4e87538c13c62?url=https%3A%2F%2Fi.gyazo.com%2F34f94804beb17ffa68b73874c8c8d1d5.gif)
 ![fox leaping towards chicken](https://proxy.spigotmc.org/4527d9b156ae8ad83f4b67a1407c67376eabcc52?url=https%3A%2F%2Fi.gyazo.com%2F367b397a86f31b0ba27fba228c295347.gif)
+
+
+<small>The plugin by default submits anonymous stats about your server (player count, plugin/server version and type) to a public statistics websites (bstats.org) in order to provide the developers with usage information. If you wish to opt out, you can do so in the `bstats/config.yml` file.

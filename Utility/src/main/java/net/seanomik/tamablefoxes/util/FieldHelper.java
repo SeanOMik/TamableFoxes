@@ -4,57 +4,69 @@ import net.seanomik.tamablefoxes.util.io.Config;
 import net.seanomik.tamablefoxes.util.io.LanguageConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import sun.misc.Unsafe;
 
-import java.lang.invoke.MethodHandles;
-import java.lang.invoke.VarHandle;
+import sun.misc.Unsafe;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
 
 public final class FieldHelper {
-
-    private static final VarHandle MODIFIERS;
-
-    static {
-        String version = System.getProperty("java.version");
-        if (!version.startsWith("1.8")) {
-            try {
-                MethodHandles.Lookup lookup = MethodHandles.privateLookupIn(Field.class, MethodHandles.lookup());
-                MODIFIERS = lookup.findVarHandle(Field.class, "modifiers", int.class);
-            } catch (IllegalAccessException | NoSuchFieldException ex) {
-                throw new RuntimeException(ex);
-            }
-        } else {
-            MODIFIERS = null;
-        }
-    }
-
-
-    public static void makeNonFinal(Field field) {
-        // Check if we're running a supported java version for this new method.
-        if (MODIFIERS == null) {
-            try {
-                if ((field.getModifiers() & Modifier.FINAL) == Modifier.FINAL) {
-                    Field fieldMutable = field.getClass().getDeclaredField("modifiers");
-                    fieldMutable.setAccessible(true);
-                    fieldMutable.set(field, fieldMutable.getInt(field) & ~Modifier.FINAL);
-                    fieldMutable.setAccessible(false);
+    public static void setFieldUsingUnsafe(final Field field, final Object object, final Object newValue) {
+        try {
+            field.setAccessible(true);
+            int fieldModifiersMask = field.getModifiers();
+            boolean isFinalModifierPresent = (fieldModifiersMask & Modifier.FINAL) == Modifier.FINAL;
+            if (isFinalModifierPresent) {
+                AccessController.doPrivileged((PrivilegedAction<Object>) () -> {
+                    try {
+                        sun.misc.Unsafe unsafe = getUnsafe();
+                        long offset = unsafe.objectFieldOffset(field);
+                        setFieldUsingUnsafe(object, field.getType(), offset, newValue, unsafe);
+                        return null;
+                    } catch (Throwable t) {
+                        throw new RuntimeException(t);
+                    }
+                });
+            } else {
+                try {
+                    field.set(object, newValue);
+                } catch (IllegalAccessException ex) {
+                    throw new RuntimeException(ex);
                 }
-            } catch (NoSuchFieldException | IllegalAccessException e) {
-                Bukkit.getServer().getConsoleSender().sendMessage(Config.getPrefix() + ChatColor.RED + LanguageConfig.getFailureReplace());
-                e.printStackTrace();
             }
-        } else {
-            int mods = field.getModifiers();
-            if (Modifier.isFinal(mods)) {
-                MODIFIERS.set(field, mods & ~Modifier.FINAL);
-            }
+        } catch (SecurityException ex) {
+            throw new RuntimeException(ex);
         }
     }
 
-    public static void setField(Field field, Object obj, Object value) throws IllegalAccessException {
-        makeNonFinal(field);
+    private static sun.misc.Unsafe getUnsafe() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+        Field field = sun.misc.Unsafe.class.getDeclaredField("theUnsafe");
         field.setAccessible(true);
-        field.set(obj, value);
-        field.setAccessible(false);
+        return (sun.misc.Unsafe) field.get(null);
+    }
+
+    private static void setFieldUsingUnsafe(Object base, Class type, long offset, Object newValue, Unsafe unsafe) {
+        if (type == Integer.TYPE) {
+            unsafe.putInt(base, offset, ((Integer) newValue));
+        } else if (type == Short.TYPE) {
+            unsafe.putShort(base, offset, ((Short) newValue));
+        } else if (type == Long.TYPE) {
+            unsafe.putLong(base, offset, ((Long) newValue));
+        } else if (type == Byte.TYPE) {
+            unsafe.putByte(base, offset, ((Byte) newValue));
+        } else if (type == Boolean.TYPE) {
+            unsafe.putBoolean(base, offset, ((Boolean) newValue));
+        } else if (type == Float.TYPE) {
+            unsafe.putFloat(base, offset, ((Float) newValue));
+        } else if (type == Double.TYPE) {
+            unsafe.putDouble(base, offset, ((Double) newValue));
+        } else if (type == Character.TYPE) {
+            unsafe.putChar(base, offset, ((Character) newValue));
+        } else {
+            unsafe.putObject(base, offset, newValue);
+        }
     }
 }

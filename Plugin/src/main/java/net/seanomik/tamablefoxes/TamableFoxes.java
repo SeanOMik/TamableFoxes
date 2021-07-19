@@ -26,7 +26,7 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
 
     public NMSInterface nmsInterface;
 
-    public boolean equalOrBetween(double num, double min, double max) {
+    private boolean equalOrBetween(double num, double min, double max) {
         return num >= min && num <= max;
     }
 
@@ -45,7 +45,6 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
 
         double versionDouble = Double.parseDouble(specificVersion.substring(2));
 
-        System.out.println("MC Version: " + versionDouble);
         if (equalOrBetween(versionDouble, 14D, 14.4D)) {
             nmsInterface = new NMSInterface_1_14_R1();
         } else if (equalOrBetween(versionDouble, 15D, 15.2D)) {
@@ -75,7 +74,6 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
         }
 
         Metrics metrics = new Metrics(this, BSTATS_PLUGIN_ID);
-        //metrics.addCustomChart(new SingleLineChart("servers", () -> 1));
     }
 
     @Override
