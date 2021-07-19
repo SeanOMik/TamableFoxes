@@ -43,6 +43,8 @@ Have you ever wanted to tame foxes? Well, now you can! <b>Use chicken to tame</b
 * tamablefoxes.tame: Gives the player the ability to tame a fox. Default: `Everybody`
 * tamablefoxes.tame.unlimited: Lets players bypass the tame limit. Default: `op`
 
+<br>
+
 ![foxes sleeping](Screenshots/foxes-sleeping-with-player.png)
 ![foxes sitting player holding sword](Screenshots/foxes-sitting-sword.png)
 ![foxes with baby looking at player](Screenshots/foxes-baby-looking-at-player.png)
