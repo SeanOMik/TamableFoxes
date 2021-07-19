@@ -52,4 +52,4 @@ Have you ever wanted to tame foxes? Well, now you can! <b>Use chicken to tame</b
 
 ## Metrics collection
 ![metrics](https://bstats.org/signatures/bukkit/TamableFoxes.svg)
-EssentialsX collects anonymous server statistics through bStats, an open-source statistics service for Minecraft software. If you wish to opt-out, you can do so in the `bstats/config.yml` file.
+Tamable Foxes collects anonymous server statistics through bStats, an open-source statistics service for Minecraft software. If you wish to opt-out, you can do so in the `bstats/config.yml` file.
