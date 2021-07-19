@@ -43,11 +43,10 @@ Have you ever wanted to tame foxes? Well, now you can! <b>Use chicken to tame</b
 * tamablefoxes.tame: Gives the player the ability to tame a fox. Default: `Everybody`
 * tamablefoxes.tame.unlimited: Lets players bypass the tame limit. Default: `op`
 
-![foxes sleeping](https://www.spigotmc.org/attachments/2019-07-18_23-19-12-png.441396/)
-![foxes sitting on bed](https://www.spigotmc.org/attachments/2019-07-18_23-20-49-png.441398/)
-![foxes with baby looking at player](https://www.spigotmc.org/attachments/2019-07-18_23-24-24-png.441399/)
-![giving fox totem](https://proxy.spigotmc.org/3c5f51d25b3fbb2e6bdacaa995c4e87538c13c62?url=https%3A%2F%2Fi.gyazo.com%2F34f94804beb17ffa68b73874c8c8d1d5.gif)
-![fox leaping towards chicken](https://proxy.spigotmc.org/4527d9b156ae8ad83f4b67a1407c67376eabcc52?url=https%3A%2F%2Fi.gyazo.com%2F367b397a86f31b0ba27fba228c295347.gif)
-
+![foxes sleeping](Screenshots/foxes-sleeping-with-player.png)
+![foxes sitting player holding sword](Screenshots/foxes-sitting-sword.png)
+![foxes with baby looking at player](Screenshots/foxes-baby-looking-at-player.png)
+![giving fox totem](Screenshots/giving-fox-item.gif)
+![fox leaping towards chicken](Screenshots/fox-pouncing.gif)
 
 <small>The plugin by default submits anonymous stats about your server (player count, plugin/server version, and type) to a public statistics website (bstats.org) in order to provide the developers with usage information. If you wish to opt-out, you can do so in the `bstats/config.yml` file. </small>
