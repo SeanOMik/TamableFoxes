@@ -15,7 +15,7 @@ If you get any errors, <a href="https://github.com/SeanOMik/TamableFoxes/issues/
 
 Have you ever wanted to tame foxes? Well, now you can! <b>Use chicken to tame</b> and sweet berries to breed them!<br><br>
 
-### Features:
+## Features:
 * 33% Chance of taming
 * Breeding
 * Wild foxes pick berry bushes
@@ -34,11 +34,10 @@ Have you ever wanted to tame foxes? Well, now you can! <b>Use chicken to tame</b
 * Language.yml
 * Message for when a tamed fox dies
 
-### Commands:
+## Commands:
 * /spawntamablefox [red/snow]: Spawns a tamable fox at the players location.
-<br>
 
-### Permissions:
+## Permissions:
 * tamablefoxes.spawn: Gives permission to run the command /spawntamablefox. Default: `op`
 * tamablefoxes.tame: Gives the player the ability to tame a fox. Default: `Everybody`
 * tamablefoxes.tame.unlimited: Lets players bypass the tame limit. Default: `op`
@@ -51,4 +50,6 @@ Have you ever wanted to tame foxes? Well, now you can! <b>Use chicken to tame</b
 ![giving fox totem](Screenshots/giving-fox-item.gif)
 ![fox leaping towards chicken](Screenshots/fox-pouncing.gif)
 
-<small>The plugin by default submits anonymous stats about your server (player count, plugin/server version, and type) to a public statistics website (bstats.org) in order to provide the developers with usage information. If you wish to opt-out, you can do so in the `bstats/config.yml` file. </small>
+## Metrics collection
+![metrics](https://bstats.org/signatures/bukkit/TamableFoxes.svg)
+EssentialsX collects anonymous server statistics through bStats, an open-source statistics service for Minecraft software. If you wish to opt-out, you can do so in the `bstats/config.yml` file.
