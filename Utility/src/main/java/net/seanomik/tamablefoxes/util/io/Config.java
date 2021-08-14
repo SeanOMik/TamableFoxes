@@ -5,6 +5,9 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Config {
     private static FileConfiguration config = null;
 
@@ -23,9 +26,15 @@ public class Config {
     // Check if a tamed fox attacks wild animals.
     public static boolean doesTamedAttackWildAnimals() { return config.getBoolean("tamed-behavior.attack-wild-animals"); }
 
+    // Get worlds that taming is not allowed in.
+    public static List<String> BannedWorlds() {
+        return config.contains("no-tame-worlds") ? config.getStringList("no-tame-worlds") : new ArrayList<>();
+    }
+
     // Check if the player can tame the fox.
     public static boolean canPlayerTameFox(Player player) {
-        return player.hasPermission("tamablefoxes.tame") || player.isOp();
+        return ( player.hasPermission("tamablefoxes.tame") || player.isOp() ) &&
+            ( !BannedWorlds().contains(player.getWorld().getName()) || player.hasPermission("tamablefoxes.tame.anywhere") );
     }
 
     public static int getMaxPlayerFoxTames() {

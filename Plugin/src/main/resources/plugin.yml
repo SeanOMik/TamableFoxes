@@ -20,3 +20,6 @@ permissions:
   tamablefoxes.tame.unlimited:
     description: "Lets players bypass the tame limit."
     default: op
+  tamablefoxes.tame.anywhere:
+    description: "Lets players bypass the banned worlds in config.yml (so they can tame in any world)."
+    default: op
