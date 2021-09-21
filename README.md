@@ -34,7 +34,7 @@ Have you ever wanted to tame foxes? Well, now you can! <b>Use chicken to tame</b
 * Language.yml
 * Message for when a tamed fox dies
 * Disabling certain gameplay messages
-  * Open `language.yml`. These are the messages that be disabled by changing the text to "disabled"
+  * You can do this by changing certain fields in `language.yml` to "disabled". The fields that can be disabled are:
     * `taming-tamed-message`
     * `taming-asking-for-name-message`
     * `taming-chosen-name-perfect`
