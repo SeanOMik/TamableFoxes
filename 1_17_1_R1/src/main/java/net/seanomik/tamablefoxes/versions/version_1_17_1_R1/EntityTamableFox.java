@@ -292,7 +292,9 @@ public class EntityTamableFox extends Fox {
 
                         tamableFox.setCustomName(foxName);
                         tamableFox.setCustomNameVisible(true);
-                        plr.sendMessage(Config.getPrefix() + ChatColor.GREEN + LanguageConfig.getTamingChosenPerfect(input));
+                        if (!LanguageConfig.getTamingChosenPerfect(input).equalsIgnoreCase("disabled")) {
+                            plr.sendMessage(Config.getPrefix() + ChatColor.GREEN + LanguageConfig.getTamingChosenPerfect(input));
+                        }
                     }
 
                     return AnvilGUI.Response.close();
@@ -393,7 +395,9 @@ public class EntityTamableFox extends Fox {
                     SQLiteHelper sqLiteHelper = SQLiteHelper.getInstance(Utils.tamableFoxesPlugin);
                     int maxTameCount = Config.getMaxPlayerFoxTames();
                     if ( !((org.bukkit.entity.Player) entityhuman.getBukkitEntity()).hasPermission("tamablefoxes.tame.unlimited") && maxTameCount > 0 && sqLiteHelper.getPlayerFoxAmount(entityhuman.getUUID()) >= maxTameCount) {
-                        ((org.bukkit.entity.Player) entityhuman.getBukkitEntity()).sendMessage(Config.getPrefix() + ChatColor.RED + LanguageConfig.getFoxDoesntTrust());
+                        if (!LanguageConfig.getFoxDoesntTrust().equalsIgnoreCase("disabled")) {
+                            ((org.bukkit.entity.Player) entityhuman.getBukkitEntity()).sendMessage(Config.getPrefix() + ChatColor.RED + LanguageConfig.getFoxDoesntTrust());
+                        }
 
                         return InteractionResult.SUCCESS;
                     }
@@ -412,11 +416,15 @@ public class EntityTamableFox extends Fox {
                         getBukkitEntity().getWorld().spawnParticle(org.bukkit.Particle.HEART, getBukkitEntity().getLocation(), 6, 0.5D, 0.5D, 0.5D);
 
                         // Give player tamed message.
-                        ((org.bukkit.entity.Player) entityhuman.getBukkitEntity()).sendMessage(Config.getPrefix() + ChatColor.GREEN + LanguageConfig.getTamedMessage());
+                        if (!LanguageConfig.getTamedMessage().equalsIgnoreCase("disabled")) {
+                            ((org.bukkit.entity.Player) entityhuman.getBukkitEntity()).sendMessage(Config.getPrefix() + ChatColor.GREEN + LanguageConfig.getTamedMessage());
+                        }
 
                         // Let the player choose the new fox's name if its enabled in config.
                         if (Config.askForNameAfterTaming()) {
-                            player.sendMessage(Config.getPrefix() + ChatColor.RED + LanguageConfig.getTamingAskingName());
+                            if (!LanguageConfig.getTamingAskingName().equalsIgnoreCase("disabled")) {
+                                player.sendMessage(Config.getPrefix() + ChatColor.RED + LanguageConfig.getTamingAskingName());
+                            }
                             rename(player);
                         }
                     } else {

@@ -33,9 +33,15 @@ Have you ever wanted to tame foxes? Well, now you can! <b>Use chicken to tame</b
 * Snow and red foxes.
 * Language.yml
 * Message for when a tamed fox dies
+* Disabling certain gameplay messages
+  * Open `language.yml`. These are the messages that be disabled by changing the text to "disabled"
+    * `taming-tamed-message`
+    * `taming-asking-for-name-message`
+    * `taming-chosen-name-perfect`
+    * `fox-doesnt-trust`
 
 ## Commands:
-* /spawntamablefox [red/snow]: Spawns a tamable fox at the players location.
+* /spawntamablefox [red/snow]: Spawns a tamable fox at the players' location.
 
 ## Permissions:
 * tamablefoxes.spawn: Gives permission to run the command /spawntamablefox. Default: `op`

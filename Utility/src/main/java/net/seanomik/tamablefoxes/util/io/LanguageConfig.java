@@ -88,7 +88,7 @@ public class LanguageConfig extends YamlConfiguration  {
 
     // This is the text that shows when registering the custom entity
     public static String getMCVersionLoading(String mcVersionStr) {
-        return config.getString("mc-version-loading").replaceAll("%MC_VERSION%", mcVersionStr);
+        return config.getString("mc-version-loading").replace("%MC_VERSION%", mcVersionStr);
     }
 
     // Get the error that shows during register when they try to run the plugin on an unsupported mc version.
@@ -128,12 +128,12 @@ public class LanguageConfig extends YamlConfiguration  {
 
     // Get the message when you give feed back on the new fox name.
     public static String getTamingChosenPerfect(String chosen) {
-        return config.getString("taming-chosen-name-perfect").replaceAll("%NEW_FOX_NAME%", chosen);
+        return config.getString("taming-chosen-name-perfect").replace("%NEW_FOX_NAME%", chosen);
     }
 
     // Get the fox name format.
     public static String getFoxNameFormat(String foxName, String ownerName) {
-        return config.getString((Config.doesShowOwnerInFoxName()) ? "fox-name-format" : "fox-name-no-owner-name-format").replaceAll("%FOX_NAME%", foxName).replaceAll("%OWNER%", ownerName);
+        return config.getString((Config.doesShowOwnerInFoxName()) ? "fox-name-format" : "fox-name-no-owner-name-format").replace("%FOX_NAME%", foxName).replace("%OWNER%", ownerName);
     }
 
     public static String getFoxDoesntTrust() {
@@ -150,7 +150,7 @@ public class LanguageConfig extends YamlConfiguration  {
 
     public static String getSpawnedFoxMessage(NMSInterface.FoxType type) {
         String typeStr = ((type == type.SNOW) ? ChatColor.AQUA + "Snow" : ChatColor.RED + "Red") + ChatColor.RESET;
-        return config.getString("spawned-fox-message").replaceAll("%TYPE%", typeStr);
+        return config.getString("spawned-fox-message").replace("%TYPE%", typeStr);
     }
 
     public static String getFailureSpawn() {
