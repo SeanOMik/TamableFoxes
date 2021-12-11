@@ -3,6 +3,7 @@ package net.seanomik.tamablefoxes.util.io;
 import net.seanomik.tamablefoxes.util.NMSInterface;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -142,6 +143,63 @@ public class LanguageConfig extends YamlConfiguration  {
 
     public static String getNoPermMessage() {
         return config.getString("no-permission");
+    }
+
+    public static String getGiveFoxOtherNoPermMessage() {
+        String str = config.getString("givefox-other-player-no-permission");
+        if (str == null || str.isEmpty()) {
+            str = "The other player you're trying to fix the fox to is unable to receive it!";
+        }
+        return str;
+    }
+
+    public static String getInteractWithTransferringFox(Player transferringTo) {
+        String str = config.getString("givefox-interact-with-transferring-fox");
+        if (str == null || str.isEmpty()) {
+            str = "Right click the fox that you want to give to " + transferringTo.getDisplayName() + ".";
+        } else {
+            str.replace("%TRANSFER_TO_PLAYER%", transferringTo.getDisplayName());
+        }
+
+        return str;
+    }
+
+    public static String getGaveFox(Player givingTo) {
+        String str = config.getString("givefox-gave-fox");
+        if (str == null || str.isEmpty()) {
+            str = "Fox has been given to " + givingTo.getDisplayName() + "!";
+        } else {
+            str.replace("%GAVE_TO_PLAYER%", givingTo.getDisplayName());
+        }
+
+        return str;
+    }
+
+    public static String getNotYourFox() {
+        String str = config.getString("givefox-not-your-fox");
+        if (str == null || str.isEmpty()) {
+            str = "This is not your fox to give!";
+        }
+
+        return str;
+    }
+
+    public static String getTooLongInteraction() {
+        String str = config.getString("givefox-interact-timeout");
+        if (str == null || str.isEmpty()) {
+            str = "You took too long to interact with a fox!";
+        }
+
+        return str;
+    }
+
+    public static String getPlayerDoesNotExist() {
+        String str = config.getString("givefox-player-does-not-exist");
+        if (str == null || str.isEmpty()) {
+            str = "The player does not exist!";
+        }
+
+        return str;
     }
 
     public static String getOnlyRunPlayer() {

@@ -7,10 +7,29 @@ description: Adds tamable foxes to Minecraft!
 
 commands:
   spawntamablefox:
-    aliases: [tamablefox, stf, spawntf]
+    aliases: [ stf ]
     usage: /spawntamablefox [type]
     description: Spawn a tamable fox at the standing location. Type can be snow or red, or left empty for a red.
+  tamablefoxes:
+    aliases: [ tamablefox ]
+    usage: /tamablefoxes reload
+    description: Reload the Tamable Foxes plugin config. Restart when updating the plugin.
+  givefox:
+    usage: /givefox [player name]
+    description: Give a fox to another player.
 permissions:
+  tamablefoxes.givefox.give.others:
+    description: "Allows the player to give another players fox to a player with /givefox"
+    default: op
+  tamablefoxes.givefox.give:
+    description: "Gives the player the ability to give foxes to other players with /givefox"
+    default: true
+  tamablefoxes.givefox.receive:
+    description: "Gives the player the ability to receive foxes from other players from /givefox"
+    default: true
+  tamablefoxes.reload:
+    description: "Reloads the plugin config."
+    default: op
   tamablefoxes.spawn:
     description: "Gives the player the ability to spawn tamable foxes."
     default: op

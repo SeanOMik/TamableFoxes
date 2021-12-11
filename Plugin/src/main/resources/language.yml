@@ -12,6 +12,13 @@ fox-name-format: "%FOX_NAME% (%OWNER%'s Fox)"
 fox-name-no-owner-name-format: "%FOX_NAME%"
 fox-doesnt-trust: "The fox doesn't trust you! You have too many foxes!"
 
+givefox-other-player-no-permission: "The other player you're trying to fix the fox to is unable to receive it!"
+givefox-interact-with-transferring-fox: "Right click the fox that you want to give to %TRANSFER_TO_PLAYER%."
+givefox-gave-fox: "Fox has been given to %GAVE_TO_PLAYER%!"
+givefox-not-your-fox: "This is not your fox to give!"
+givefox-interact-timeout: "You took too long to interact with a fox!"
+givefox-player-does-not-exist: "The player does not exist!"
+
 no-permission: "You do not have the permission for this command."
 only-run-by-player: "Command can only be run from player state!"
 spawned-fox-message: "Spawned a %TYPE% fox."

@@ -29,6 +29,7 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
     private boolean versionSupported = true;
 
     public NMSInterface nmsInterface;
+    private PlayerInteractEntityEventListener playerInteractEntityEventListener;
 
     private boolean equalOrBetween(double num, double min, double max) {
         return num >= min && num <= max;
@@ -90,8 +91,12 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
             return;
         }
 
+        playerInteractEntityEventListener = new PlayerInteractEntityEventListener(this);
         getServer().getPluginManager().registerEvents(this, this);
+        getServer().getPluginManager().registerEvents(playerInteractEntityEventListener, this);
         this.getCommand("spawntamablefox").setExecutor(new CommandSpawnTamableFox(this));
+        this.getCommand("tamablefoxes").setExecutor(new CommandTamableFoxes(this));
+        this.getCommand("givefox").setExecutor(new CommandGiveFox(this, playerInteractEntityEventListener));
 
         this.saveDefaultConfig();
         getConfig().options().copyDefaults(true);

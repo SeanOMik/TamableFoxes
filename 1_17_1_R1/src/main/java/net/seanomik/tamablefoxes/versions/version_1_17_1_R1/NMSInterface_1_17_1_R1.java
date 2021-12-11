@@ -10,8 +10,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_17_R1.entity.CraftEntity;
+import org.bukkit.entity.Player;
 
 import java.lang.reflect.Field;
+import java.util.UUID;
 
 public class NMSInterface_1_17_1_R1 implements NMSInterface {
     @Override
@@ -32,15 +34,15 @@ public class NMSInterface_1_17_1_R1 implements NMSInterface {
         tamableFox.setFoxType((type == FoxType.RED) ? Fox.Type.RED : Fox.Type.SNOW);
     }
 
-    static class ClassDefiner extends ClassLoader {
-        public ClassDefiner(ClassLoader parent) {
-            super(parent);
-        }
+    @Override
+    public void changeFoxOwner(org.bukkit.entity.Fox fox, Player newOwner) {
+        EntityTamableFox tamableFox = (EntityTamableFox) ((CraftEntity) fox).getHandle();
+        tamableFox.setOwnerUUID(newOwner.getUniqueId());
+    }
 
-        public Class<?> get(String name, byte[] bytes) {
-            Class<?> c = defineClass(name, bytes, 0, bytes.length);
-            resolveClass(c);
-            return c;
-        }
+    @Override
+    public UUID getFoxOwner(org.bukkit.entity.Fox fox) {
+        EntityTamableFox tamableFox = (EntityTamableFox) ((CraftEntity) fox).getHandle();
+        return tamableFox.getOwnerUUID();
     }
 }

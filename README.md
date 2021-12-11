@@ -32,7 +32,8 @@ Have you ever wanted to tame foxes? Well, now you can! <b>Use chicken to tame</b
 * Foxes attack chickens and rabbits.
 * Snow and red foxes.
 * Language.yml
-* Message for when a tamed fox dies
+* Message when a tamed fox dies
+* /givefox command to give foxes to other players.
 * Disabling certain gameplay messages
   * You can do this by changing certain fields in `language.yml` to "disabled". The fields that can be disabled are:
     * `taming-tamed-message`
@@ -42,11 +43,18 @@ Have you ever wanted to tame foxes? Well, now you can! <b>Use chicken to tame</b
 
 ## Commands:
 * /spawntamablefox [red/snow]: Spawns a tamable fox at the players' location.
+* /tamablefoxes reload: Reloads
+* /givefox [player name]: Give a fox to another player.
 
 ## Permissions:
-* tamablefoxes.spawn: Gives permission to run the command /spawntamablefox. Default: `op`
-* tamablefoxes.tame: Gives the player the ability to tame a fox. Default: `Everybody`
-* tamablefoxes.tame.unlimited: Lets players bypass the tame limit. Default: `op`
+* `tamablefoxes.reload`: Reloads the plugin config. Default: `op`
+* `tamablefoxes.spawn`: Gives permission to run the command /spawntamablefox. Default: `op`
+* `tamablefoxes.tame`: Gives the player the ability to tame a fox. Default: `Everybody`
+* `tamablefoxes.tame.unlimited`: Lets players bypass the tame limit. Default: `op`
+* `tamablefoxes.tame.anywhere`: Lets players bypass the banned worlds in config.yml (so they can tame in any world). Default: `op`
+* `tamablefoxes.givefox.give.others`: Allows the player to give another players fox to a player with /givefox. This will ignore if the other receiving has the `tamablefoxes.givefox.receive` permission. Default: `op`
+* `tamablefoxes.givefox.give`: Gives the player the ability to give foxes to other players with /givefox. Default: `Everybody`
+* `tamablefoxes.givefox.receive`: Gives the player the ability to receive foxes from other players from /givefox. Default: `Everybody`
 
 <br>
 
