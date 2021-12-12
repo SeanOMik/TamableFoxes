@@ -170,29 +170,47 @@ public class EntityTamableFox extends Fox {
         }
     }
 
-    public boolean isDefending() {
+    protected EntityDataAccessor<Byte> getDataFlagsId() throws NoSuchFieldException, IllegalAccessException {
+        Field dataFlagsField = Fox.class.getDeclaredField("cb"); // DATA_FLAGS_ID
+        dataFlagsField.setAccessible(true);
+        EntityDataAccessor<Byte> dataFlagsId = (EntityDataAccessor<Byte>) dataFlagsField.get(null);
+        dataFlagsField.setAccessible(false);
+
+        return dataFlagsId;
+    }
+
+    protected boolean getFlag(int i) {
         try {
-            Method method = Fox.class.getDeclaredMethod("fL"); // isDefending
-            method.setAccessible(true);
-            boolean defending = (boolean) method.invoke((Fox) this);
-            method.setAccessible(false);
-            return defending;
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            EntityDataAccessor<Byte> dataFlagsId = getDataFlagsId();
+
+            return ((Byte)super.entityData.get(dataFlagsId) & i) != 0;
+        } catch (IllegalAccessException | NoSuchFieldException e) {
             e.printStackTrace();
         }
 
         return false;
     }
 
-    public void setDefending(boolean defending) {
+    protected void setFlag(int i, boolean flag) {
         try {
-            Method method = Fox.class.getDeclaredMethod("A", boolean.class); // setDefending
-            method.setAccessible(true);
-            method.invoke((Fox) this, defending);
-            method.setAccessible(false);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            EntityDataAccessor<Byte> dataFlagsId = getDataFlagsId();
+
+            if (flag) {
+                this.entityData.set(dataFlagsId, (byte)((Byte)this.entityData.get(dataFlagsId) | i));
+            } else {
+                this.entityData.set(dataFlagsId, (byte)((Byte)this.entityData.get(dataFlagsId) & ~i));
+            }
+        } catch (IllegalAccessException | NoSuchFieldException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean isDefending() {
+        return getFlag(128);
+    }
+
+    public void setDefending(boolean defending) {
+        setFlag(128, defending);
     }
 
     @Override
