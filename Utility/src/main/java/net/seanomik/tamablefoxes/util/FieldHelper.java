@@ -1,11 +1,5 @@
 package net.seanomik.tamablefoxes.util;
 
-import net.seanomik.tamablefoxes.util.io.Config;
-import net.seanomik.tamablefoxes.util.io.LanguageConfig;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import sun.misc.Unsafe;
-
 import sun.misc.Unsafe;
 
 import java.lang.reflect.Field;

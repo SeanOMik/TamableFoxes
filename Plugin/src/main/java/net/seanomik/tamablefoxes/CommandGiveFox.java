@@ -71,6 +71,14 @@ public class CommandGiveFox implements TabExecutor {
                     if (plugin.nmsInterface.getFoxOwner(fox).equals(player.getUniqueId()) ||
                             player.hasPermission("tamablefoxes.givefox.give.others")) {
                         plugin.nmsInterface.changeFoxOwner(fox, givingToPlayer);
+
+                        Bukkit.getScheduler().runTask(plugin, r2 -> {
+                            // If the player that is receiving the fox is online, prompt them to rename their new fox!
+                            if (givingToPlayer.isOnline()) {
+                                plugin.nmsInterface.renameFox(fox, givingToPlayer);
+                            }
+                        });
+
                         sender.sendMessage(Config.getPrefix() + ChatColor.GREEN + LanguageConfig.getGaveFox(givingToPlayer));
                     } else {
                         sender.sendMessage(Config.getPrefix() + ChatColor.RED + LanguageConfig.getNotYourFox());

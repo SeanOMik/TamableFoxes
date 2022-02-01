@@ -158,7 +158,7 @@ public class LanguageConfig extends YamlConfiguration  {
         if (str == null || str.isEmpty()) {
             str = "Right click the fox that you want to give to " + transferringTo.getDisplayName() + ".";
         } else {
-            str.replace("%TRANSFER_TO_PLAYER%", transferringTo.getDisplayName());
+            str = str.replace("%TRANSFER_TO_PLAYER%", transferringTo.getDisplayName());
         }
 
         return str;
@@ -169,7 +169,7 @@ public class LanguageConfig extends YamlConfiguration  {
         if (str == null || str.isEmpty()) {
             str = "Fox has been given to " + givingTo.getDisplayName() + "!";
         } else {
-            str.replace("%GAVE_TO_PLAYER%", givingTo.getDisplayName());
+            str = str.replace("%GAVE_TO_PLAYER%", givingTo.getDisplayName());
         }
 
         return str;

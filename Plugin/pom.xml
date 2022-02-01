@@ -58,7 +58,8 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <outputFile>C:\Development\Java\Spigot Servers\${server.version}\plugins\TamableFoxes_v${project.parent.version}.jar</outputFile>
+                            <outputFile>/home/seanomik/Development/java/spigot-dev/test-servers/${server.version}/plugins/TamableFoxes_v${project.parent.version}.jar</outputFile>
+                            <!--<outputFile>C:\Development\Java\Spigot Servers\${server.version}\plugins\TamableFoxes_v${project.parent.version}.jar</outputFile>-->
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                         </configuration>
                     </execution>

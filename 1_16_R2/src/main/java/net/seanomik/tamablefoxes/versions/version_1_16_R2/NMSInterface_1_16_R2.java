@@ -46,4 +46,10 @@ public class NMSInterface_1_16_R2 implements NMSInterface {
         EntityTamableFox tamableFox = (EntityTamableFox) ((CraftEntity) fox).getHandle();
         return tamableFox.getOwnerUUID();
     }
+
+    @Override
+    public void renameFox(org.bukkit.entity.Fox fox, Player player) {
+        EntityTamableFox tamableFox = (EntityTamableFox) ((CraftEntity) fox).getHandle();
+        tamableFox.rename(player);
+    }
 }

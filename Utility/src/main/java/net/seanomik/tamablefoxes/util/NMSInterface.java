@@ -16,4 +16,5 @@ public interface NMSInterface {
     void spawnTamableFox(Location loc, FoxType type);
     void changeFoxOwner(Fox fox, Player newOwner);
     UUID getFoxOwner(Fox fox);
+    void renameFox(org.bukkit.entity.Fox fox, Player player);
 }
