@@ -15,6 +15,7 @@ import net.seanomik.tamablefoxes.util.io.LanguageConfig;
 
 import net.seanomik.tamablefoxes.versions.version_1_18_1_R1.NMSInterface_1_18_1_R1;
 import net.seanomik.tamablefoxes.versions.version_1_18_R1.NMSInterface_1_18_R1;
+import net.seanomik.tamablefoxes.versions.version_1_18_R2.NMSInterface_1_18_R2;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.*;
 import org.bukkit.event.Listener;
@@ -69,6 +70,8 @@ public final class TamableFoxes extends JavaPlugin implements Listener {
             nmsInterface = new NMSInterface_1_18_R1();
         } else if (versionDouble == 18.1D) {
             nmsInterface = new NMSInterface_1_18_1_R1();
+        } else if (versionDouble == 18.2D) {
+            nmsInterface = new NMSInterface_1_18_R2();
         } else {
             Bukkit.getServer().getConsoleSender().sendMessage(Config.getPrefix() + ChatColor.RED + LanguageConfig.getUnsupportedMCVersionRegister());
             Bukkit.getServer().getConsoleSender().sendMessage(Config.getPrefix() + ChatColor.RED + "You're trying to run MC version " + specificVersion + " which is not supported!");

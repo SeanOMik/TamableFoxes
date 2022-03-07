@@ -7,7 +7,7 @@
     <parent>
         <groupId>net.seanomik</groupId>
         <artifactId>tamablefoxes-parent</artifactId>
-        <version>2.2.3-SNAPSHOT</version>
+        <version>2.2.4-SNAPSHOT</version>
     </parent>
 
     <artifactId>tamablefoxes</artifactId>
@@ -58,8 +58,8 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <outputFile>/home/seanomik/Development/java/spigot-dev/test-servers/${server.version}/plugins/TamableFoxes_v${project.parent.version}.jar</outputFile>
-                            <!--<outputFile>C:\Development\Java\Spigot Servers\${server.version}\plugins\TamableFoxes_v${project.parent.version}.jar</outputFile>-->
+                            <!--<outputFile>/home/seanomik/Development/java/spigot-dev/test-servers/${server.version}/plugins/TamableFoxes_v${project.parent.version}.jar</outputFile>-->
+                            <outputFile>C:\Development\Java\Spigot Servers\${server.version}\plugins\TamableFoxes_v${project.parent.version}.jar</outputFile>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                         </configuration>
                     </execution>
@@ -150,6 +150,12 @@
         <dependency>
             <groupId>net.seanomik</groupId>
             <artifactId>tamablefoxes_v1_18_1_R1</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.seanomik</groupId>
+            <artifactId>tamablefoxes_v1_18_R2</artifactId>
             <version>${project.parent.version}</version>
             <scope>compile</scope>
         </dependency>
