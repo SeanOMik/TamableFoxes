@@ -1,6 +1,5 @@
 package net.seanomik.tamablefoxes.util.io.sqlite;
 
-import net.seanomik.tamablefoxes.util.Utils;
 import net.seanomik.tamablefoxes.util.io.Config;
 import org.bukkit.plugin.Plugin;
 
@@ -20,7 +19,7 @@ public class SQLiteHelper {
     public static SQLiteHelper getInstance(Plugin plugin) {
         if (instance == null) {
             instance = new SQLiteHelper();
-            instance.plugin = plugin;
+            SQLiteHelper.plugin = plugin;
         }
 
         return instance;
@@ -59,6 +58,8 @@ public class SQLiteHelper {
     }
 
     public int getPlayerFoxAmount(UUID uuid) {
+        sqLiteHandler = SQLiteHandler.getInstance();
+
         try {
             sqLiteHandler.connect(plugin);
             PreparedStatement statement = sqLiteHandler.getConnection()
@@ -85,6 +86,8 @@ public class SQLiteHelper {
     }
 
     public void addPlayerFoxAmount(UUID uuid, int amt) {
+        sqLiteHandler = SQLiteHandler.getInstance();
+
         try {
             String query = "UPDATE " + userAmountTableName + " SET AMOUNT = AMOUNT + " + amt + " WHERE UUID = '" + uuid.toString() + "'";
             if (getPlayerFoxAmount(uuid) == -1) {
@@ -109,6 +112,8 @@ public class SQLiteHelper {
     }
 
     public void removePlayerFoxAmount(UUID uuid, int amt) {
+        sqLiteHandler = SQLiteHandler.getInstance();
+
         try {
             String query = "UPDATE " + userAmountTableName + " SET AMOUNT = AMOUNT - " + amt + " WHERE UUID = '" + uuid.toString() + "'";
 
