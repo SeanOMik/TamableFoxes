@@ -66,16 +66,22 @@ Have you ever wanted to tame foxes? Well, now you can! <b>Use chicken to tame</b
 
 ## Building
 To build you must have several versions of spigot built and inside your maven cache. Here's a list of commands to run to install all of the correct versions:
-```
+```bash
+# Java 8 (or 1.8)
 java -jar ./BuildTools.jar --rev 1.14.4
 java -jar ./BuildTools.jar --rev 1.15
 java -jar ./BuildTools.jar --rev 1.16.1
 java -jar ./BuildTools.jar --rev 1.16.3
 java -jar ./BuildTools.jar --rev 1.16.5
+
+# Java 16
 java -jar ./BuildTools.jar --rev 1.17 --remapped remapped-mojang
 java -jar ./BuildTools.jar --rev 1.17.1 --remapped remapped-mojang
+
+# Java 17
 java -jar ./BuildTools.jar --rev 1.18 --remapped remapped-mojang
 java -jar ./BuildTools.jar --rev 1.18.1 --remapped remapped-mojang
+java -jar ./BuildTools.jar --rev 1.18.2 --remapped remapped-mojang
 java -jar ./BuildTools.jar --rev 1.19 --remapped remapped-mojang
 ```
 Yes it's a lot, yes it will likely take a while to build all of these spigot versions. Only versions after 1.17 use remapped jars.
