@@ -4,7 +4,6 @@ SpigotMC Plugin that gives you the ability to tame foxes!
 </p>
 
 ### WARNING: Do not reload the plugin, you may loose foxes!!
-#### NOTE: You no longer need to add the program arguments to your start file. If you previously had them, you can delete them, but I don't think it would harm if you leave them in.
 
 ### Default configuration files:
 * <a href="https://github.com/SeanOMik/TamableFoxes/blob/master/Plugin/src/main/resources/config.yml">config.yml</a>
