@@ -6,7 +6,7 @@
 
     <groupId>net.seanomik</groupId>
     <artifactId>tamablefoxes-parent</artifactId>
-    <version>2.2.5-SNAPSHOT</version>
+    <version>2.2.6-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <repositories>
@@ -20,6 +20,8 @@
     <modules>
         <module>Plugin</module>
         <module>Utility</module>
+        <module>1_19_1_R1</module>
+        <module>1_19_R1</module>
         <module>1_18_1_R1</module>
         <module>1_18_R1</module>
         <module>1_17_1_R1</module>
