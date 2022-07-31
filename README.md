@@ -82,6 +82,7 @@ java -jar ./BuildTools.jar --rev 1.18 --remapped remapped-mojang
 java -jar ./BuildTools.jar --rev 1.18.1 --remapped remapped-mojang
 java -jar ./BuildTools.jar --rev 1.18.2 --remapped remapped-mojang
 java -jar ./BuildTools.jar --rev 1.19 --remapped remapped-mojang
+java -jar ./BuildTools.jar --rev 1.19.1 --remapped remapped-mojang
 ```
 Yes it's a lot, yes it will likely take a while to build all of these spigot versions. Only versions after 1.17 use remapped jars.
 
