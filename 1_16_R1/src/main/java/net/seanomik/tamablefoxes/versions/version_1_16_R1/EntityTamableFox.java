@@ -258,7 +258,8 @@ public class EntityTamableFox extends EntityFox {
                         }
                     }
 
-                    return AnvilGUI.Response.close();
+                    //return AnvilGUI.Response.close();
+                    return Arrays.asList(AnvilGUI.ResponseAction.close());
                 })
                 .text("Fox name")      // Sets the text the GUI should start with
                 .plugin(Utils.tamableFoxesPlugin)          // Set the plugin instance

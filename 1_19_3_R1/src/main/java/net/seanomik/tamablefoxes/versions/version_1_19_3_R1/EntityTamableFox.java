@@ -1,4 +1,4 @@
-package net.seanomik.tamablefoxes.versions.version_1_17_R1;
+package net.seanomik.tamablefoxes.versions.version_1_19_3_R1;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.nbt.CompoundTag;
@@ -27,19 +27,18 @@ import net.seanomik.tamablefoxes.util.Utils;
 import net.seanomik.tamablefoxes.util.io.Config;
 import net.seanomik.tamablefoxes.util.io.LanguageConfig;
 import net.seanomik.tamablefoxes.util.io.sqlite.SQLiteHelper;
-import net.seanomik.tamablefoxes.versions.version_1_17_R1.pathfinding.*;
+import net.seanomik.tamablefoxes.versions.version_1_19_3_R1.pathfinding.*;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
-import org.bukkit.craftbukkit.libs.jline.internal.Nullable;
-import org.bukkit.craftbukkit.v1_17_R1.event.CraftEventFactory;
-import org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemStack;
+
+import org.bukkit.craftbukkit.v1_19_R2.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_19_R2.inventory.CraftItemStack;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 
+import javax.annotation.Nullable;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.*;
 import java.util.function.Predicate;
 
@@ -86,18 +85,21 @@ public class EntityTamableFox extends Fox {
             this.goalSleepWhenOrdered = new FoxPathfinderGoalSleepWhenOrdered(this);
             this.goalSelector.addGoal(1, goalSleepWhenOrdered);
 
+            // For reflection, we must use the non remapped names, since this is done at runtime
+            // and the user will be using a normal spigot jar.
+
             // Wild animal attacking
-            Field landTargetGoal = this.getClass().getSuperclass().getDeclaredField("cj"); // landTargetGoal
+            Field landTargetGoal = this.getClass().getSuperclass().getDeclaredField("co"); // landTargetGoal
             landTargetGoal.setAccessible(true);
             landTargetGoal.set(this, new NearestAttackableTargetGoal(this, Animal.class, 10, false, false, (entityliving) -> {
                 return (!isTamed() || (Config.doesTamedAttackWildAnimals() && isTamed())) && (entityliving instanceof Chicken || entityliving instanceof Rabbit);
             }));
 
-            Field turtleEggTargetGoal = this.getClass().getSuperclass().getDeclaredField("ck"); // turtleEggTargetGoal
+            Field turtleEggTargetGoal = this.getClass().getSuperclass().getDeclaredField("cp"); // turtleEggTargetGoal
             turtleEggTargetGoal.setAccessible(true);
             turtleEggTargetGoal.set(this, new NearestAttackableTargetGoal(this, Turtle.class, 10, false, false, Turtle.BABY_ON_LAND_SELECTOR));
 
-            Field fishTargetGoal = this.getClass().getSuperclass().getDeclaredField("cl"); // fishTargetGoal
+            Field fishTargetGoal = this.getClass().getSuperclass().getDeclaredField("cq"); // fishTargetGoal
             fishTargetGoal.setAccessible(true);
             fishTargetGoal.set(this, new NearestAttackableTargetGoal(this, AbstractFish.class, 20, false, false, (entityliving) -> {
                 return (!isTamed() || (Config.doesTamedAttackWildAnimals() && isTamed())) && entityliving instanceof AbstractSchoolingFish;
@@ -105,7 +107,7 @@ public class EntityTamableFox extends Fox {
 
             this.goalSelector.addGoal(0, getFoxInnerPathfinderGoal("g")); // FoxFloatGoal
             this.goalSelector.addGoal(1, getFoxInnerPathfinderGoal("b")); // FaceplantGoal
-            this.goalSelector.addGoal(2, new FoxPathfinderGoalPanic(this, 2.2D)); // FoxPanicGoal
+            this.goalSelector.addGoal(2, new FoxPathfinderGoalPanic(this, 2.2D));
             this.goalSelector.addGoal(2, new FoxPathfinderGoalSleepWithOwner(this));
             this.goalSelector.addGoal(3, getFoxInnerPathfinderGoal("e", Arrays.asList(1.0D), Arrays.asList(double.class))); // FoxBreedGoal
 
@@ -166,29 +168,47 @@ public class EntityTamableFox extends Fox {
         }
     }
 
-    public boolean isDefending() {
+    protected EntityDataAccessor<Byte> getDataFlagsId() throws NoSuchFieldException, IllegalAccessException {
+        Field dataFlagsField = Fox.class.getDeclaredField("cc"); // DATA_FLAGS_ID
+        dataFlagsField.setAccessible(true);
+        EntityDataAccessor<Byte> dataFlagsId = (EntityDataAccessor<Byte>) dataFlagsField.get(null);
+        dataFlagsField.setAccessible(false);
+
+        return dataFlagsId;
+    }
+
+    protected boolean getFlag(int i) {
         try {
-            Method method = Fox.class.getDeclaredMethod("fI"); // isDefending
-            method.setAccessible(true);
-            boolean defending = (boolean) method.invoke((Fox) this);
-            method.setAccessible(false);
-            return defending;
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            EntityDataAccessor<Byte> dataFlagsId = getDataFlagsId();
+
+            return ((Byte)super.entityData.get(dataFlagsId) & i) != 0;
+        } catch (IllegalAccessException | NoSuchFieldException e) {
             e.printStackTrace();
         }
 
         return false;
     }
 
-    public void setDefending(boolean defending) {
+    protected void setFlag(int i, boolean flag) {
         try {
-            Method method = Fox.class.getDeclaredMethod("A", boolean.class); // setDefending
-            method.setAccessible(true);
-            method.invoke((Fox) this, defending);
-            method.setAccessible(false);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            EntityDataAccessor<Byte> dataFlagsId = getDataFlagsId();
+
+            if (flag) {
+                this.entityData.set(dataFlagsId, (byte)((Byte)this.entityData.get(dataFlagsId) | i));
+            } else {
+                this.entityData.set(dataFlagsId, (byte)((Byte)this.entityData.get(dataFlagsId) & ~i));
+            }
+        } catch (IllegalAccessException | NoSuchFieldException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean isDefending() {
+        return getFlag(128);
+    }
+
+    public void setDefending(boolean defending) {
+        setFlag(128, defending);
     }
 
     @Override
@@ -351,7 +371,7 @@ public class EntityTamableFox extends Fox {
                         // If the fox has something in its mouth and the player has something in its hand, empty it.
                         if (this.hasItemInSlot(EquipmentSlot.MAINHAND)) {
                             getBukkitEntity().getWorld().dropItem(getBukkitEntity().getLocation(), CraftItemStack.asBukkitCopy(this.getItemBySlot(EquipmentSlot.MAINHAND)));
-                            this.setSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.AIR), false);
+                            this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.AIR), false);
                         } // Check if the player's hand is empty and if it is, make the fox sleep.
                           // The reason its here is to make sure that we don't take the item
                           // from its mouth and make it sleep in a single click.
@@ -374,7 +394,7 @@ public class EntityTamableFox extends Fox {
                                     itemstack.shrink(1);
                                 }
 
-                                this.setSlot(EquipmentSlot.MAINHAND, c, false);
+                                this.setItemSlot(EquipmentSlot.MAINHAND, c, false);
                             }
                         }, 1L);
 
@@ -438,9 +458,9 @@ public class EntityTamableFox extends Fox {
     }
 
     @Override
-    public EntityTamableFox createChild(ServerLevel worldserver, AgeableMob entityageable) {
+    public EntityTamableFox getBreedOffspring(ServerLevel worldserver, AgeableMob entityageable) {
         EntityTamableFox entityfox = (EntityTamableFox) EntityType.FOX.create(worldserver);
-        entityfox.setFoxType(this.getRandom().nextBoolean() ? this.getFoxType() : ((Fox)entityageable).getFoxType());
+        entityfox.setVariant(this.getRandom().nextBoolean() ? this.getVariant() : ((Fox)entityageable).getVariant());
 
         UUID uuid = this.getOwnerUUID();
         if (uuid != null) {
@@ -545,7 +565,8 @@ public class EntityTamableFox extends Fox {
     @Override
     public void die(DamageSource damageSource) {
         if (!this.getCommandSenderWorld().isClientSide && this.getCommandSenderWorld().getGameRules().getBoolean(GameRules.RULE_SHOWDEATHMESSAGES) && this.getOwner() instanceof ServerPlayer) {
-            this.getOwner().sendMessage(this.getCombatTracker().getDeathMessage(), getOwnerUUID());
+            //this.getOwner().sendMessage(this.getCombatTracker().getDeathMessage(), getOwnerUUID());
+            this.getOwner().sendSystemMessage(this.getCombatTracker().getDeathMessage());
         }
 
         // Remove the amount of foxes the player has tamed if the limit is enabled.
