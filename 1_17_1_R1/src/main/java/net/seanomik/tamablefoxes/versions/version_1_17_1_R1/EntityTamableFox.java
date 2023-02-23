@@ -297,7 +297,8 @@ public class EntityTamableFox extends Fox {
                         }
                     }
 
-                    return AnvilGUI.Response.close();
+                    //return AnvilGUI.Response.close();
+                    return Arrays.asList(AnvilGUI.ResponseAction.close());
                 })
                 .preventClose()
                 .text("Fox name")      // Sets the text the GUI should start with
