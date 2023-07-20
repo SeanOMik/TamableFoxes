@@ -1,4 +1,4 @@
-package net.seanomik.tamablefoxes.versions.version_1_19_3_R1;
+package net.seanomik.tamablefoxes.versions.version_1_20_R1;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.nbt.CompoundTag;
@@ -27,14 +27,14 @@ import net.seanomik.tamablefoxes.util.Utils;
 import net.seanomik.tamablefoxes.util.io.Config;
 import net.seanomik.tamablefoxes.util.io.LanguageConfig;
 import net.seanomik.tamablefoxes.util.io.sqlite.SQLiteHelper;
-import net.seanomik.tamablefoxes.versions.version_1_19_3_R1.pathfinding.*;
+import net.seanomik.tamablefoxes.versions.version_1_20_R1.pathfinding.*;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 
-import org.bukkit.craftbukkit.v1_19_R2.event.CraftEventFactory;
-import org.bukkit.craftbukkit.v1_19_R2.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_20_R1.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_20_R1.inventory.CraftItemStack;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 
 import javax.annotation.Nullable;
@@ -89,17 +89,17 @@ public class EntityTamableFox extends Fox {
             // and the user will be using a normal spigot jar.
 
             // Wild animal attacking
-            Field landTargetGoal = this.getClass().getSuperclass().getDeclaredField("co"); // landTargetGoal
+            Field landTargetGoal = this.getClass().getSuperclass().getDeclaredField("ck"); // landTargetGoal
             landTargetGoal.setAccessible(true);
             landTargetGoal.set(this, new NearestAttackableTargetGoal(this, Animal.class, 10, false, false, (entityliving) -> {
                 return (!isTamed() || (Config.doesTamedAttackWildAnimals() && isTamed())) && (entityliving instanceof Chicken || entityliving instanceof Rabbit);
             }));
 
-            Field turtleEggTargetGoal = this.getClass().getSuperclass().getDeclaredField("cp"); // turtleEggTargetGoal
+            Field turtleEggTargetGoal = this.getClass().getSuperclass().getDeclaredField("cl"); // turtleEggTargetGoal
             turtleEggTargetGoal.setAccessible(true);
             turtleEggTargetGoal.set(this, new NearestAttackableTargetGoal(this, Turtle.class, 10, false, false, Turtle.BABY_ON_LAND_SELECTOR));
 
-            Field fishTargetGoal = this.getClass().getSuperclass().getDeclaredField("cq"); // fishTargetGoal
+            Field fishTargetGoal = this.getClass().getSuperclass().getDeclaredField("cm"); // fishTargetGoal
             fishTargetGoal.setAccessible(true);
             fishTargetGoal.set(this, new NearestAttackableTargetGoal(this, AbstractFish.class, 20, false, false, (entityliving) -> {
                 return (!isTamed() || (Config.doesTamedAttackWildAnimals() && isTamed())) && entityliving instanceof AbstractSchoolingFish;
@@ -169,7 +169,7 @@ public class EntityTamableFox extends Fox {
     }
 
     protected EntityDataAccessor<Byte> getDataFlagsId() throws NoSuchFieldException, IllegalAccessException {
-        Field dataFlagsField = Fox.class.getDeclaredField("cc"); // DATA_FLAGS_ID
+        Field dataFlagsField = Fox.class.getDeclaredField("bY"); // DATA_FLAGS_ID
         dataFlagsField.setAccessible(true);
         EntityDataAccessor<Byte> dataFlagsId = (EntityDataAccessor<Byte>) dataFlagsField.get(null);
         dataFlagsField.setAccessible(false);
