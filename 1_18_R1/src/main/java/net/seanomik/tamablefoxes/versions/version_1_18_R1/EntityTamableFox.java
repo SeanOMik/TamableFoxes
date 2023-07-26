@@ -573,7 +573,7 @@ public class EntityTamableFox extends Fox {
         }
 
         // Remove the amount of foxes the player has tamed if the limit is enabled.
-        if (Config.getMaxPlayerFoxTames() > 0) {
+        if (Config.getMaxPlayerFoxTames() > 0 && this.getOwner() != null) {
             SQLiteHelper sqliteHelper = SQLiteHelper.getInstance(Utils.tamableFoxesPlugin);
             sqliteHelper.removePlayerFoxAmount(this.getOwner().getUUID(), 1);
         }

@@ -242,26 +242,29 @@ public class EntityTamableFox extends EntityFox {
 
     public void rename(org.bukkit.entity.Player player) {
         new AnvilGUI.Builder()
-                .onComplete((plr, input) -> { // Called when the inventory output slot is clicked
-                    if (!input.equals("")) {
-                        org.bukkit.entity.Entity tamableFox = this.getBukkitEntity();
+            .onClick((slot, stateSnapshot) -> {
+                String text = stateSnapshot.getText();
+                if (slot == AnvilGUI.Slot.OUTPUT && !text.isEmpty()) {
+                    org.bukkit.entity.Entity tamableFox = this.getBukkitEntity();
 
-                        // This will auto format the name for config settings.
-                        String foxName = LanguageConfig.getFoxNameFormat(input, player.getDisplayName());
+                    // This will auto format the name for config settings.
+                    String foxName = LanguageConfig.getFoxNameFormat(text, player.getDisplayName());
 
-                        tamableFox.setCustomName(foxName);
-                        tamableFox.setCustomNameVisible(true);
-                        if (!LanguageConfig.getTamingChosenPerfect(input).equalsIgnoreCase("disabled")) {
-                            plr.sendMessage(Config.getPrefix() + ChatColor.GREEN + LanguageConfig.getTamingChosenPerfect(input));
-                        }
+                    tamableFox.setCustomName(foxName);
+                    tamableFox.setCustomNameVisible(true);
+                    if (!LanguageConfig.getTamingChosenPerfect(text).equalsIgnoreCase("disabled")) {
+                        stateSnapshot.getPlayer().sendMessage(Config.getPrefix() + ChatColor.GREEN + LanguageConfig.getTamingChosenPerfect(text));
                     }
+                } else if (!LanguageConfig.getTamingChosenPerfect(text).equalsIgnoreCase("disabled")) {
+                    stateSnapshot.getPlayer().sendMessage(Config.getPrefix() + ChatColor.GRAY + "The fox was not named");
+                }
 
-                    //return AnvilGUI.Response.close();
-                    return Arrays.asList(AnvilGUI.ResponseAction.close());
-                })
-                .text("Fox name")      // Sets the text the GUI should start with
-                .plugin(Utils.tamableFoxesPlugin)          // Set the plugin instance
-                .open(player);         // Opens the GUI for the player provided
+                return Arrays.asList(AnvilGUI.ResponseAction.close());
+            })
+            .text("Fox name")
+            .title("Name your new friend!")
+            .plugin(Utils.tamableFoxesPlugin)
+            .open(player);
     }
 
     // deobf: mobInteract
@@ -520,7 +523,7 @@ public class EntityTamableFox extends EntityFox {
         }
 
         // Remove the amount of foxes the player has tamed if the limit is enabled.
-        if (Config.getMaxPlayerFoxTames() > 0) {
+        if (Config.getMaxPlayerFoxTames() > 0 && this.getOwner() != null) {
             SQLiteHelper sqliteHelper = SQLiteHelper.getInstance(Utils.tamableFoxesPlugin);
             sqliteHelper.removePlayerFoxAmount(this.getOwner().getUniqueID(), 1);
         }
