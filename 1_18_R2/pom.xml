@@ -52,16 +52,21 @@
 
     <repositories>
         <repository>
+            <id>codemc-snapshots-anvilgui</id>
+            <url>https://repo.codemc.io/repository/maven-snapshots/</url>
+        </repository>
+        <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
         <repository>
             <id>codemc-snapshots</id>
-            <url>https://repo.codemc.io/repository/maven-snapshots/</url>
+            <url>https://repo.codemc.io/repository/nms/</url>
         </repository>
     </repositories>
 
     <dependencies>
+
         <dependency>
             <groupId>net.seanomik</groupId>
             <artifactId>tamablefoxes-util</artifactId>

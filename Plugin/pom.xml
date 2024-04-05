@@ -84,6 +84,10 @@
 
     <repositories>
         <repository>
+            <id>codemc-snapshots-anvilgui</id>
+            <url>https://repo.codemc.io/repository/maven-snapshots/</url>
+        </repository>
+        <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
@@ -93,7 +97,7 @@
         </repository>
         <repository>
             <id>codemc-snapshots</id>
-            <url>https://repo.codemc.io/repository/maven-snapshots/</url>
+            <url>https://repo.codemc.io/repository/nms/</url>
         </repository>
     </repositories>
 
@@ -195,6 +199,12 @@
             <version>${project.parent.version}</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>net.seanomik</groupId>
+            <artifactId>tamablefoxes_v1_20_R3</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
         <!-- End of entity implementations -->
         <dependency>
             <groupId>org.bstats</groupId>
@@ -217,7 +227,7 @@
         <dependency>
             <groupId>net.wesjd</groupId>
             <artifactId>anvilgui</artifactId>
-            <version>1.7.0-SNAPSHOT</version>
+            <version>1.9.2-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>
